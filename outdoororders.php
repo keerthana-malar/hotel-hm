@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
 include('header.php');
 include('menu.php');
 require('db.php');
-$orderSql = "SELECT * FROM `order`  WHERE ordertype = 'Outdoor' ";
+$orderSql = "SELECT * FROM `order`  WHERE ordertype = '3' ";
 $orderData = $pdo->query($orderSql);
 
 $logUser = $_SESSION['user'];

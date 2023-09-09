@@ -1,11 +1,13 @@
-<?php 
-    
+<?php
+
 require('db.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $u1 =  "products.php?succ=";
+    $u1 = "products.php?succ=";
     $u2 = "create-product.php?err=";
+    $u3 = "foodcatalog.php?succ=";
+
     // User Data 
     $productname = $_POST['product'];
     $unit = $_POST['unit'];
@@ -17,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cuisineid = $_POST['cuisine'];
     $status = $_POST['status'];
 
-// image uploads
+    // image uploads
     $img1 = $_FILES["img1"];
     $img1FileName = $img1["name"];
     $img1TmpName = $img1["tmp_name"];
@@ -26,24 +28,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // ifmove_uploaded_file($img1TmpName, $uploadPath . $img1FileName);
 // Check if an image was uploaded
-if (!empty($img1FileName)) {
-    // Move the uploaded image to the specified directory
-    if (move_uploaded_file($img1TmpName, $uploadPath . $img1FileName)) {
-        // Image uploaded successfully
+    if (!empty($img1FileName)) {
+        // Move the uploaded image to the specified directory
+        if (move_uploaded_file($img1TmpName, $uploadPath . $img1FileName)) {
+            // Image uploaded successfully
+        } else {
+            // Handle image upload error
+            header("Location: " . $u2 . urlencode('Image upload failed'));
+            exit();
+        }
     } else {
-        // Handle image upload error
-        header("Location: " . $u2 . urlencode('Image upload failed'));
+        // Handle case where no image was uploaded
+        header("Location: " . $u2 . urlencode('Please upload an image'));
         exit();
     }
-} else {
-    // Handle case where no image was uploaded
-    header("Location: " . $u2 . urlencode('Please upload an image'));
-    exit();
-}
-   
 
-    
-        
+
+
+
 
     // Duplicate product name check
     $checkDuplicateQuery = "SELECT COUNT(*) FROM product WHERE name = :name";
@@ -53,11 +55,11 @@ if (!empty($img1FileName)) {
     $duplicateCount = $checkStmt->fetchColumn();
 
     if ($duplicateCount > 0) {
-        header("Location: " . $u2 . urlencode('Product already taken'));         
+        header("Location: " . $u2 . urlencode('Product already taken'));
         exit();
     }
 
-    
+
 
     // Insert data into product table
     $sql = "INSERT INTO product (name, unit, price, typeid, categoryid, cuisineid, status,  img ) VALUES (:name, :unit,  :price, :typeid, :categoryid, :cuisineid, :status, :img )";
@@ -77,23 +79,17 @@ if (!empty($img1FileName)) {
     $stmt->bindParam(':status', $status);
     $stmt->bindParam(':img', $img1FileName);
 
-    if (!$stmt->execute()) {
+    if ($stmt->execute()) {
+        if ($typeid == 1) {
+            header("Location: " . $u3 . urlencode('Product Successfully Created'));
+            exit();
+        } else {
+            header("Location: " . $u1 . urlencode('Product Successfully Created'));
+            exit();
+        }
+    } else {
         header("Location: " . $u2 . urlencode('Something Wrong please try again later'));
-    } else {
-        header("Location: " . $u1 . urlencode('Product Successfully Created'));
     }
-    if ($typeid == 11) {
-        // Redirect to foodcatalog.php if typeid is 11
-        header("Location: foodcatalog.php");
-        exit();
-    } elseif ($typeid == 12) {
-        // Redirect to products.php if typeid is 12
-        header("Location: products.php");
-        exit();
-    } else {
-        // Handle other typeid values or provide a default redirection
-        header("Location: default-page.php");
-        exit();
-    }
+
 }
 ?>

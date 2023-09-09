@@ -5,14 +5,14 @@ require('db.php');
 $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-$cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-$categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-$productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+// $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+$categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
+$productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
 $currentDate = date('Y-m-d');
 ?>
 
 <div class="main-box">
-    <h2 class="mb-3">Create Orders</h2>
+    <h2 class="mb-3">Create Stock Orders</h2>
     <hr>
     <form class="forms-sample" method="post" action="create-stockorder-post.php">
         <!-- Branch, Order Date, Delivery Date, Priority, Status fields ... -->
@@ -83,8 +83,8 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
     <div class="form-group">
         <select class="form-control" name="orderType"  id="orderType" hidden>
-            <option value="Food" >Food Order</option>
-            <option value="Raw Material" selected>Stock Order</option>
+            <option value="1" >Food Order</option>
+            <option value="2" selected>Stock Order</option>
             <!-- Add more options as needed -->
         </select>
     </div>

@@ -59,18 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert order item details into the associated table
     for ($i = 0; $i < count($_POST['pro']); $i++) {
         $productID = $_POST['pro'][$i];
-        $cuisineID = $_POST['cu'][$i];
+        // $cuisineID = $_POST['cu'][$i];
         $type = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
         $priorityy = $_POST['pr'][$i];
 
 
-        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, priority) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :priority)";
+        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, typeid, order_qty, categoryid, priority) VALUES (:order_id, :productid, :typeid, :order_qty, :categoryid, :priority)";
         $orderItemStmt = $pdo->prepare($orderItemSql);
         $orderItemStmt->bindParam(':order_id', $orderID);
         $orderItemStmt->bindParam(':productid', $productID);
-        $orderItemStmt->bindParam(':cuisineid', $cuisineID);
+        // $orderItemStmt->bindParam(':cuisineid', $cuisineID);
         $orderItemStmt->bindParam(':typeid', $type);
         $orderItemStmt->bindParam(':categoryid', $categoryID);
         $orderItemStmt->bindParam(':order_qty', $quantity);
