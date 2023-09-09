@@ -6,6 +6,22 @@ if (!isset($_SESSION['user'])) {
 }
 $logUser = $_SESSION['user'];
 $logName = $logUser['name'];
+$logid = $logUser['id'];
+
+// User Data 
+$userSql = "SELECT * FROM user WHERE id= :id";
+$ustmt = $pdo->prepare($userSql);
+$ustmt->bindParam(':id', $logid);
+$ustmt->execute();
+$udata = $ustmt->fetch(PDO::FETCH_ASSOC);
+
+// Role 
+$roleSql = "SELECT * FROM role WHERE role_id = :r_id";
+$rstmt = $pdo->prepare($roleSql);
+$rstmt->bindParam(':r_id', $udata['role']);
+$rstmt->execute();
+$rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <style>
@@ -45,7 +61,7 @@ $logName = $logUser['name'];
                         <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
                             <div class="user-icon">
                             <span class="typcn typcn-user-outline mr-0"></span>
-                            <div><p><?php echo $logName ?></p></div>
+                            <div><p><?php echo  $udata['role'] ?></p></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -92,6 +108,7 @@ $logName = $logUser['name'];
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#us" aria-expanded="false" aria-controls="">
                             <i class=" typcn typcn-media-eject-outline menu menu-icon"></i>
@@ -100,7 +117,9 @@ $logName = $logUser['name'];
                         </a>
                         <div class="collapse" id="us">
                             <ul class="nav flex-column sub-menu">
+                            <?php if($rdata['fo_access'] == '1') { ?>
                                 <li class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
+                            <?php } ?>
                                 <li class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
                             </ul>
