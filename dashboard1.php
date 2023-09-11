@@ -85,8 +85,9 @@
 }
 </style>
 <?php
-
-require('db.php'); // Include your database connection file
+include('header.php'); // Include your header file
+include('menu.php'); // Include your menu file
+ // Include your database connection file
 
 // Calculate total orders
 $totalOrdersQuery = "SELECT COUNT(*) as totalOrders FROM `order`";
@@ -134,8 +135,7 @@ $todayWastesResult = $pdo->prepare($todayWastesQuery);
 $todayWastesResult->execute(['today' => $today]);
 $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWastes'];
 
-include('header.php'); // Include your header file
-include('menu.php'); // Include your menu file
+
 ?>
 <div class="main-box">
     <h2 class="mb-3">Dashboard</h2>

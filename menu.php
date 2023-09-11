@@ -8,6 +8,8 @@ $logUser = $_SESSION['user'];
 $logName = $logUser['name'];
 $logid = $logUser['id'];
 
+require("db.php");
+
 // User Data 
 $userSql = "SELECT * FROM user WHERE id= :id";
 $ustmt = $pdo->prepare($userSql);

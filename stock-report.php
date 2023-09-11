@@ -1,7 +1,6 @@
 <?php
 include('header.php');
 include('menu.php');
-require('db.php');
 
 $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
 $branchdata = $pdo->query($branchsql);

@@ -1,7 +1,6 @@
 <?php
 include('header.php');
 include('menu.php');
-require('db.php');
 $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);

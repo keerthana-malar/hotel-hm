@@ -4,14 +4,9 @@
   }
 </style>
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
-}
+
 include('header.php');
 include('menu.php');
-require('db.php');
 $orderSql = "SELECT * FROM `order` WHERE ordertype = '2'";
 $orderData = $pdo->query($orderSql);
 $logUser = $_SESSION['user'];

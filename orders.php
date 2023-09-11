@@ -4,14 +4,9 @@
   }
 </style>
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-  header("Location: index.php");
-  exit();
-}
+
 include('header.php');
 include('menu.php');
-require('db.php');
 $orderSql = "SELECT * FROM `order`  WHERE ordertype = '1' ";
 $orderData = $pdo->query($orderSql);
 
@@ -19,9 +14,11 @@ $logUser = $_SESSION['user'];
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
+  <?php if($rdata['create_fo'] == '1') { ?>
     <a href="create-order.php">
       <button class="btn btn-success">Create</button>
     </a>
+    <?php } ?>
   </div>
   <?php if (!empty($_GET['succ'])): ?>
 

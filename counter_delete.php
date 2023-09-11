@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
-}
-require('db.php');
+
 
 if (isset($_GET['delete_id'])) {
     $counterID = $_GET['delete_id'];

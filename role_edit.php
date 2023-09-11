@@ -1,12 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
-}
+
 include('header.php');
 include('menu.php');
-require('db.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
     // Retrieve role details from the database based on role_id
@@ -41,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="fo_access">
                     <option value="0" <?php echo ($role['fo_access'] == 0) ? 'selected' : ''; ?>>Disable</option>
                     <option value="1" <?php echo ($role['fo_access'] == 1) ? 'selected' : ''; ?>>Enable</option></select></td>
-                    <td><input value="1" type="checkbox" name="view_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input value="2" type="checkbox" name="edit_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input value="3" type="checkbox" name="create_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input value="4" type="checkbox" name="delete_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="view_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="edit_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="create_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="delete_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
                     <td>Stock Order</td>

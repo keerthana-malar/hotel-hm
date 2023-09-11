@@ -6,7 +6,6 @@ if (!isset($_SESSION['user'])) {
 }
 include('header.php');
 include('menu.php');
-require('db.php');
 
 // Get the consumption ID from the query string
 if (isset($_GET['id']) && !empty($_GET['id'])) {

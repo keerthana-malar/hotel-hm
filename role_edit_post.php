@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Include your database connection code here
-require('db.php'); // Replace with your database connection code
+require('db.php'); 
 
 $u1 = "role_view.php?succ=";
 $u2 = "role_view.php?err=";
@@ -62,7 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $delete_user = isset($_POST['delete_user']) ? 1 : 0;
     $r_access = $_POST['r_access'];
     $d_access = $_POST['d_access'];
-    // ... (all other form fields)
 
     $sql = "UPDATE role
     SET

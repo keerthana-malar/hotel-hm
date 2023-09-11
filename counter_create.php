@@ -1,12 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
-}
+
 include('header.php');
 include('menu.php');
-require('db.php');
 $consumptionSql = "SELECT * FROM `consumption`";
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
