@@ -166,15 +166,15 @@ if (isset($_GET['id'])) {
     </div>
     <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Order_Qty</label>
-                    <input class="form-control mb-2" name="qt[]"  value="<?php echo $od['order_qty']; ?>"readonly>
+                    <input type="number" class="form-control mb-2" name="qt[]"  value="<?php echo $od['order_qty']; ?>"readonly>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Delivery_Qty</label>
-                    <input class="form-control mb-2" name="deliveryqt[]">
+                    <input  type="number" class="form-control mb-2" name="deliveryqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Received_Qty</label>
-                    <input class="form-control mb-2" name="receivedqt[]">
+                    <input type="number" class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
     <input type="hidden" name="ty[]" value="11">   
@@ -252,15 +252,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for=""></label>
-                    <input class="form-control mb-2" name="qt[]">
+                    <input type="number" class="form-control mb-2" name="qt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Delivery_Qty</label>
-                    <input class="form-control mb-2" name="deliveryqt[]">
+                    <input type="number" class="form-control mb-2" name="deliveryqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Received_Qty</label>
-                    <input class="form-control mb-2" name="receivedqt[]">
+                    <input type="number" class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
     <input type="hidden" name="ty[]" value="11">   
