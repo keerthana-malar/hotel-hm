@@ -1,7 +1,6 @@
 <?php
 include('header.php');
 include('menu.php');
-require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $startDate = $_POST['startDate'];

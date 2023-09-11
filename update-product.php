@@ -9,6 +9,7 @@ require('db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "products.php?succ=";
     $u2 = "edit-product.php?id=" . $_POST['productID'] . "&err=";
+    $u3 = "foodcatalog.php?succ=";
 
     $productID = $_POST['productID'];
     $productName = $_POST['product'];
@@ -49,9 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':img', $img1FileName);
 
     if ($stmt->execute()) {
-        header("Location: " . $u1 . urlencode('Product Successfully Updated'));
+        if ($typeid == 1) {
+            header("Location: " . $u3 . urlencode('Product Successfully Created'));
+            exit();
+        } else {
+            header("Location: " . $u1 . urlencode('Product Successfully Created'));
+            exit();
+        }
     } else {
-        header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
+        header("Location: " . $u2 . urlencode('Something Wrong please try again later'));
     }
 }
 ?>
