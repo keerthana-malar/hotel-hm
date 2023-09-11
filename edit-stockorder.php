@@ -177,7 +177,7 @@ if (isset($_GET['id'])) {
                     <input class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="12">   
+    <input type="hidden" name="ty[]" value="2">   
 </div>
             </div>
                 <?php } ?>
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="12">   
+    <input type="hidden" name="ty[]" value="2">   
 </div>
             </div>`;
         const newInput = document.createElement('div');
