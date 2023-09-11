@@ -156,7 +156,7 @@ $currentDate = date('Y-m-d');
                     <input class="form-control mb-2" name="qt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="12">   
+    <input type="hidden" name="ty[]" value="2">   
 </div>
             </div>
         </div>

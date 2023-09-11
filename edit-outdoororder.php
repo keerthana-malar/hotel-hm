@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
-    <h2>Edit Order</h2>
+    <h2>Edit Outdoor Order</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-order.php">
     <div class="row">
@@ -177,7 +177,7 @@ if (isset($_GET['id'])) {
                     <input class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="11">   
+    <input type="hidden" name="ty[]" value="1">   
 </div>
             </div>
                 <?php } ?>
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input class="form-control mb-2" name="qt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="11">   
+    <input type="hidden" name="ty[]" value="1">   
 </div>
             </div>`;
         const newInput = document.createElement('div');
