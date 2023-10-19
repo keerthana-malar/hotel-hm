@@ -9,6 +9,7 @@
         $branch = $_POST['branch'];
         $address = $_POST['address'];
         $phone = $_POST['phone'];
+        var_dump($phone);
         $status = $_POST['status'];
 
     
@@ -46,7 +47,7 @@
             exit();
         } else {
             header("Location: " . $u1 . urlencode('Branch Successfully Created'));
-            exit();      
+            exit();  
           }
     }
 ?>

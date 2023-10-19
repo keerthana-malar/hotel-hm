@@ -33,7 +33,7 @@ $logUser = $_SESSION['user'];
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>  
-                                        <?php endif ?>
+    <?php endif ?>
     <h2 class="mb-3">Wastes</h2>
 
     <?php
