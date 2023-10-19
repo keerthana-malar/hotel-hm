@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
-    <h2>Edit Order</h2>
+    <h2>Edit Food Order</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-order.php">
     <div class="row">
@@ -166,18 +166,18 @@ if (isset($_GET['id'])) {
     </div>
     <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Order_Qty</label>
-                    <input class="form-control mb-2" name="qt[]"  value="<?php echo $od['order_qty']; ?>"readonly>
+                    <input type="number" class="form-control mb-2" name="qt[]"  value="<?php echo $od['order_qty']; ?>"readonly>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Delivery_Qty</label>
-                    <input class="form-control mb-2" name="deliveryqt[]">
+                    <input  type="number" class="form-control mb-2" name="deliveryqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Received_Qty</label>
-                    <input class="form-control mb-2" name="receivedqt[]">
+                    <input type="number" class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="11">   
+    <input type="hidden" name="ty[]" value="1">   
 </div>
             </div>
                 <?php } ?>
@@ -252,18 +252,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for=""></label>
-                    <input class="form-control mb-2" name="qt[]">
+                    <input type="number" class="form-control mb-2" name="qt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Delivery_Qty</label>
-                    <input class="form-control mb-2" name="deliveryqt[]">
+                    <input type="number" class="form-control mb-2" name="deliveryqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Received_Qty</label>
-                    <input class="form-control mb-2" name="receivedqt[]">
+                    <input type="number" class="form-control mb-2" name="receivedqt[]">
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="11">   
+    <input type="hidden" name="ty[]" value="1">   
 </div>
             </div>`;
         const newInput = document.createElement('div');
