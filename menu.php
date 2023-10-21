@@ -119,9 +119,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </a>
                         <div class="collapse" id="us">
                             <ul class="nav flex-column sub-menu">
-                            <?php if($rdata['fo_access'] == '1') { ?>
                                 <li class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
-                            <?php } ?>
                                 <li class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
                             </ul>
@@ -181,7 +179,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         <div class="collapse" id="user-manane">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="users.php">Users</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li> -->
                             </ul>
                         </div>
                     </li>

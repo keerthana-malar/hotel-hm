@@ -258,7 +258,7 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
                 <div class="dashboard-item yellow">
                     <div class="inner">
                         <div>
@@ -274,8 +274,8 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
+            </div> -->
+            <!-- <div class="col-md-4">
                 <div class="dashboard-item black">
                     <div class="inner">
                         <div>
@@ -291,7 +291,7 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
           
             <div class="col-1"></div>
 </div>

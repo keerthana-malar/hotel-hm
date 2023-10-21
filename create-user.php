@@ -53,7 +53,7 @@ $roleData = $pdo->query($roleSql);
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleSelectGender">Role</label>
-                    <select class="form-control" id="exampleSelectGender" name="role">
+                    <select class="form-control" id="exampleSelectGender" name="role" disabled>
                          <?php foreach ($roleData as $r ) { ?>
                             <option value="<?php echo $r['role_id'] ?>"><?php echo $r['role_name'] ?></option>
                             <?php } ?>
