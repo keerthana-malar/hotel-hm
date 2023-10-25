@@ -325,10 +325,10 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                         var totalOrdersPieChart = new Chart(document.getElementById('totalOrdersPieChart'), {
                             type: 'pie',
                             data: {
-                                labels: ['Total Orders', 'Total Stocks', 'Total Wastes'],
+                                labels: ['Total Orders', 'Total Wastes'],
                                 datasets: [{
-                                    data: [<?= $totalOrders ?>, <?= $totalStocks ?>, <?= $totalWastes ?>],
-                                    backgroundColor: ['#DF204A', '#4ADF20', '#204ADF']
+                                    data: [<?= $totalOrders ?>, <?= $totalWastes ?>],
+                                    backgroundColor: ['#DF204A', '#204ADF']
                                 }]
                             },
                             options: {
@@ -355,11 +355,11 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                         var todayDetailsBarChart = new Chart(document.getElementById('todayDetailsBarChart'), {
                             type: 'bar',
                             data: {
-                                labels: ['Today\'s Orders', 'Today\'s Stocks', 'Today\'s Wastes'],
+                                labels: ['Today\'s Orders', 'Today\'s Wastes'],
                                 datasets: [{
                                     label: 'Today\'s Details',
-                                    data: [<?= $todayTotalOrders ?>, <?= $todayTotalStocks ?>, <?= $todayTotalWastes ?>, 0],
-                                    backgroundColor: ['#FF6384', '#FF5733', '#C70039'],
+                                    data: [<?= $todayTotalOrders ?>, <?= $todayTotalWastes ?>, 0],
+                                    backgroundColor: ['#FF6384', '#C70039'],
                                     borderWidth: 1
                                 }]
                             },
