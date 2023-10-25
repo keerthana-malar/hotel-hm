@@ -108,11 +108,14 @@ $currentDate = date('Y-m-d');
         <div class="pro-box">
             <div class="row mb-4">
             <div class="col-12 col-md-6 col-lg-3">
-                    <div class="form-group">
+            <div class="form-group">
                         <label for="exampleInputStatus">Product</label>
                         <select class="form-control mb-2" name="pro[]">
+                            <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                                <option value="<?= $row['id'] ?>">
+                                    <?= $row['name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -132,6 +135,7 @@ $currentDate = date('Y-m-d');
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
                         <select class="form-control mb-2" name="ca[]">
+                        <option value="0">Select</option>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -144,6 +148,7 @@ $currentDate = date('Y-m-d');
                 <div class="form-group">
                     <label for="exampleInputStatus">Priority</label>
                     <select class="form-control" name="pr[]" id="exampleInputStatus">
+                    <option value="0">Select</option>
                     <option value="High">High</option>
                         <option value="Low">Low</option>
                         <option value="Normal">Normal</option>
@@ -172,20 +177,15 @@ $currentDate = date('Y-m-d');
     </form>
 </div>
 
-
-
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
-
-
         function HandleProClone() {
             const product = document.querySelectorAll('[name="pro[]"]')
             product.forEach((item, index) => {
                 item.addEventListener("change", () => {
                     const cat = item.closest(".row").querySelector('[name="ca[]"]')
-                    // console.log(cat.value)
-                    // console.log(cus.value)
+                    console.log(cat)
                     let proId = item.value;
                     // console.log(proId)
                     fetch('fetchProductDetails.php?product_id=' + proId)
@@ -201,8 +201,8 @@ $currentDate = date('Y-m-d');
                         })
                 });
             });
-
         }
+        HandleProClone()
 
         const addInputButton = document.getElementById('addRow');
         const inputContainer = document.querySelector('.pro-box');
@@ -258,13 +258,12 @@ $currentDate = date('Y-m-d');
         orderDateInput.value = formattedCurrentDate;
 
         // CAT 
-        HandleProClone()
+        // HandleProClone()
 
     });
 
 
 </script>
-
 
 <?php
 include('footer.php');

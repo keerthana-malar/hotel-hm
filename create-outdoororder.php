@@ -112,6 +112,7 @@ $currentDate = date('Y-m-d');
                     <div class="form-group">
                         <label for="exampleInputStatus">Product</label>
                         <select class="form-control mb-2" name="pro[]">
+                        <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -133,6 +134,7 @@ $currentDate = date('Y-m-d');
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
                         <select class="form-control mb-2" name="ca[]">
+                        <option value="0">Select</option>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -143,14 +145,13 @@ $currentDate = date('Y-m-d');
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
                         <select class="form-control mb-2" name="cu[]">
+                        <option value="0">Select</option>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
-             
-              
                 
                 <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
@@ -165,7 +166,7 @@ $currentDate = date('Y-m-d');
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-1">
+            <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Qty</label>
                     <input type="number" class="form-control mb-2" name="qt[]">
                 </div>
