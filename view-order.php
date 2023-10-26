@@ -30,7 +30,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<ul>";
         echo "<li class='orderdetails'>ID: " . $orderData['id'] . "</li>";
         echo "<li class='orderdetails'>Order Name: " . $orderData['order_name'] . "</li>";
-        echo "<li class='orderdetails'>Order Type: " . $orderData['ordertype'] . "</li>";
+        // echo "<li class='orderdetails'>Order Type: " . $orderData['ordertype'] . "</li>";
         echo "<li class='orderdetails'>Branch: " . $branchData['name'] . "</li>";
         echo "<li class='orderdetails'>Order Date: " . $orderData['orderdate'] . "</li>";
         echo "<li class='orderdetails'>Delivery Date: " . $orderData['deliverydate'] . "</li>";
@@ -41,7 +41,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         // Fetch and display the order items associated with the order
         echo "<h3>Ordered Products</h3>";
         echo "<table>";
-        echo "<tr><th>Cuisine</th><th>Category</th><th>Product</th><th>Quantity</th></tr>";
+        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Quantity</th></tr>";
 
         $orderItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id";
         $orderItemstmt = $pdo->prepare($orderItemSql);
@@ -80,9 +80,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
         
                 echo "<tr>";
-                echo "<td><div>{$cuisineData['name']}</div></td>";
-                echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$productData['name']}</div></td>";
+                echo "<td><div>{$categoryData['name']}</div></td>";
+                echo "<td><div>{$cuisineData['name']}</div></td>";
                 echo "<td><div>{$item['order_qty']}</td>";
                 echo "</tr>";
             }

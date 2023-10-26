@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':priority', $priority);
     $stmt->bindParam(':status', $status);
     $stmt->bindParam(':description', $des);
-    $stmt->bindParam(':order_name', $orderName); 
-    
+    $stmt->bindParam(':order_name', $orderName);
+
     if (!$stmt->execute()) {
         header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
         exit();
@@ -73,6 +73,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
-
-
-

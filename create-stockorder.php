@@ -4,7 +4,7 @@ include('menu.php');
 $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-// $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+$cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
 $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
 $currentDate = date('Y-m-d');
@@ -125,16 +125,12 @@ $currentDate = date('Y-m-d');
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Cuisine</label>
-                        <select class="form-control mb-2" name="cu[]">
+                                <!-- hidden Cuisine  -->
+                        <select class="form-control mb-2" name="cu[]" readonly hidden>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
                         </select>
-                    </div>
-                </div>
              
               
                 
@@ -170,51 +166,7 @@ $currentDate = date('Y-m-d');
     </form>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addInputButton = document.getElementById('addRow');
-    const inputContainer = document.querySelector('.pro-box');
 
-    // Initial product data
-    const productDataJSON = <?php echo json_encode($productdata); ?>;
-
-    addInputButton.addEventListener('click', function() {
-        const newRow = inputContainer.querySelector('.row').cloneNode(true);
-
-        // Clear the product dropdown and quantity input in the cloned row
-        newRow.querySelector('[name="pro[]"]').value = "";
-        newRow.querySelector('[name="qt[]"]').value = "";
-        // Hide labels in the cloned row
-        const labels = newRow.querySelectorAll('label');
-        labels.forEach(function(label) {
-            label.style.display = 'none';
-        });
-
-
-        // Populate the product dropdown in the cloned row
-        const productSelect = newRow.querySelector('[name="pro[]"]');
-        productSelect.innerHTML = ''; // Clear existing options before populating
-        productDataJSON.forEach(function(product) {
-            const option = document.createElement('option');
-            option.value = product.id;
-            option.text = product.name;
-            productSelect.appendChild(option);
-        });
-
-        // Append the cloned row to the input container
-        inputContainer.appendChild(newRow);
-    });
-    // Set the current date for the "Order Date" field
-    const orderDateInput = document.querySelector('[name="orderDate"]');
-    const currentDate = new Date();
-    const formattedCurrentDate = currentDate.toISOString().split('T')[0];
-    orderDateInput.value = formattedCurrentDate;
-
-    addInputButton.addEventListener('click', function() {
-        // ... rest of your code ...
-    });
-});
-</script>
 
 
 <?php
