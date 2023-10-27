@@ -128,65 +128,6 @@ if (isset($_GET['id'])) {
     </form>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-        const addInputButton = document.querySelector('#addRow');
-        const inputContainer = document.querySelector('.pro-box');
-        
 
-
-        addInputButton.addEventListener('click', function() {
-        let inputCount = inputContainer.children.length;
-        let inputEle = `<div class="row"> 
-        <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus"></label>
-                        <select class="form-control mb-2" name="pro[]">
-                            <?php foreach ($productdata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-        
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus"></label>
-                        <select class="form-control mb-2" name="ca[]">
-                            <?php foreach ($categorydata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus"></label>
-                        <select class="form-control mb-2" name="cu[]">
-                            <?php foreach ($cuisinedata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                
-                
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for=""></label>
-                    <input class="form-control mb-2" name="qt[]">
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-    <input type="hidden" name="ty[]" value="12">   
-</div>
-            </div>`;
-        const newInput = document.createElement('div');
-        newInput.innerHTML = inputEle;
-        inputContainer.appendChild(newInput);
-        
-  });
-  
-});
-
-</script>
 
 <?php include('footer.php'); ?>

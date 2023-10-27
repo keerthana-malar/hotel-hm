@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css">
   <link rel="shortcut icon" href="images/favicon.png" />
   <style>
     .main-box {
@@ -30,8 +31,20 @@
       background-color: #fff;
       border-radius: 10px;
     }
-   .form-control{
+
+    .form-control {
       height: 47px;
+    }
+
+    .remove-row {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0;
+      margin-top: 15px;
+      background: none;
+      color: red;
     }
   </style>
 </head>

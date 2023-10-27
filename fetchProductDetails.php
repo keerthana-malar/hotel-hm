@@ -62,7 +62,6 @@ if (isset($_GET['product_id'])) {
     $typstmt->bindParam(':typId', $typId, PDO::PARAM_INT);
     if ($typstmt->execute()) {
         $typDetails = $typstmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($cusDetails);
     } else {
         $errorInfo = $typstmt->errorInfo();
         die('Query execution failed: ' . $errorInfo[2]);
@@ -73,7 +72,9 @@ if (isset($_GET['product_id'])) {
         "catid"=> $productDetails['categoryid'],
         "catname"=> $catDetails['name'],
         "cusid"=> $productDetails['cuisineid'],
-        "cusname"=> $cusDetails['name']
+        "cusname"=> $cusDetails['name'],
+        "typid"=> $productDetails['typeid'],
+        "typname"=> $typDetails['name']
     ];
 
     // Return the product details as JSON
