@@ -31,15 +31,15 @@
 
 
 <script>
-         $(document).ready(function() {
-         $('.table').DataTable();
+    $(document).ready(function () {
+        $('.table').DataTable();
     });
 </script>
 
 <!-- Add btn and Product Data  -->
 
 <script>
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         function HandleProClone() {
             const product = document.querySelectorAll('[name="pro[]"]')
@@ -48,7 +48,7 @@
                     const cus = item.closest(".row").querySelector('[name="cu[]"]')
                     const cat = item.closest(".row").querySelector('[name="ca[]"]')
                     const typ = item.closest(".row").querySelector('[name="ty[]"]')
-                    
+
                     // console.log(cus.value)
                     console.log("ddddddddddddd" + typ.value)
                     let proId = item.value;
@@ -61,7 +61,7 @@
                             var catSel = cat.options[cat.selectedIndex];
                             var cusSel = cus.options[cus.selectedIndex];
 
-                            if(window.location.href.includes('consumption')){
+                            if (window.location.href.includes('consumption')) {
                                 var typSel = typ.options[typ.selectedIndex];
                                 var typName = typSel.text;
                                 typ.value = data.typid;

@@ -128,6 +128,4 @@ if (isset($_GET['id'])) {
     </form>
 </div>
 
-
-
 <?php include('footer.php'); ?>
