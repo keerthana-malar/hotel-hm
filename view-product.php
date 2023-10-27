@@ -37,8 +37,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
 
         // Display the product details
+        echo "<div class='row container'>";
+        echo "<div class='col-md-6 product-details'>";
         echo "<h2>Product Details</h2>";
         echo "<ul>";
+
         echo "<li>ID: " . $productData['id'] . "</li>";
         echo "<li>Name: " . $productData['name'] . "</li>";
         echo "<li>Unit: " . $productData['unit'] . "</li>";
@@ -48,9 +51,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<li>Category: " . $categoryData['name'] . "</li>";
         echo "<li>Cuisine: " . $cuisineData['name'] . "</li>";
         echo "<li>Status: " . $productData['status'] . "</li>";
+        echo "</div>";
         // Display the product image
-        echo "<img src='uploads/" . $productData['img'] . "' alt='Product Image'>";
+        echo "<div class='col-md-6 product-image'>";
+        echo "<img class='product-img' src='uploads/" . $productData['img'] . "' alt='Product Image'>";
         echo "</ul>";
+        echo "</div>";
+        echo "</div>";
+
 
     } else {
         echo "Product not found.";
@@ -94,10 +102,11 @@ include('footer.php');
             margin-bottom: 10px;
         }
 
-        img {
-            max-width: 100%;
+        .product-img {
+            max-width: 75%;
+            border-radius: 10px;
             height: auto;
             margin-top: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
         }
     </style>
