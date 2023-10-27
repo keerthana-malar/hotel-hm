@@ -11,17 +11,17 @@ $typedata = $pdo->query($typesql);
     <form class="forms-sample" method="post" action="create-category-post.php">
         <div class="row">
         
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-4">
 
          <div class="form-group">
-         <label for="exampleInputName1">Name</label>
-        <input type="text" class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name">
+         <label for="exampleInputName1">Name <span>*</span></label>
+        <input type="text" required class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name">
         </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Type</label>
-                    <select class="form-control" name="type" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Type <span>*</span></label>
+                    <select class="form-control" required name="type" id="exampleInputStatus">
        
                 <?php foreach ($typedata as $row): ?>
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
@@ -30,10 +30,10 @@ $typedata = $pdo->query($typesql);
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>

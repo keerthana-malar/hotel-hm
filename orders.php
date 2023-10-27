@@ -14,10 +14,10 @@ $logUser = $_SESSION['user'];
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
-  <?php if($rdata['create_fo'] == '1') { ?>
-    <a href="create-order.php">
-      <button class="btn btn-success">Create</button>
-    </a>
+    <?php if ($rdata['create_fo'] == '1') { ?>
+      <a href="create-order.php">
+        <button class="btn btn-success">Create</button>
+      </a>
     <?php } ?>
   </div>
   <?php if (!empty($_GET['succ'])): ?>
@@ -72,7 +72,7 @@ $logUser = $_SESSION['user'];
 
       echo "<td>
             <a href='edit-order.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
             <a href='view-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>

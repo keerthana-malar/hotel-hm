@@ -24,8 +24,8 @@ $currentDate = date('Y-m-d');
 </div>
         <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
        
                 <?php foreach ($branchdata as $row): ?>
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
@@ -42,8 +42,8 @@ $currentDate = date('Y-m-d');
             </div>
 <div class="col-12 col-md-6 col-lg-3">
     <div class="form-group">
-        <label for="exampleInputDate">Delivery Date</label>
-        <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate">
+        <label for="exampleInputDate">Delivery Date <span>*</span></label>
+        <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate" required>
     </div>
 </div>
 
@@ -64,8 +64,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
                     <option value="Created">Created</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
@@ -94,10 +94,10 @@ $currentDate = date('Y-m-d');
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row mb-4">
-            <div class="col-12 col-md-6 col-lg-2">
+            <div class="col-12 col-md-6 col-lg-4">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" required>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -115,7 +115,7 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div> -->
                 
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
                         <select class="form-control mb-2" name="ca[]">
@@ -148,12 +148,12 @@ $currentDate = date('Y-m-d');
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty</label>
-                    <input type="number" class="form-control mb-2" name="qt[]">
+                    <label for="">Qty <span>*</span></label>
+                    <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                
     <input type="hidden" name="ty[]" value="2">   
-</div>
+
             </div>
         </div>
         <!-- End of additional product details rows -->

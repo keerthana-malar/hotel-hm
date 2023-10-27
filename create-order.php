@@ -9,18 +9,6 @@ $categorydata = $pdo->query("SELECT * FROM `category` WHERE status = 'Active' AN
 $productdata = $pdo->query("SELECT * FROM `product` WHERE status = 'Active' AND typeid = '1'")->fetchAll(PDO::FETCH_ASSOC);
 $currentDate = date('Y-m-d');
 ?>
-<style>
-    .remove-row {
-        height: 20px;
-        width: 20px;
-        border-radius: 50%;
-        padding: 0;
-        margin: 0;
-        margin-top: 15px;
-        background: none;
-        color: red;
-    }
-</style>
 
 <div class="main-box">
     <h2 class="mb-3">Create Food Orders</h2>
@@ -36,8 +24,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
                                 <?= $row['name'] ?>
@@ -55,8 +43,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputDate">Delivery Date</label>
-                    <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate">
+                    <label for="exampleInputDate">Delivery Date <span>*</span></label>
+                    <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate" required>
                 </div>
             </div>
 
@@ -74,8 +62,9 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
+                        <option value="0">Select</option>
                         <option value="Created">Created</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
@@ -103,10 +92,10 @@ $currentDate = date('Y-m-d');
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row mb-4">
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" required>
                             <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
@@ -169,9 +158,9 @@ $currentDate = date('Y-m-d');
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-1">
-                    <label for="">Qty</label>
-                    <input type="number" class="form-control mb-2" name="qt[]">
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="">Qty <span>*</span></label>
+                    <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
                 <!-- <div class="col-12 col-md-6 col-lg-2">
                 </div> -->
@@ -188,7 +177,41 @@ $currentDate = date('Y-m-d');
     </form>
 </div>
 
+<script>
+    function validateDeliveryDate(deliveryDate) {
+        // Parse the input date
+        const inputDate = new Date(deliveryDate);
 
+        // Check if the parsed date is a valid date
+        if (isNaN(inputDate)) {
+            return "Invalid date. Please enter a valid date.";
+        }
+
+        // Get the current date
+        const currentDate = new Date();
+
+
+        // Set a minimum and maximum allowed delivery date (e.g., 7 days from today)
+        const minDeliveryDate = new Date(currentDate);
+        minDeliveryDate.setDate(currentDate.getDate() + 1); // Minimum delivery date is tomorrow
+        const maxDeliveryDate = new Date(currentDate);
+        maxDeliveryDate.setDate(currentDate.getDate() + 7); // Maximum delivery date is 7 days from today
+
+        // Check if the input date is within the allowed range
+        if (inputDate < minDeliveryDate || inputDate > maxDeliveryDate) {
+            return `Delivery date must be between ${minDeliveryDate.toDateString()} and ${maxDeliveryDate.toDateString()}.`;
+        }
+
+        // If all checks pass, the date is valid
+        return "Delivery date is valid!";
+    }
+
+    // Example usage:
+    const deliveryDate = "2023-10-31"; // Replace with the user's input
+    const validationResult = validateDeliveryDate(deliveryDate);
+    console.log(validationResult);
+
+</script>
 
 
 <?php

@@ -10,20 +10,6 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND t
 $currentDate = date('Y-m-d');
 ?>
 
-<!-- Remove btn Style  -->
-<style>
-    .remove-row {
-        height: 20px;
-        width: 20px;
-        border-radius: 50%;
-        padding: 0;
-        margin: 0;
-        margin-top: 15px;
-        background: none;
-        color: red;
-    }
-</style>
-
 <div class="main-box">
     <h2 class="mb-3">Create Outdoor Orders</h2>
     <hr>
@@ -38,8 +24,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
@@ -59,13 +45,10 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputDate">Delivery Date</label>
-                    <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate">
+                    <label for="exampleInputDate">Delivery Date <span>*</span></label>
+                    <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate" required>
                 </div>
             </div>
-
-
-
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
@@ -81,8 +64,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
                         <option value="Created">Created</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
@@ -108,15 +91,13 @@ $currentDate = date('Y-m-d');
             </div>
         </div>
 
-
-
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row mb-4">
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" required>
                             <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
@@ -164,8 +145,6 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div>
 
-
-
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Priority</label>
@@ -174,14 +153,12 @@ $currentDate = date('Y-m-d');
                             <option value="Normal" selected>Normal</option>
                             <option value="High">High</option>
                             <option value="Urgent">Urgent</option>
-
-
                         </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty</label>
-                    <input type="number" class="form-control mb-2" name="qt[]">
+                    <label for="">Qty <span>*</span></label>
+                    <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
 
                 <input type="hidden" name="ty[]" value="1">

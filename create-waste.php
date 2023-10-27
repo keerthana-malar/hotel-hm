@@ -15,10 +15,10 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
     <form class="forms-sample" method="post" action="create-waste-post.php">
         <div class="row">
         
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
        
                 <?php foreach ($branchdata as $row): ?>
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
@@ -29,27 +29,28 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             </div>
             <div class="col-12 col-md-6 col-lg-3">
     <div class="form-group">
-        <label for="exampleInputDate">Date</label>
-        <input type="date" class="form-control" name="date" id="exampleInputDate">
+        <label for="exampleInputDate">Date <span>*</span></label>
+        <input type="date" class="form-control" name="date" id="exampleInputDate" required>
     </div>
 </div>
 
 <div class="col-12 col-md-6 col-lg-3">
 
 <div class="form-group">
-    <label for="exampleInputName1">Waste Amount</label>
-    <input type="text" class="form-control" name="amount" id="exampleInputName1" placeholder="Enter amount">
+    <label for="exampleInputName1">Waste Amount <span>*</span></label>
+    <input type="text" class="form-control" name="amount" id="exampleInputName1" placeholder="Enter amount" required>
 </div>
 </div>
        </div>
+
        <!-- Additional product details rows -->
        <div class="pro-box">
         
             <div class="row mb-4">
-            <div class="col-12 col-md-6 col-lg-2">
+            <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" required>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -86,14 +87,10 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                         </select>
                     </div>
                 </div>
-               
-              
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Waste Qty</label>
-                    <input class="form-control mb-2" name="qt[]">
+                    <label for="">Waste Qty <span>*</span></label>
+                    <input class="form-control mb-2" name="qt[]" required>
                 </div>
-             
-           
             </div>
         </div>
         <!-- End of additional product details rows -->
@@ -104,9 +101,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
         <button type="submit" class="btn btn-primary mr-2">Submit</button>
 
             </div>
-
           </div>
-            
     </form>
 </div>
 
