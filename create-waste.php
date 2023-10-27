@@ -109,41 +109,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             
     </form>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addInputButton = document.getElementById('addRow');
-    const inputContainer = document.querySelector('.pro-box');
 
-    // Initial product data
-    const productDataJSON = <?php echo json_encode($productdata); ?>;
-
-    addInputButton.addEventListener('click', function() {
-        const newRow = inputContainer.querySelector('.row').cloneNode(true);
-
-        // Clear the product dropdown and quantity input in the cloned row
-        newRow.querySelector('[name="pro[]"]').value = "";
-        newRow.querySelector('[name="qt[]"]').value = "";
-        
-// Hide labels in the cloned row
-const labels = newRow.querySelectorAll('label');
-        labels.forEach(function(label) {
-            label.style.display = 'none';
-        });
-
-        // Append the cloned row to the input container
-        inputContainer.appendChild(newRow);
-
-        // Populate the product dropdown in the cloned row
-        const productSelect = newRow.querySelector('[name="pro[]"]');
-        productDataJSON.forEach(function(product) {
-            const option = document.createElement('option');
-            option.value = product.id;
-            option.text = product.name;
-            productSelect.appendChild(option);
-        });
-    });
-});
-</script>
 <?php
 include('footer.php');
 ?>
