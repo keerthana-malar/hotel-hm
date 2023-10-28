@@ -116,6 +116,7 @@ document.getElementById("printButton").addEventListener("click", function() {
     document.getElementById("printButton").style.display = "block";
 });
 </script>
+
 <style>
     table {
     border-collapse: collapse;

@@ -8,6 +8,7 @@ $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+$currentDate = date('Y-m-d');
 ?>
 
 
@@ -34,8 +35,8 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputDate">Date <span>*</span></label>
-                    <input type="date" class="form-control" name="date" id="exampleInputDate" required>
+                    <label for="exampleInputDate">Date</label>
+                    <input type="date" class="form-control" name="date" id="" value="<?=$currentDate ?>"required readonly>
                 </div>
             </div>
 

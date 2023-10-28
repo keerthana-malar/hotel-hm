@@ -29,15 +29,14 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             </div>
             <div class="col-12 col-md-6 col-lg-3">
     <div class="form-group">
-        <label for="exampleInputDate">Date <span>*</span></label>
-        <input type="date" class="form-control" name="date" id="exampleInputDate" required>
+        <label for="exampleInputDate">Date</label>
+        <input type="date" class="form-control" name="date" id="exampleInputDate" value="<?=date('Y-m-d') ?>" readonly>
     </div>
 </div>
-
 <div class="col-12 col-md-6 col-lg-3">
 
 <div class="form-group">
-    <label for="exampleInputName1">Waste Amount <span>*</span></label>
+    <label for="exampleInputName1">Total Waste Amount <span>*</span></label>
     <input type="text" class="form-control" name="amount" id="exampleInputName1" placeholder="Enter amount" required>
 </div>
 </div>

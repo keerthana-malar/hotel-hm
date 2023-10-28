@@ -18,8 +18,8 @@ $currentDate = date('Y-m-d');
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="orderName">Order Name</label>
-                    <input type="text" class="form-control" name="orderName" id="orderName">
+                    <label for="orderName">Order Name <span>*</span></label>
+                    <input type="text" class="form-control" name="orderName" id="orderName" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
@@ -43,8 +43,8 @@ $currentDate = date('Y-m-d');
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputDate">Delivery Date <span>*</span></label>
-                    <input type="date" class="form-control" name="deliveryDate" id="exampleInputDate" required>
+                    <label for="deliveryDateinput">Delivery Date <span>*</span></label>
+                    <input type="date" class="form-control" name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
 
@@ -176,42 +176,6 @@ $currentDate = date('Y-m-d');
         <button type="submit" class="btn btn-primary mr-2">Submit</button>
     </form>
 </div>
-
-<script>
-    function validateDeliveryDate(deliveryDate) {
-        // Parse the input date
-        const inputDate = new Date(deliveryDate);
-
-        // Check if the parsed date is a valid date
-        if (isNaN(inputDate)) {
-            return "Invalid date. Please enter a valid date.";
-        }
-
-        // Get the current date
-        const currentDate = new Date();
-
-
-        // Set a minimum and maximum allowed delivery date (e.g., 7 days from today)
-        const minDeliveryDate = new Date(currentDate);
-        minDeliveryDate.setDate(currentDate.getDate() + 1); // Minimum delivery date is tomorrow
-        const maxDeliveryDate = new Date(currentDate);
-        maxDeliveryDate.setDate(currentDate.getDate() + 7); // Maximum delivery date is 7 days from today
-
-        // Check if the input date is within the allowed range
-        if (inputDate < minDeliveryDate || inputDate > maxDeliveryDate) {
-            return `Delivery date must be between ${minDeliveryDate.toDateString()} and ${maxDeliveryDate.toDateString()}.`;
-        }
-
-        // If all checks pass, the date is valid
-        return "Delivery date is valid!";
-    }
-
-    // Example usage:
-    const deliveryDate = "2023-10-31"; // Replace with the user's input
-    const validationResult = validateDeliveryDate(deliveryDate);
-    console.log(validationResult);
-
-</script>
 
 
 <?php

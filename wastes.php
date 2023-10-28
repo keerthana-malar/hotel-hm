@@ -43,9 +43,9 @@ $logUser = $_SESSION['user'];
         echo "<table class='table table-hover'>";
         echo "<thead> <tr>
             <th> ID</th>
+            <th> Date</th>
             <th> Branch</th>
-            <th>  Date</th>
-            <th> Waste Amount</th>
+            <th> Total Waste Amount</th>
 
             <th>Action</th>
         </tr> </thead>";
@@ -55,9 +55,8 @@ $logUser = $_SESSION['user'];
             $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
-            echo "<td>" . $branchee['name']. "</td>";
-
             echo "<td>" . $row['date'] . "</td>";
+            echo "<td>" . $branchee['name']. "</td>";
             echo "<td>" . $row['waste_amount'] . "</td>";
 
             
