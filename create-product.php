@@ -28,9 +28,11 @@ $cuisinedata = $pdo->query($cuisinesql);
                 <div class="form-group">
                     <label for="exampleInputStatus">Unit <span>*</span></label>
                     <select class="form-control" name="unit" id="exampleInputStatus" required>
-                    <option value="kg">g</option>
-                        <option value="kg">kg</option>
-                        <option value="Ltr">Ltr</option>
+                    <option value="kg">Gram(g)</option>
+                        <option value="kg">Kilograms(kg)</option>
+                        <option value="Ltr">Liters(L)</option>
+                        <option value="piece">Piece</option>
+
                     </select>
                 </div>
             </div>
@@ -101,12 +103,12 @@ $cuisinedata = $pdo->query($cuisinesql);
             </div>
           
 
-            </div>
+         
             
         <button type="submit" class="btn btn-primary mr-2">Submit</button>
     </form>
 </div>
-
+</div>
 <?php
 include('footer.php');
 ?>

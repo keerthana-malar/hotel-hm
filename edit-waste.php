@@ -63,6 +63,7 @@ if (isset($_GET['id'])) {
                         value="<?php echo $wasteData['waste_amount']; ?>">
                 </div>
             </div>
+        </div>
             <!-- Additional product details rows -->
             <div class="pro-box">
                 <?php foreach ($wasteItem as $od) { ?>

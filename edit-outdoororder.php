@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
     $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
 } else {
-    header("Location: orders.php");
+    header("Location: outdoororders.php");
     exit();
 }
 ?>
