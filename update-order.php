@@ -7,6 +7,9 @@ if (!isset($_SESSION['user'])) {
 require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    
+    
     $u1 = "orders.php?succ=";
     $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
 

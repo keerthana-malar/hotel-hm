@@ -23,10 +23,9 @@ if (isset($_GET['id'])) {
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
-} else {
-    header("Location: stockorders.php");
-    exit();
-}
+    
+} 
+
 ?>
 
 <div class="main-box">

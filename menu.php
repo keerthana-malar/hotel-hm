@@ -63,7 +63,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
                             <div class="user-icon">
                             <span class="typcn typcn-user-outline mr-0"></span>
-                            <div><p><?php echo  $udata['role'] ?></p></div>
+                            <div><p><?php echo  $udata['name'] ?></p></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">

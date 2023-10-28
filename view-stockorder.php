@@ -32,7 +32,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         // Fetch and display the order items associated with the order
         echo "<h3>Ordered Products</h3>";
         echo "<table>";
-        echo "<tr><th>Cuisine</th><th>Category</th><th>Product</th><th>Quantity</th></tr>";
+        echo "<tr><th>Category</th><th>Product</th><th>Quantity</th></tr>";
 
         $orderItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id";
         $orderItemstmt = $pdo->prepare($orderItemSql);
@@ -49,19 +49,19 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $categoryStmt->execute();
                 $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
         
-                // Fetch type name
-                $typeSql = "SELECT name FROM `type` WHERE id = :typeid";
-                $typeStmt = $pdo->prepare($typeSql);
-                $typeStmt->bindParam(':typeid', $item['typeid']);
-                $typeStmt->execute();
-                $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
+                // // Fetch type name
+                // $typeSql = "SELECT name FROM `type` WHERE id = :typeid";
+                // $typeStmt = $pdo->prepare($typeSql);
+                // $typeStmt->bindParam(':typeid', $item['typeid']);
+                // $typeStmt->execute();
+                // $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
         
-                // Fetch cuisine name
-                $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
-                $cuisineStmt = $pdo->prepare($cuisineSql);
-                $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
-                $cuisineStmt->execute();
-                $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
+                // // Fetch cuisine name
+                // $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
+                // $cuisineStmt = $pdo->prepare($cuisineSql);
+                // $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
+                // $cuisineStmt->execute();
+                // $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
         
                 // Fetch product name
                 $productSql = "SELECT name FROM `product` WHERE id = :productid";
@@ -71,7 +71,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
         
                 echo "<tr>";
-                echo "<td><div>{$cuisineData['name']}</div></td>";
+                // echo "<td><div>{$cuisineData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$productData['name']}</div></td>";
                 echo "<td><div>{$item['order_qty']}</td>";
