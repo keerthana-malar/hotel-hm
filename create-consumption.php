@@ -10,10 +10,27 @@ $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->
 $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $currentDate = date('Y-m-d');
 ?>
-
-
-
 <div class="main-box">
+<?php if (!empty($_GET['succ'])): ?>
+					  
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><?php  echo $_GET['succ'] ?></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                                        <?php endif ?>
+                                        <?php if (!empty($_GET['err'])): ?>
+                                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><?php  echo $_GET['err'] ?></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>  
+                                        <?php endif ?>
+
+
+
     <h2 class="mb-3">Create Consumption</h2>
     <hr>
     <form class="forms-sample" method="post" action="create-consumption-post.php">
@@ -97,6 +114,7 @@ $currentDate = date('Y-m-d');
                     <label for="">Current Qty <span>*</span></label>
                     <input class="form-control mb-2" type="number" name="qt[]" required>
                 </div>
+                <input class="form-control mb-2" type="number" name="uqt[]">
 
 
             </div>

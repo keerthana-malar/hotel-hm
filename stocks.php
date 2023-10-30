@@ -61,9 +61,8 @@ $logUser = $_SESSION['user'];
 
             
             echo "<td>
-            <a href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
-            <a href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-stock.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a>
+           
         </td>";
     
 
@@ -82,6 +81,12 @@ $logUser = $_SESSION['user'];
 
 </div>
 
+
+<!-- edit and delete echo  -->
+<!-- <a href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a href='delete-stock.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> -->
+
+            
 <?php
 include('footer.php');
 ?>

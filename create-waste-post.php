@@ -6,13 +6,14 @@ require('db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 =  "wastes.php?succ=";
     $u2 = "create-waste.php?err=";
+
     // User Data 
     $branch = $_POST['branch'];
     $date = $_POST['date'];
     $amount = $_POST['amount'];
 
-
-
+    $branch = isset($_POST['branch']) ? $_POST['branch'] : null;
+    $date = isset($_POST['date']) ? $_POST['date'] : null;
 
     // Duplicate product name check
     $checkDuplicateQuery = "SELECT COUNT(*) FROM `waste` WHERE id = :id";
@@ -40,16 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':date', $date);
     $stmt->bindParam(':waste_amount', $amount);
 
-
-
-
-
     if (!$stmt->execute()) {
         header("Location: " . $u2 . urlencode('Something Wrong please try again later'));
     } else {
         $wasteID = $pdo->lastInsertId();
     }
+
     
+    
+
+    
+
     // Insert waste item details into the associated table
     for ($i = 0; $i < count($_POST['pro']); $i++) {
         $productID = $_POST['pro'][$i];
@@ -74,5 +76,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header("Location: " . $u1 . urlencode('Waste Successfully Created'));
     exit();
+
+    // Duplication record check for date based 
+    if ($branch !== null && $date !== null) {
+        try {
+            // Check if a record already exists for the specified branch and date
+            $sql_check = "SELECT COUNT(*) FROM `waste` WHERE branchid = :branchid AND date = :date";
+            $stmt_check = $pdo->prepare($sql_check);
+            $stmt_check->bindParam(':branchid', $branch);
+            $stmt_check->bindParam(':date', $date);
+            $stmt_check->execute();
+
+            if ($stmt_check->fetchColumn() == 0) {
+                // No duplicate record found, proceed with the insert
+                $sql = "INSERT INTO `waste` (branchid, date) VALUES (:branchid, :date)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':branchid', $branch);
+                $stmt->bindParam(':date', $date);
+
+                if ($stmt->execute()) {
+                    header('Location: ' . $u2 . urlencode('Record inserted successfully.'));
+                    exit();
+                } else {
+                    // Handle the case when the SQL statement fails to execute
+                    echo "Error: " . $stmt->errorInfo()[2];
+                }
+            } else {
+                // A record already exists for this branch and date
+                echo "A record already exists for this branch on the specified date.";
+            }
+        } catch (PDOException $e) {
+            // Handle database errors
+            echo "Database Error: " . $e->getMessage();
+        }
+    } else {
+        // Handle the case when the branch or date is missing in the POST request
+        echo "Branch and/or date values are missing in the POST request.";
+    }
 }
 ?>
