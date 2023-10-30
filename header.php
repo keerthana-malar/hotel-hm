@@ -46,5 +46,8 @@
       background: none;
       color: red;
     }
+    label > span{
+      color:red;
+    }
   </style>
 </head>

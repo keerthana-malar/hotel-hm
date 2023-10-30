@@ -32,25 +32,25 @@ $roleData = $pdo->query($roleSql);
             <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">Name</label>
-                    <input type="text" class="form-control" name="name" id="exampleInputName1" placeholder="Name">
+                    <label for="exampleInputName1">Name <span>*</span></label>
+                    <input type="text" class="form-control" name="name" id="exampleInputName1" placeholder="Name" required>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
-                    <label for="exampleInputEmail3">Username</label>
-                    <input type="text" class="form-control" name="username" id="exampleInputEmail3" placeholder="Username">
+                    <label for="exampleInputEmail3">Username <span>*</span></label>
+                    <input type="text" class="form-control" name="username" id="exampleInputEmail3" required placeholder="Username">
                 </div>
 
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
-                    <label for="exampleInputPassword4">Password</label>
-                    <input type="password" class="form-control" name="password" id="exampleInputPassword4" placeholder="Password">
+                    <label for="exampleInputPassword4">Password <span>*</span></label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword4" required placeholder="Password">
                 </div>
 
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
                     <label for="exampleSelectGender">Role</label>
                     <select class="form-control" id="exampleSelectGender" name="role" disabled>
@@ -61,10 +61,10 @@ $roleData = $pdo->query($roleSql);
                 </div>
 
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-2">
             <div class="form-group">
-                    <label for="exampleSelectGender">Branch</label>
-                    <select class="form-control" id="exampleSelectGender" name="branch">
+                    <label for="exampleSelectGender">Branch <span>*</span></label>
+                    <select class="form-control" id="exampleSelectGender" name="branch" required>
                         
                 <?php foreach ($branchdata as $row): ?>
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>

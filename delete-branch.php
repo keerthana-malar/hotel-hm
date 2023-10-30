@@ -8,7 +8,11 @@ require('db.php');
 
 if (isset($_GET['delete_id'])) {
     $branchID = $_GET['delete_id'];
-
+// Check if the branch being deleted is the one you want to protect (e.g., branch with ID 1)
+if ($branchID ==1 ) {
+    header("Location: branchs.php?err=" . urlencode('You cannot delete Main branch.'));
+    exit();
+}
     // Delete the branch from the database
     $deleteSql = "DELETE FROM branch WHERE id = :id";
     $stmt = $pdo->prepare($deleteSql);

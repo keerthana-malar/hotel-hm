@@ -12,20 +12,20 @@ include('menu.php');
         <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">Branch Name</label>
-                    <input type="text" class="form-control" name="branch" id="exampleInputName1" placeholder="Name">
+                    <label for="exampleInputName1">Branch Name <span>*</span></label>
+                    <input type="text" class="form-control" name="branch" id="exampleInputName1" placeholder="Name" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputEmail3">Address</label>
-                    <input type="text" class="form-control" name="address" id="exampleInputEmail3" placeholder="Address">
+                    <label for="exampleInputEmail3">Address <span>*</span></label>
+                    <input type="text" class="form-control" name="address" id="exampleInputEmail3" placeholder="Address" required>
                 </div>
 
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputPassword4">phone</label>
+                    <label for="exampleInputPassword4">phone <span>*</span></label>
                     <input type="text" class="form-control" name="phone" pattern="[0-9]+" placeholder="Phone" required>
                 </div>
 
@@ -33,8 +33,8 @@ include('menu.php');
           
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>

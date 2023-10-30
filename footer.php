@@ -129,6 +129,21 @@
 
 </script>
 
+<script>
+    var deliveryDateInput = document.getElementById('deliveryDateinput');
+    
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); 
+    deliveryDateInput.addEventListener('change', function () {
+        var selectedDate = new Date(deliveryDateInput.value);
+        
+        if (selectedDate < currentDate) {
+            alert('Please choose a delivery date that is today or later.');
+            deliveryDateInput.value = ''; 
+        }
+    });
+</script>
+
 
 </body>
 

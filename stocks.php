@@ -13,11 +13,11 @@ $stockData = $pdo->query($stockSql);
 $logUser = $_SESSION['user'];
 ?>
 <div class="main-box">
-    <div class="d-flex justify-content-end mb-5">
+    <!-- <div class="d-flex justify-content-end mb-5">
         <a href="create-stock.php">
             <button class="btn btn-success">Create</button>
         </a>
-    </div>
+    </div> -->
     <?php if (!empty($_GET['succ'])): ?>
 					  
                       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,7 +45,7 @@ $logUser = $_SESSION['user'];
         echo "<thead> <tr>
             <th> ID</th>
             <th> Branch</th>
-            <th>  Date</th>
+            <th>  Modified Date</th>
             <th>Action</th>
         </tr> </thead>";
 

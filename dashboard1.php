@@ -206,7 +206,7 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                 <div class="dashboard-item red">
                     <div class="inner">
                         <div>
-                            <h3> Total Wastes</h3>
+                            <h3> Total Waste Cost</h3>
                             <p>
                                 <?= $totalWastes ?>
                             </p>

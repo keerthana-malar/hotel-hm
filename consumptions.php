@@ -44,8 +44,8 @@ $logUser = $_SESSION['user'];
         echo "<table class='table table-hover'>";
         echo "<thead> <tr>
             <th> ID</th>
-            <th> Branch</th>
             <th>  Date</th>
+            <th> Branch</th>
             <th>Action</th>
         </tr> </thead>";
 
@@ -55,9 +55,8 @@ $logUser = $_SESSION['user'];
             
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
-            echo "<td>" . $branchee['name']. "</td>";
-
             echo "<td>" . $row['date_created'] . "</td>";
+            echo "<td>" . $branchee['name']. "</td>";
 
             
             echo "<td>

@@ -20,31 +20,33 @@ $cuisinedata = $pdo->query($cuisinesql);
         <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">Product Name</label>
-                    <input type="text" class="form-control" name="product" id="exampleInputName1" placeholder="Name">
+                    <label for="exampleInputName1">Product Name <span>*</span></label>
+                    <input type="text" class="form-control" name="product" id="exampleInputName1" placeholder="Name" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Unit</label>
-                    <select class="form-control" name="unit" id="exampleInputStatus">
-                    <option value="kg">g</option>
-                        <option value="kg">kg</option>
-                        <option value="Ltr">Ltr</option>
+                    <label for="exampleInputStatus">Unit <span>*</span></label>
+                    <select class="form-control" name="unit" id="exampleInputStatus" required>
+                    <option value="kg">Gram(g)</option>
+                        <option value="kg">Kilograms(kg)</option>
+                        <option value="Ltr">Liters(L)</option>
+                        <option value="piece">Piece</option>
+
                     </select>
                 </div>
             </div>
         
 <div class="col-12 col-md-6 col-lg-3">
 <div class="form-group">
-    <label for="exampleInputName1">Price (Per Unit)</label>
-    <input type="text" class="form-control" name="price" id="exampleInputName1" placeholder="price">
+    <label for="exampleInputName1">Price (Per Unit) <span>*</span></label>
+    <input type="text" class="form-control" name="price" id="exampleInputName1" placeholder="price" required>
 </div>
 </div>
 <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Type</label>
-                    <select class="form-control" name="type" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Type <span>*</span></label>
+                    <select class="form-control" name="type" id="exampleInputStatus" required>
                     <option value=""></option>
 
                 <?php foreach ($typedata as $row): ?>
@@ -56,8 +58,8 @@ $cuisinedata = $pdo->query($cuisinesql);
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Category</label>
-                    <select class="form-control" name="category" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Category <span>*</span></label>
+                    <select class="form-control" name="category" id="exampleInputStatus" required>
 
                         <option value=""></option>
 
@@ -71,8 +73,8 @@ $cuisinedata = $pdo->query($cuisinesql);
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Cuisine</label>
-                    <select class="form-control" name="cuisine" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Cuisine <span>*</span></label>
+                    <select class="form-control" name="cuisine" id="exampleInputStatus" required>
                         <option value=""></option>
                         
                         <?php foreach ($cuisinedata as $row): ?>
@@ -83,8 +85,8 @@ $cuisinedata = $pdo->query($cuisinesql);
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
-                    <select class="form-control" name="status" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Status <span>*</span></label>
+                    <select class="form-control" name="status" id="exampleInputStatus" required>
                     <option value=""></option>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
@@ -94,19 +96,19 @@ $cuisinedata = $pdo->query($cuisinesql);
             <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">image</label>
-                    <input type="file" class="form-control" name="img1" id="exampleInputName1" placeholder="Name">
+                    <label for="exampleInputName1">image<span>*</span></label>
+                    <input type="file" class="form-control" name="img1" id="exampleInputName1" placeholder="Name" required>
                 </div>
             </div>
             </div>
           
 
-            </div>
+         
             
         <button type="submit" class="btn btn-primary mr-2">Submit</button>
     </form>
 </div>
-
+</div>
 <?php
 include('footer.php');
 ?>

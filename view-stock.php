@@ -27,8 +27,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
         // Fetch and display the stock item details associated with the stock
         echo "<h3>Stock Items</h3>";
-        echo "<hr>";
-        
+
 
         $stockItemSql = "SELECT * FROM `stockitem` WHERE stock_id = :stock_id AND qty > 0";
         $stockItemStmt = $pdo->prepare($stockItemSql);
@@ -54,14 +53,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $categoryStmt->bindParam(':category_id', $item['category_id']);
                 $categoryStmt->execute();
                 $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
-
-                // Fetch type name
-                $typeSql = "SELECT name FROM `type` WHERE id = :type_id";
-                $typeStmt = $pdo->prepare($typeSql);
-                $typeStmt->bindParam(':type_id', $item['type_id']);
-                $typeStmt->execute();
-                $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
-
+        
+                // // Fetch type name
+                // $typeSql = "SELECT name FROM `type` WHERE id = :type_id";
+                // $typeStmt = $pdo->prepare($typeSql);
+                // $typeStmt->bindParam(':type_id', $item['type_id']);
+                // $typeStmt->execute();
+                // $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
+        
                 // Fetch cuisine name
                 $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisine_id";
                 $cuisineStmt = $pdo->prepare($cuisineSql);
@@ -79,7 +78,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                 echo "<tr>";
                 echo "<td><div>{$productData['name']}</div></td>";
-                echo "<td><div>{$typeData['name']}</div></td>";
+//                 echo "<td><div>{$typeData['name']}</div></td>";
+                // echo "<td><div>{$typeData['name']}</div></td>";
                 echo "<td><div>{$cuisineData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$item['qty']}</div></td>";

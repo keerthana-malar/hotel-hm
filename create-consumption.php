@@ -8,6 +8,7 @@ $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+$currentDate = date('Y-m-d');
 ?>
 
 
@@ -20,8 +21,8 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
@@ -35,7 +36,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
-                    <input type="date" class="form-control" name="date" id="exampleInputDate">
+                    <input type="date" class="form-control" name="date" id="" value="<?=$currentDate ?>"required readonly>
                 </div>
             </div>
 
@@ -44,10 +45,10 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row mb-4">
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" required>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
@@ -93,8 +94,8 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Current Qty</label>
-                    <input class="form-control mb-2" type="number" name="qt[]">
+                    <label for="">Current Qty <span>*</span></label>
+                    <input class="form-control mb-2" type="number" name="qt[]" required>
                 </div>
 
 

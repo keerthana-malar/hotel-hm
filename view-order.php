@@ -85,7 +85,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<td><div>{$cuisineData['name']}</div></td>";
                 echo "<td><div>{$item['order_qty']}</td>";
                 echo "</tr>";
-            }
+            } 
 
             echo "</table>";
 
@@ -104,18 +104,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 include('footer.php');
 ?>
 <script>
-// JavaScript code for printing
-document.getElementById("printButton").addEventListener("click", function() {
-    // Hide the Print button
-    document.getElementById("printButton").style.display = "none";
-    
-    // Print the page
-    window.print();
-    
-    // Restore the Print button after printing
-    document.getElementById("printButton").style.display = "block";
-});
+/function generateAndDownloadExcel() {
+    // Make an AJAX request to the server to generate the Excel file
+    $.get('generate_excel.php', function() {
+        // After successful generation, trigger the download
+        window.location = 'order_details.xls';
+    });
+}
+
+// Attach the function to the "Print" button click event
+document.getElementById('printButton').addEventListener('click', generateAndDownloadExcel);
 </script>
+
 <style>
     table {
     border-collapse: collapse;

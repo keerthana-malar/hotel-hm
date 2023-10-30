@@ -17,29 +17,28 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch</label>
-                    <select class="form-control" name="branch" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Branch <span>*</span></label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" required>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
                                 <?= $row['name'] ?>
                             </option>
                         <?php endforeach; ?>
-
                     </select>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
-                    <input type="date" class="form-control" name="date" id="exampleInputDate">
+                    <input type="date" class="form-control" name="date" id="exampleInputDate" value="<?=date('Y-m-d') ?>" readonly>
                 </div>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">Waste Amount</label>
+                    <label for="exampleInputName1">Total Waste Amount <span>*</span></label>
                     <input type="number" class="form-control" name="amount" id="exampleInputName1"
                         placeholder="Enter amount" readonly>
                 </div>
@@ -51,8 +50,8 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             <div class="row mb-4">
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]" onchange="handleQty(this)">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]" onchange="handleQty(this)" required>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
@@ -98,13 +97,13 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                     </div>
                 </div>
 
-
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Waste Qty</label>
-                    <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)">
+                    <label for="">Waste Qty <span>*</span></label>
+                    <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" required>
                 </div>
 
                 <input class="form-control mb-2" type="number" value="" name="cost[]" readonly hidden>
+
             </div>
         </div>
         <!-- End of additional product details rows -->

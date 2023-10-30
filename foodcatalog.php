@@ -76,8 +76,8 @@ $logUser = $_SESSION['user'];
       echo "<td>" . $catee['name'] . "</td>";
       echo "<td>" . $cusiee['name'] . "</td>";
       echo "<td>" . $row['status'] . "</td>";
-      echo "<td><a href='view-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye '></i></a>";
-      echo "<a href='edit-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a>";
+      echo "<td><a href='view-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye '></i></a> | ";
+      echo "<a href='edit-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | ";
       echo "<a href='delete-product.php?id=" . $row['id'] . "' class='text-danger'><i class='  typcn typcn-trash'></a></td>";
       echo "</tr>";
     }

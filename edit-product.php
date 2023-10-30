@@ -40,9 +40,11 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="exampleInputStatus">Unit</label>
                     <select class="form-control" name="unit" id="exampleInputStatus">
-                    <option value="kg" <?php if ($productData['unit'] === 'g') echo 'selected'; ?>>g</option>
-                        <option value="kg" <?php if ($productData['unit'] === 'kg') echo 'selected'; ?>>kg</option>
-                        <option value="Ltr" <?php if ($productData['unit'] === 'Ltr') echo 'selected'; ?>>Ltr</option>
+                    <option value="kg" <?php if ($productData['unit'] === 'g') echo 'selected'; ?>>Gram(g)</option>
+                        <option value="kg" <?php if ($productData['unit'] === 'kg') echo 'selected'; ?>>Kilograms(kg)</option>
+                        <option value="Ltr" <?php if ($productData['unit'] === 'Ltr') echo 'selected'; ?>>litre(L)</option>
+                        <option value="Ltr" <?php if ($productData['unit'] === 'piece') echo 'selected'; ?>>Piece</option>
+
                     </select>
                 </div>
             </div>
@@ -101,9 +103,13 @@ if (isset($_GET['id'])) {
             </div>
         </div>
             <!-- Continue with other form fields using the same structure -->
-        </div>
         <button type="submit" class="btn btn-primary mr-2">Update</button>
     </form>
 </div>
+</div>
 
 <?php include('footer.php'); ?>
+
+
+
+

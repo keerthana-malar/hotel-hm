@@ -52,7 +52,7 @@ $branchdata = $pdo->query($branchsql);
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputRole">Role</label>
-                    <input type="text" class="form-control" name="role" id="exampleInputRole" value="<?php echo $userData['role']; ?>">
+                    <input type="text" class="form-control" name="role" disabled id="exampleInputRole" value="<?php echo $userData['role']; ?> ">
                 </div>
             </div>
         </div>
