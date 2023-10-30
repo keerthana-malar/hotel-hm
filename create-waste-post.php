@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
 
     // Validation
-    if (empty($branch) || empty( $date ) || empty( $amount)) {
-        header("Location: " . $u2 . urlencode('All Fields Are Required'));
-    exit();
-    }
+    // if (empty($branch) || empty( $date ) || empty( $amount)) {
+    //     header("Location: " . $u2 . urlencode('All Fields Are Required'));
+    // exit();
+    // }
 
     // Insert data into product table
     $sql = "INSERT INTO `waste` (branchid, date, waste_amount) VALUES (:branchid, :date, :waste_amount)";

@@ -48,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $typeID = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
+
+        echo $typeID;
+        echo "<br>";
         
 
 
@@ -63,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stockItemStmt->execute();
     }
 
-    header("Location: " . $u1 . urlencode('Stock Successfully Updated'));
-    exit();
+    // header("Location: " . $u1 . urlencode('Stock Successfully Updated'));
+    // exit();
 }
 ?>

@@ -9,9 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branch = $_POST['branch'];
     $date = $_POST['date'];
 
-    // Duplicate product name check
-    // ...
-
     // Validation
     if (empty($branch) || empty($date)) {
         echo "Error: All fields are required.";

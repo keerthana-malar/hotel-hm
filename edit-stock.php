@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
     // Retrieve branch data for dropdown
     $branchSql = "SELECT * FROM branch WHERE status = 'Active'";
     $branchData = $pdo->query($branchSql);
-    $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+    // $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="branch">Branch</label>
-            <select class="form-control" id="branch" name="branch">
+            <select class="form-control" id="branch" name="branch" disabled>
                 <?php foreach ($branchData as $branch) : ?>
                     <option value="<?php echo $branch['id']; ?>" <?php if ($stockData['branchid'] == $branch['id']) echo 'selected'; ?>>
                         <?php echo $branch['name']; ?>
@@ -54,8 +54,8 @@ if (isset($_GET['id'])) {
         <!-- Date -->       
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" class="form-control" id="date" name="date" value="<?php echo $stockData['date_created']; ?>" value="<?= $currentDate ?>" readonly>
+            <label for="date">Date Modified</label>
+            <input type="date" class="form-control" id="date" name="date" value="<?php echo $stockData['date_created']; ?>" value="<?= $currentDate ?>" disabled>
         </div>
         </div>
         </div>
@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
                         </select>
                     </div>
                 </div>
-                    <!-- <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Type</label>
                         <select class="form-control mb-2" name="ty[]">
@@ -82,7 +82,7 @@ if (isset($_GET['id'])) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                </div> -->
+                </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
