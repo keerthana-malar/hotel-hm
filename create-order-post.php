@@ -64,27 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderItemStmt->execute();
     }
 
-    // Stock Adding
-    if ($status == 'Received') {
-        // Check Stock
-        $stockCheckQry = 'SELECT * FROM `stock` WHERE branchid = :branchid';
-        $stockCheckStmt = $pdo->prepare($stockCheckQry);
-        $stockCheckStmt->bindParam(':branchid', $branch);
-        $stockCheckStmt->execute();
-    
-        if ($stockCheckStmt->rowCount() == 0) {
-            // No stock
-            $stockAccAddQ = "INSERT INTO `stock` (branchid, date_created) VALUES (:branchid, :orderdate)";
-            $stockAccAddStmt = $pdo->prepare($stockAccAddQ);
-            $stockAccAddStmt->bindParam(':branchid', $branch);
-            $stockAccAddStmt->bindParam(':orderdate', $orderdate);
-            $stockAccAddStmt->execute();
-
-
-        } else {
-            
-        }
-    }
     header("Location: " . $u1 . urlencode('Order Successfully Created'));
     exit();
 }

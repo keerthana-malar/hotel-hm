@@ -61,7 +61,7 @@
                             var catSel = cat.options[cat.selectedIndex];
                             var cusSel = cus.options[cus.selectedIndex];
 
-                            if(window.location.href.includes('consumption')){
+                            if(window.location.href.includes('consumption') || window.location.href.includes('stock')){
                                 var typSel = typ.options[typ.selectedIndex];
                                 var typName = typSel.text;
                                 typ.value = data.typid;

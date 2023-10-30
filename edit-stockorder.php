@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Stock Order</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-order.php">
+    <form class="forms-sample" method="post" action="update-stockorder.php">
         <div class="row">
 
             <input type="hidden" name="orderID" value="<?php echo $orderData['id']; ?>">
