@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Food Order</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-order.php">
+    <form class="forms-sample" method="post" action="update-order.php" onsubmit="return handleSubmit()">
         <div class="row">
 
             <input type="hidden" name="orderID" value="<?php echo $orderData['id']; ?>">
@@ -93,7 +93,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select class="form-control" name="status" id="status">
+                    <select class="form-control" name="status" id="status" onchange="handleQty()">
                         <option value="created" <?php if ($orderData['status'] === 'Created')
                             echo 'selected'; ?>>Created
                         </option>
@@ -200,33 +200,27 @@ if (isset($_GET['id'])) {
                                     echo 'selected'; ?>>Urgent
                                 </option>
                             </select>
-
-
                         </div>
-
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">
                         <label for="">Order_Qty</label>
-                        <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
-                            readonly>
+                        <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2 hiddenDel">
                         <label for="">Delivery_Qty</label>
                         <input type="number" class="form-control mb-2" value="<?php echo $od['delivery_qty']; ?>"
                             name="deliveryqt[]">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2 hiddenRec">
                         <label for="">Received_Qty</label>
                         <input type="number" class="form-control mb-2" value="<?php echo $od['received_qty']; ?>"
                             name="receivedqt[]">
                     </div>
-                    <input type="number" class="form-control mb-2"
-                        value="<?php if ($orderData['status'] === 'Received') {
-                            echo $od['received_qty'];
-                        } else {
-                            echo 0;
-                        } ?>"
-                        name="oldRecQty[]">
+                    <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {
+                        echo $od['received_qty'];
+                    } else {
+                        echo 0;
+                    } ?>" name="oldRecQty[]" hidden>
 
                     <input type="hidden" name="ty[]" value="1">
 
@@ -245,5 +239,133 @@ if (isset($_GET['id'])) {
 </div>
 </form>
 </div>
+
+<script>
+    function handleQty() {
+
+        let e = document.querySelector('[name="status"]')
+
+        let pro = document.querySelectorAll('[name="pro[]"]')
+        let cus = document.querySelectorAll('[name="cu[]"]')
+        let cat = document.querySelectorAll('[name="ca[]"]')
+        let pri = document.querySelectorAll('[name="pr[]"]')
+        let qty = document.querySelectorAll('[name="qt[]"]')
+        let dQty = document.querySelectorAll('[name="deliveryqt[]"]')
+        let rQty = document.querySelectorAll('[name="receivedqt[]"]')
+
+
+        let db = document.querySelectorAll(".hiddenDel");
+        let rb = document.querySelectorAll('.hiddenRec');
+
+        db.forEach((p) => {
+            p.hidden = true
+        })
+        rb.forEach((p) => {
+            p.hidden = true
+        })
+
+        console.log(db)
+
+        if (e.value !== "created") {
+
+            pro.forEach((p) => {
+                p.disabled = true
+            })
+            cus.forEach((p) => {
+                p.disabled = true
+            })
+            cat.forEach((p) => {
+                p.disabled = true
+            })
+            pri.forEach((p) => {
+                p.disabled = true
+            })
+            qty.forEach((p) => {
+                p.disabled = true
+            })
+
+        } else {
+            pro.forEach((p) => {
+                p.disabled = false
+            })
+            cus.forEach((p) => {
+                p.disabled = false
+            })
+            cat.forEach((p) => {
+                p.disabled = false
+            })
+            pri.forEach((p) => {
+                p.disabled = false
+            })
+            qty.forEach((p) => {
+                p.disabled = false
+            })
+        }
+
+        if (e.value == "Delivered") {
+            dQty.forEach((p) => {
+                p.disabled = false
+            })
+            db.forEach((p) => {
+                p.hidden = false
+            })
+
+        } else {
+            dQty.forEach((p) => {
+                p.disabled = true
+            })
+        }
+
+        if (e.value == "Received") {
+            rQty.forEach((p) => {
+                p.disabled = false
+            })
+            rb.forEach((p) => {
+                p.hidden = false
+            })
+        } else {
+            rQty.forEach((p) => {
+                p.disabled = true
+            })
+        }
+    }
+    handleQty()
+
+    function handleSubmit() {
+
+        let pro = document.querySelectorAll('[name="pro[]"]')
+        let cus = document.querySelectorAll('[name="cu[]"]')
+        let cat = document.querySelectorAll('[name="ca[]"]')
+        let pri = document.querySelectorAll('[name="pr[]"]')
+        let qty = document.querySelectorAll('[name="qt[]"]')
+        let dQty = document.querySelectorAll('[name="deliveryqt[]"]')
+        let rQty = document.querySelectorAll('[name="receivedqt[]"]')
+
+        pro.forEach((p) => {
+            p.disabled = false
+        })
+        cus.forEach((p) => {
+            p.disabled = false
+        })
+        cat.forEach((p) => {
+            p.disabled = false
+        })
+        pri.forEach((p) => {
+            p.disabled = false
+        })
+        qty.forEach((p) => {
+            p.disabled = false
+        })
+        dQty.forEach((p) => {
+            p.disabled = false
+        })
+        rQty.forEach((p) => {
+            p.disabled = false
+        })
+
+        return true;
+
+    }
+</script>
 
 <?php include('footer.php'); ?>
