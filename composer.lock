@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "bbc53b940b501e165118efaa9a76f548",
+
     "packages": [
         {
             "name": "tecnickcom/tcpdf",

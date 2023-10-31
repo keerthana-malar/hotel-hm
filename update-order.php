@@ -8,8 +8,8 @@ require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    
-    
+
+
     $u1 = "orders.php?succ=";
     $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderName = $_POST['orderName'];
 
     // Update data in the order table
-    $updateSql = "UPDATE `order` SET branchid = :branchid, orderdate = :orderdate, deliverydate = :deliverydate, priority = :priority, status = :status, description = :description, status = :status, order_name = :order_name WHERE id = :id";
+    $updateSql = "UPDATE `order` SET branchid = :branchid, orderdate = :orderdate, deliverydate = :deliverydate, priority = :priority, status = :status, description = :description, order_name = :order_name WHERE id = :id";
     $stmt = $pdo->prepare($updateSql);
     $stmt->bindParam(':id', $orderID);
     $stmt->bindParam(':branchid', $branchID);
@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
         $priorityy = $_POST['pr'][$i];
-        $deliveryQty = $_POST['deliveryqt'][$i];
-        $receivedQty = $_POST['receivedqt'][$i];
+        $quantitys = $_POST['deliveryqt'][$i];
+        $quantit = $_POST['receivedqt'][$i];
 
-        
+        $oldRecQty = $_POST['oldRecQty'][$i];
 
 
         $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, priority, delivery_qty, received_qty) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :priority, :delivery_qty, :received_qty)";
@@ -68,13 +68,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderItemStmt->bindParam(':categoryid', $categoryID);
         $orderItemStmt->bindParam(':order_qty', $quantity);
         $orderItemStmt->bindParam(':priority', $priorityy);
-        $orderItemStmt->bindParam(':received_qty',  $deliveryQty);
-        $orderItemStmt->bindParam(':delivery_qty',  $receivedQty);
+        $orderItemStmt->bindParam(':received_qty', $quantit);
+        $orderItemStmt->bindParam(':delivery_qty', $quantitys);
 
-        $orderItemStmt->execute();
+
+        if ($orderItemStmt->execute()) {
+            if ($status == 'Received') {
+                // Get Stock id 
+                $sidSql = "SELECT id FROM `stock` WHERE branchid = $branchID";
+                $sidStmt = $pdo->query($sidSql);
+                $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
+                $sid = $sidData["id"];
+
+                // var_dump($sid);
+                // exit();
+
+                // Get Current qty 
+                $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                $cqStmt = $pdo->query($cqSql);
+                $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+                $cq = $cqData["qty"];
+
+                $updatedQty = 0;
+
+                if ($oldRecQty <= $quantit) {
+                    $updatedQty = $quantit - $oldRecQty;
+                    $finalQty = $cq + $updatedQty;
+                } else {
+                    $updatedQty = $oldRecQty - $quantit;
+                    $finalQty = $cq - $updatedQty;
+                }
+
+                // echo "NQ";
+                // var_dump($quantit);
+
+                // echo "OQ";
+                // var_dump($oldRecQty);
+
+                // echo "UQ";
+                // var_dump($updatedQty);
+
+                
+
+                // echo "CQ";
+                // var_dump($cq);
+
+                
+
+                // echo "FQ";
+                // var_dump($finalQty);
+
+                // exit();
+
+                // Update Stock
+                $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
+                $sustmt = $pdo->prepare($susql);
+
+                $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
+                $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
+                $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
+
+                $sustmt->execute();
+            }
+        }
     }
 
     header("Location: " . $u1 . urlencode('Order Successfully Updated'));
     exit();
+
 }
 ?>

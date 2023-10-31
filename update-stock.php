@@ -23,20 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':date_created', $date);
 
     if ($stmt === false) {
-        // Error handling for preparing the statement
         die("Error preparing statement: " . $pdo->errorInfo()[2]);
     }
-    
-    if ($stmt->execute()) {
-        // The execution was successful, handle it accordingly
-    } else {
-        // Execution failed, handle the error
-        header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
+
+    if (!$stmt->execute()) {
+        header("Location: " . $u2 . urlencode('Something went wrong Please try again later'));
         exit();
     }
     $oid = $_POST['oid'];
 
-    $deleteDaysQuery = "DELETE FROM stockitem WHERE stock_id = :postID";
+    $deleteDaysQuery = "DELETE FROM `stockitem` WHERE stock_id = :postID";
     $stmtDelete = $pdo->prepare($deleteDaysQuery);
     $stmtDelete->bindParam(':postID', $oid);
     $stmtDelete->execute();
@@ -48,11 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $typeID = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
-
-        echo $typeID;
-        echo "<br>";
-        
-
 
         $stockItemSql = "INSERT INTO `stockitem` (stock_id, product_id, cuisine_id, type_id, qty, category_id) VALUES (:stock_id, :product_id, :cuisine_id, :type_id, :qty, :category_id)";
         $stockItemStmt = $pdo->prepare($stockItemSql);
@@ -66,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stockItemStmt->execute();
     }
 
-    // header("Location: " . $u1 . urlencode('Stock Successfully Updated'));
-    // exit();
+    header("Location: " . $u1 . urlencode('Stock Successfully Updated'));
+    exit();
 }
 ?>

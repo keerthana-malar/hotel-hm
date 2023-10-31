@@ -10,6 +10,27 @@ $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->
 $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div class="main-box">
+    <?php if (!empty($_GET['succ'])): ?>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <h2 class="mb-3">Create Waste</h2>
     <hr>
     <form class="forms-sample" method="post" action="create-waste-post.php" onsubmit="handleSubmit(this)">
@@ -31,12 +52,12 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
-                    <input type="date" class="form-control" name="date" id="exampleInputDate" value="<?=date('Y-m-d') ?>" readonly>
+                    <input type="date" class="form-control" name="date" id="exampleInputDate"
+                        value="<?= date('Y-m-d') ?>" readonly>
                 </div>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3">
-
                 <div class="form-group">
                     <label for="exampleInputName1">Total Waste Amount <span>*</span></label>
                     <input type="number" class="form-control" name="amount" id="exampleInputName1"
@@ -234,6 +255,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             totalCost += parseInt(cost.value);
             totalCostField.value = totalCost;
         })
+        return true;
     }
 
     function handleQty(e) {
