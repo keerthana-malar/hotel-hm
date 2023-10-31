@@ -53,8 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
         $priorityy = $_POST['pr'][$i];
-        $quantitys = $_POST['deliveryqt'][$i];
-        $quantit = $_POST['receivedqt'][$i];
+        $deliveryQty = $_POST['deliveryqt'][$i];
+        $receivedQty = $_POST['receivedqt'][$i];
+
+        
 
         $oldRecQty = $_POST['oldRecQty'][$i];
 
@@ -68,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderItemStmt->bindParam(':categoryid', $categoryID);
         $orderItemStmt->bindParam(':order_qty', $quantity);
         $orderItemStmt->bindParam(':priority', $priorityy);
-        $orderItemStmt->bindParam(':received_qty', $quantit);
-        $orderItemStmt->bindParam(':delivery_qty', $quantitys);
+        $orderItemStmt->bindParam(':received_qty',  $deliveryQty);
+        $orderItemStmt->bindParam(':delivery_qty',  $receivedQty);
 
 
         if ($orderItemStmt->execute()) {

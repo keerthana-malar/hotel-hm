@@ -45,7 +45,6 @@ $logUser = $_SESSION['user'];
         echo "<thead> <tr>
             <th> ID</th>
             <th> Branch</th>
-            <th>  Modified Date</th>
             <th>Action</th>
         </tr> </thead>";
 
@@ -57,13 +56,11 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $branchee['name']. "</td>";
 
-            echo "<td>" . $row['date_created'] . "</td>";
-
             
             echo "<td>
             <a href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
-            <a href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-stock.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a>
+           
         </td>";
     
 
@@ -82,6 +79,11 @@ $logUser = $_SESSION['user'];
 
 </div>
 
+
+<!-- edit and delete echo  -->
+
+            <!-- <a href='delete-stock.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> -->
+            
 <?php
 include('footer.php');
 ?>

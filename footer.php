@@ -27,13 +27,26 @@
 <script src="js/dashboard.js"></script>
 <!-- End custom js for this page-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+<!-- DataTables Buttons JavaScript -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
 
 
 <script>
          $(document).ready(function() {
-         $('.table').DataTable();
+         $('.table').DataTable({
+        buttons: [
+            'copy', // Copy to clipboard
+            'excel', // Export to Excel
+            'csv',   // Export to CSV
+            'pdf',   // Export to PDF
+            'print'  // Print button
+        ]
+         });
     });
+
+
 </script>
 
 <!-- Add btn and Product Data  -->

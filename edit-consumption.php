@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="branch">Branch</label>
-            <select class="form-control" id="branch" name="branch">
+            <select class="form-control" id="branch" name="branch" disabled >
                 <?php foreach ($branchData as $branch) : ?>
                     <option value="<?php echo $branch['id']; ?>" <?php if ($consumptionData['branchid'] == $branch['id']) echo 'selected'; ?>>
                         <?php echo $branch['name']; ?>
@@ -53,7 +53,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" class="form-control" id="date" name="date" value="<?php echo $consumptionData['date_created']; ?>">
+            <input type="date" class="form-control" id="date" name="date" disabled  value="<?php echo $consumptionData['date_created']; ?>">
         </div>
         </div>
         </div>
@@ -102,7 +102,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Used-Qty</label>
+                    <label for="">Available Qty</label>
                     <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>">
                 </div>
              
