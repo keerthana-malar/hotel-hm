@@ -212,12 +212,21 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">
                         <label for="">Delivery_Qty</label>
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]">
+                        <input type="number" class="form-control mb-2" value="<?php echo $od['delivery_qty']; ?>"
+                            name="deliveryqt[]">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">
                         <label for="">Received_Qty</label>
-                        <input type="number" class="form-control mb-2" name="receivedqt[]">
+                        <input type="number" class="form-control mb-2" value="<?php echo $od['received_qty']; ?>"
+                            name="receivedqt[]">
                     </div>
+                    <input type="number" class="form-control mb-2"
+                        value="<?php if ($orderData['status'] === 'Received') {
+                            echo $od['received_qty'];
+                        } else {
+                            echo 0;
+                        } ?>"
+                        name="oldRecQty[]">
 
                     <input type="hidden" name="ty[]" value="1">
 
