@@ -11,25 +11,27 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
 $currentDate = date('Y-m-d');
 ?>
 <div class="main-box">
-<?php if (!empty($_GET['succ'])): ?>
-					  
-                      <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong><?php  echo $_GET['succ'] ?></strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                                        <?php endif ?>
-                                        <?php if (!empty($_GET['err'])): ?>
-                                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong><?php  echo $_GET['err'] ?></strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>  
-                                        <?php endif ?>
+    <?php if (!empty($_GET['succ'])): ?>
 
-
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
 
     <h2 class="mb-3">Create Consumption</h2>
     <hr>
@@ -53,7 +55,8 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
-                    <input type="date" class="form-control" name="date" id="" value="<?=$currentDate ?>"required readonly>
+                    <input type="date" class="form-control" name="date" id="" value="<?= $currentDate ?>" required
+                        readonly>
                 </div>
             </div>
 
@@ -111,10 +114,10 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Current Qty <span>*</span></label>
+                    <label for="">Available Qty <span>*</span></label>
                     <input class="form-control mb-2" type="number" name="qt[]" required>
                 </div>
-                <input class="form-control mb-2" type="number" name="uqt[]">
+                <input class="form-control mb-2" type="number" name="uqt[]" readonly hidden>
 
 
             </div>
@@ -127,11 +130,8 @@ $currentDate = date('Y-m-d');
         <button type="submit" class="btn btn-primary mr-2">Submit</button>
 
 </div>
-
-
 </form>
 </div>
-
 
 
 <?php

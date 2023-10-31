@@ -35,7 +35,7 @@ $logUser = $_SESSION['user'];
                     </button>
                   </div>  
                                         <?php endif ?>
-    <h2 class="mb-3">Consumptions</h2>
+    <h2 class="mb-3">Closing Stock</h2>
 
     <?php
 
