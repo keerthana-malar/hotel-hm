@@ -93,32 +93,49 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" name="status" id="status">
-            <?php if ($orderData['status'] === 'Created'): ?>
-                <!-- If status is "Created" in the database, only allow "Accepted" -->
-                <option value="select status">select status</option>
-                <option value="Accepted" <?php if ($orderData['status'] === 'Accepted') echo 'selected'; ?>>Accepted</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
+                        <?php if ($orderData['status'] === 'Created'): ?>
+                            <!-- If status is "Created" in the database, only allow "Accepted" -->
+                            <option value="select status">select status</option>
+                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                echo 'selected'; ?>>
+                                Accepted</option>
+                            <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
+                                echo 'selected'; ?>>
+                                Cancelled</option>
+                            <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
+                                echo 'selected'; ?>>
+                                Rejected</option>
 
-            <?php elseif ($orderData['status'] === 'Accepted'): ?>
-                <!-- If status is "Accepted" in the database, show these options -->
-                <option value="select status">select status</option>
-                <option value="Delivered" <?php if ($orderData['status'] === 'Delivered') echo 'selected'; ?>>Delivered</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
-            <?php elseif ($orderData['status'] === 'Delivered'): ?>
-                <!-- If status is "Delivered" in the database, show these options -->
-                <option value="select status">select status</option>
-                <option value="Received" <?php if ($orderData['status'] === 'Received') echo 'selected'; ?>>Received</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
-            <?php else: ?>
-                <!-- If status is not one of the above, show other status options -->
-                <option value="select status">select status</option>
+                        <?php elseif ($orderData['status'] === 'Accepted'): ?>
+                            <!-- If status is "Accepted" in the database, show these options -->
+                            <option value="select status">select status</option>
+                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                echo 'selected'; ?>>
+                                Delivered</option>
+                            <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
+                                echo 'selected'; ?>>
+                                Cancelled</option>
+                            <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
+                                echo 'selected'; ?>>
+                                Rejected</option>
+                        <?php elseif ($orderData['status'] === 'Delivered'): ?>
+                            <!-- If status is "Delivered" in the database, show these options -->
+                            <option value="select status">select status</option>
+                            <option value="Received" <?php if ($orderData['status'] === 'Received')
+                                echo 'selected'; ?>>
+                                Received</option>
+                            <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
+                                echo 'selected'; ?>>
+                                Cancelled</option>
+                            <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
+                                echo 'selected'; ?>>
+                                Rejected</option>
+                        <?php else: ?>
+                            <!-- If status is not one of the above, show other status options -->
+                            <option value="select status">order completed</option>
 
-                <option value="Created" <?php if ($orderData['status'] === 'Created') echo 'selected'; ?>>Created</option>
-            <?php endif; ?>
-        </select>
+                        <?php endif; ?>
+                    </select>
                 </div>
             </div>
 
@@ -214,16 +231,16 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <label for="">Order_Qty</label>
-                        <input type="number" class="form-control mb-2" name="qt[]"  value="<?php echo $od['order_qty']; ?>"
+                        <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 delivery-column" style="display: none;">
                         <label for="">Delivery_Qty</label>
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]" id="deliveryQty" >
+                        <input type="number" class="form-control mb-2" name="deliveryqt[]" id="deliveryQty">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2  receivedQtyColumn" style="display: none;">
                         <label for="">Received_Qty</label>
-                        <input type="number" class="form-control mb-2" name="receivedqt[]"  id="receivedQty" readonly>
+                        <input type="number" class="form-control mb-2" name="receivedqt[]" id="receivedQty" readonly>
                     </div>
 
                     <input type="hidden" name="ty[]" value="1">
@@ -234,7 +251,10 @@ if (isset($_GET['id'])) {
 
         <!-- End of additional product details rows -->
         <div class="col-12 col-md-6 col-lg-2">
-            <a class="btn add-btn btn-success" id="addRow">+</a>
+
+            <?php if ($orderData['status'] !== 'Accepted'): ?>
+                <a class="btn add-btn btn-success" id="addRow">+</a>
+            <?php endif; ?>
         </div><br><br><br>
 
         <input type="hidden" name="oid" value="<?php echo $orderID ?>">
@@ -249,46 +269,50 @@ if (isset($_GET['id'])) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    // Function to handle "Delivered" status
-    function handleDeliveredStatus() {
-        var deliveryColumn = $('.delivery-column');
-        var receivedQtyColumn = $('.receivedQtyColumn');
+    $(document).ready(function () {
+        // Function to handle "Delivered" status
+        function handleDeliveredStatus() {
+            var deliveryColumn = $('.delivery-column');
+            var receivedQtyColumn = $('.receivedQtyColumn');
 
-        deliveryColumn.show(); // Show the "Delivery_Qty" column
-        receivedQtyColumn.hide(); // Hide the "Received_Qty" column
-    }
+            deliveryColumn.show(); // Show the "Delivery_Qty" column
+            receivedQtyColumn.hide(); // Hide the "Received_Qty" column
+        }
 
-    // Function to handle "Received" status
-    function handleReceivedStatus() {
-        var orderQtyColumn = $('.orderQtyColumn');
-        var deliveryColumn = $('.delivery-column ');
-        var receivedQtyColumn = $('.receivedQtyColumn');
+        // Function to handle "Received" status
+        function handleReceivedStatus() {
+            var orderQtyColumn = $('.orderQtyColumn');
+            var deliveryColumn = $('.delivery-column ');
+            var receivedQtyColumn = $('.receivedQtyColumn');
 
-        orderQtyColumn.hide(); // Hide the "Order_Qty" column
-        deliveryColumn.find('input').prop('readonly', true); 
+            orderQtyColumn.hide(); // Hide the "Order_Qty" column
+            deliveryColumn.find('input').prop('readonly', true);
 
-        deliveryColumn.show();
-        receivedQtyColumn.find('input').prop('readonly', false); 
-        receivedQtyColumn.show();// Show the "Received_Qty" column
-        
+            deliveryColumn.show();
+            receivedQtyColumn.find('input').prop('readonly', false);
+            receivedQtyColumn.show();// Show the "Received_Qty" column
 
-    }
 
-    // Add an event listener to the "Status" select
-    $('select[name="status"]').on('change', function() {
-        var selectedStatus = $(this).val();
+        }
 
-        if (selectedStatus === 'Delivered') {
-            handleDeliveredStatus();
-        } else if (selectedStatus === 'Received') {
-            handleReceivedStatus();
-        } else {
-            // Handle other statuses here (if needed)
+        // Add an event listener to the "Status" select
+        $('select[name="status"]').on('change', function () {
+            var selectedStatus = $(this).val();
+
+            if (selectedStatus === 'Delivered') {
+                handleDeliveredStatus();
+            } else if (selectedStatus === 'Received') {
+                handleReceivedStatus();
+            } else {
+                // Handle other statuses here (if needed)
+            }
+        });
+        // Initial check for status on page load
+        var initialStatus = $('select[name="status"]').val();
+        if (initialStatus !== 'Created' && initialStatus !== 'Accepted') {
+            $('#addRow').hide(); // Hide the "plus" button initially for other statuses
         }
     });
-    
-});
 
 </script>
 

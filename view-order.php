@@ -90,7 +90,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "</table>";
 
             // Add a Print button
-            echo '<button id="printButton" class="btn btn-primary">Print</button>';
+            echo '<a href="generateorder-pdf.php?id=' . $orderId . '" target="_blank" class="btn btn-primary">print</a>';
         } else {
             echo "Failed to prepare the order item query.";
         }
@@ -104,17 +104,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 include('footer.php');
 ?>
 <script>
-/function generateAndDownloadExcel() {
-    // Make an AJAX request to the server to generate the Excel file
-    $.get('generate_excel.php', function() {
-        // After successful generation, trigger the download
-        window.location = 'order_details.xls';
-    });
-}
-
-// Attach the function to the "Print" button click event
-document.getElementById('printButton').addEventListener('click', generateAndDownloadExcel);
-</script>
+// JavaScript code for printing
+document.getElementById("printButton").addEventListener("click", function() {
+        // Open the PDF in a new tab for printing
+        window.open('generateorder-pdf.php?id=<?php echo $orderId; ?>', '_blank');
+    });</script>
 
 <style>
     table {

@@ -3,8 +3,6 @@
 include('header.php');
 include('menu.php');
 
-
-
 // Get the order ID from the query string
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $orderId = $_GET['id'];
@@ -22,12 +20,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<ul>";
         echo "<li class='orderdetails'>ID: " . $orderData['id'] . "</li>";
         echo "<li class='orderdetails'>Order Name: " . $orderData['order_name'] . "</li>";
-        echo "<li class='orderdetails'>Branch: " . $orderData['branchid'] . "</li>";
-        echo "<li class='orderdetails'>Order Date: " . $orderData['orderdate'] . "</li>";
-        echo "<li class='orderdetails'>Delivery Date: " . $orderData['deliverydate'] . "</li>";
-        echo "<li class='orderdetails'>Priority: " . $orderData['priority'] . "</li>";
-        echo "<li class='orderdetails'>Status: " . $orderData['status'] . "</li>";
-        echo "</ul>";
+        // ... Display other order details ...
 
         // Fetch and display the order items associated with the order
         echo "<h3>Ordered Products</h3>";
@@ -48,7 +41,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $categoryStmt->bindParam(':categoryid', $item['categoryid']);
                 $categoryStmt->execute();
                 $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
-        
                 // // Fetch type name
                 // $typeSql = "SELECT name FROM `type` WHERE id = :typeid";
                 // $typeStmt = $pdo->prepare($typeSql);
@@ -79,17 +71,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             }
 
             echo "</table>";
-
-            // Add a Print button
-            echo '<button id="printButton" class="btn btn-primary">Print</button>';
-        } else {
-            echo "Failed to prepare the order item query.";
-        }
-    } else {
-        echo "Order not found.";
-    }
+// Add a Print button
+// echo '<button id="printButton" class="btn btn-primary">Print</button>';
+// Add a Generate PDF button with a link
+echo '<a href="generate-pdf.php?id=' . $orderId . '" target="_blank" class="btn btn-primary">print</a>';
 } else {
-    echo "Invalid order ID.";
+echo "Failed to prepare the order item query.";
+}
+} else {
+echo "Order not found.";
+}
+} else {
+echo "Invalid order ID.";
 }
 
 include('footer.php');
@@ -97,31 +90,32 @@ include('footer.php');
 <script>
 // JavaScript code for printing
 document.getElementById("printButton").addEventListener("click", function() {
-    window.print();
-});
+        // Open the PDF in a new tab for printing
+        window.open('generate-pdf.php?id=<?php echo $orderId; ?>', '_blank');
+    });
 </script>
 <style>
-    table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
+table {
+border-collapse: collapse;
+width: 100%;
+margin-bottom: 20px;
 }
 
 table th, table td {
-    padding: 10px;
-    text-align: left;
+padding: 10px;
+text-align: left;
 }
 
 table th {
-    background-color: #f2f2f2;
+background-color: #f2f2f2;
 }
 .orderdetails {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 /* Style for the Print button */
 #printButton {
-    margin-top: 20px;
+margin-top: 20px;
 }
-    </style>
+</style>

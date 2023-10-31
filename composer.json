@@ -1,0 +1,6 @@
+{
+    "name": "admin/hotel-hm",
+    "require": {
+        "tecnickcom/tcpdf": "*"
+    }
+}
