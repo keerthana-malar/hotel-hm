@@ -134,9 +134,8 @@ if (isset($_GET['id'])) {
                 <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
             <?php else: ?>
                 <!-- If status is not one of the above, show other status options -->
-                <option value="select status">select status</option>
+                <option value="select status">Order completed</option>
 
-                <option value="Created" <?php if ($orderData['status'] === 'Created') echo 'selected'; ?>>Created</option>
             <?php endif; ?>
         </select>
                 </div>
@@ -231,16 +230,16 @@ if (isset($_GET['id'])) {
                         </div>
 
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <label for="">Order_Qty</label>
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2  delivery-column"  style="display: none;">
                         <label for="">Delivery_Qty</label>
                         <input type="number" class="form-control mb-2" name="deliveryqt[]">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2  receivedQtyColumn"style="display: none;">
                         <label for="">Received_Qty</label>
                         <input type="number" class="form-control mb-2" name="receivedqt[]">
                     </div>
@@ -253,7 +252,9 @@ if (isset($_GET['id'])) {
 
         <!-- End of additional product details rows -->
         <div class="col-12 col-md-6 col-lg-2">
+        <?php if ($orderData['status'] !== 'Accepted'): ?>
             <a class="btn add-btn btn-success" id="addRow">+</a>
+            <?php endif; ?>
         </div><br><br><br>
 
         <input type="hidden" name="oid" value="<?php echo $orderID ?>">
@@ -262,5 +263,52 @@ if (isset($_GET['id'])) {
 </div>
 </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to handle "Delivered" status
+        function handleDeliveredStatus() {
+            var deliveryColumn = $('.delivery-column');
+            var receivedQtyColumn = $('.receivedQtyColumn');
 
+            deliveryColumn.show(); // Show the "Delivery_Qty" column
+            receivedQtyColumn.hide(); // Hide the "Received_Qty" column
+        }
+
+        // Function to handle "Received" status
+        function handleReceivedStatus() {
+            var orderQtyColumn = $('.orderQtyColumn');
+            var deliveryColumn = $('.delivery-column ');
+            var receivedQtyColumn = $('.receivedQtyColumn');
+
+            orderQtyColumn.hide(); // Hide the "Order_Qty" column
+            deliveryColumn.find('input').prop('readonly', true);
+
+            deliveryColumn.show();
+            receivedQtyColumn.find('input').prop('readonly', false);
+            receivedQtyColumn.show();// Show the "Received_Qty" column
+
+
+        }
+
+        // Add an event listener to the "Status" select
+        $('select[name="status"]').on('change', function () {
+            var selectedStatus = $(this).val();
+
+            if (selectedStatus === 'Delivered') {
+                handleDeliveredStatus();
+            } else if (selectedStatus === 'Received') {
+                handleReceivedStatus();
+            } else {
+                // Handle other statuses here (if needed)
+            }
+        });
+        // Initial check for status on page load
+        var initialStatus = $('select[name="status"]').val();
+        if (initialStatus !== 'Created' && initialStatus !== 'Accepted') {
+            $('#addRow').hide(); // Hide the "plus" button initially for other statuses
+        }
+    });
+
+</script>
 <?php include('footer.php'); ?>

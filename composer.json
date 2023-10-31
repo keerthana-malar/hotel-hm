@@ -1,11 +1,11 @@
 {
     "name": "admin/hotel-hm",
+    "require": {
+        "tecnickcom/tcpdf": "*"
     "autoload": {
         "psr-4": {
             "Admin\\HotelHm\\": "src/"
         }
-    },
-    "require": {
-        "tecnickcom/tcpdf": "^6.6"
     }
+}
 }

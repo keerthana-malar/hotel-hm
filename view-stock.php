@@ -88,7 +88,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "</table>";
 
             // Add a Print button
-            echo '<button id="printButton" class="btn btn-primary">Print</button>';
+            // echo '<button id="printButton" class="btn btn-primary">Print</button>';
         } else {
             echo "Failed to prepare the stock item query.";
         }
