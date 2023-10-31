@@ -92,7 +92,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select class="form-control" name="status" id="status">
+                    <!-- <select class="form-control" name="status" id="status">
                         <option value="created" <?php if ($orderData['status'] === 'Created')
                             echo 'selected'; ?>>Created
                         </option>
@@ -111,7 +111,34 @@ if (isset($_GET['id'])) {
                         <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
                             echo 'selected'; ?>>
                             Rejected</option>
-                    </select>
+                    </select> -->
+                    <select class="form-control" name="status" id="status">
+            <?php if ($orderData['status'] === 'Created'): ?>
+                <!-- If status is "Created" in the database, only allow "Accepted" -->
+                <option value="select status">select status</option>
+                <option value="Accepted" <?php if ($orderData['status'] === 'Accepted') echo 'selected'; ?>>Accepted</option>
+                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
+
+            <?php elseif ($orderData['status'] === 'Accepted'): ?>
+                <!-- If status is "Accepted" in the database, show these options -->
+                <option value="select status">select status</option>
+                <option value="Delivered" <?php if ($orderData['status'] === 'Delivered') echo 'selected'; ?>>Delivered</option>
+                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
+            <?php elseif ($orderData['status'] === 'Delivered'): ?>
+                <!-- If status is "Delivered" in the database, show these options -->
+                <option value="select status">select status</option>
+                <option value="Received" <?php if ($orderData['status'] === 'Received') echo 'selected'; ?>>Received</option>
+                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
+            <?php else: ?>
+                <!-- If status is not one of the above, show other status options -->
+                <option value="select status">select status</option>
+
+                <option value="Created" <?php if ($orderData['status'] === 'Created') echo 'selected'; ?>>Created</option>
+            <?php endif; ?>
+        </select>
                 </div>
             </div>
 
