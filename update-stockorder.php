@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantitys = $_POST['deliveryqt'][$i];
         $quantit = $_POST['receivedqt'][$i];
 
+        $oldRecQty = $_POST['oldRecQty'][$i];
+
 
         $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, priority, delivery_qty, received_qty) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :priority, :delivery_qty, :received_qty)";
         $orderItemStmt = $pdo->prepare($orderItemSql);
@@ -66,10 +68,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderItemStmt->bindParam(':received_qty', $quantit);
         $orderItemStmt->bindParam(':delivery_qty', $quantitys);
 
-        $orderItemStmt->execute();
+        if ($orderItemStmt->execute()) {
+            if ($status == 'Received') {
+                // Get Stock id 
+                $sidSql = "SELECT id FROM `stock` WHERE branchid = $branchID";
+                $sidStmt = $pdo->query($sidSql);
+                $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
+                $sid = $sidData["id"];
+
+                // var_dump($sid);
+                // exit();
+
+                // Get Current qty 
+                $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                $cqStmt = $pdo->query($cqSql);
+                $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+                $cq = $cqData["qty"];
+
+                $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
+                $msStmt = $pdo->query($msSql);
+                $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
+                $stqty = $msData["qty"];
+
+                $updatedQty = 0;
+                $finalstqty = 0;
+
+                if ($oldRecQty <= $quantit) {
+                    $updatedQty = $quantit - $oldRecQty;
+                    $finalQty = $cq + $updatedQty;
+                    $finalstqty = $stqty - $updatedQty;
+
+                } else {
+                    $updatedQty = $oldRecQty - $quantit;
+                    $finalQty = $cq - $updatedQty;
+                    $finalstqty = $stqty + $updatedQty;
+                }
+
+
+                
+
+                
+                
+                // echo "NQ";
+                // var_dump($finalstqty);
+                // exit();
+
+                // echo "OQ";
+                // var_dump($oldRecQty);
+
+                // echo "UQ";
+                // var_dump($updatedQty);
+
+                
+
+                // echo "CQ";
+                // var_dump($cq);
+
+                
+
+                // echo "FQ";
+                // var_dump($finalQty);
+
+                // exit();
+
+                // Update Stock
+                $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
+                $sustmt = $pdo->prepare($susql);
+
+                $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
+                $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
+                $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
+
+                $sustmt->execute();
+
+                $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
+                $mqstmt = $pdo->prepare($mqsql);
+
+                $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
+                $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
+
+                $mqstmt->execute();
+            }
+        }
+    }
     }
 
     header("Location: " . $u1 . urlencode('Order Successfully Updated'));
     exit();
-}
+
 ?>

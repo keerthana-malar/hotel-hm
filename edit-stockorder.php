@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Stock Order</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-stockorder.php">
+    <form class="forms-sample" method="post" action="update-stockorder.php" onsubmit="return handleSubmit()">
         <div class="row">
 
             <input type="hidden" name="orderID" value="<?php echo $orderData['id']; ?>">
@@ -92,7 +92,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <!-- <select class="form-control" name="status" id="status">
+                    <select class="form-control" name="status" id="status" onchange="handleQty()">
                         <option value="created" <?php if ($orderData['status'] === 'Created')
                             echo 'selected'; ?>>Created
                         </option>
@@ -111,33 +111,7 @@ if (isset($_GET['id'])) {
                         <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
                             echo 'selected'; ?>>
                             Rejected</option>
-                    </select> -->
-                    <select class="form-control" name="status" id="status">
-            <?php if ($orderData['status'] === 'Created'): ?>
-                <!-- If status is "Created" in the database, only allow "Accepted" -->
-                <option value="select status">select status</option>
-                <option value="Accepted" <?php if ($orderData['status'] === 'Accepted') echo 'selected'; ?>>Accepted</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
-
-            <?php elseif ($orderData['status'] === 'Accepted'): ?>
-                <!-- If status is "Accepted" in the database, show these options -->
-                <option value="select status">select status</option>
-                <option value="Delivered" <?php if ($orderData['status'] === 'Delivered') echo 'selected'; ?>>Delivered</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
-            <?php elseif ($orderData['status'] === 'Delivered'): ?>
-                <!-- If status is "Delivered" in the database, show these options -->
-                <option value="select status">select status</option>
-                <option value="Received" <?php if ($orderData['status'] === 'Received') echo 'selected'; ?>>Received</option>
-                <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled') echo 'selected'; ?>>Cancelled</option>
-                <option value="Rejected" <?php if ($orderData['status'] === 'Rejected') echo 'selected'; ?>>Rejected</option>
-            <?php else: ?>
-                <!-- If status is not one of the above, show other status options -->
-                <option value="select status">Order completed</option>
-
-            <?php endif; ?>
-        </select>
+                    </select>
                 </div>
             </div>
 
@@ -235,17 +209,21 @@ if (isset($_GET['id'])) {
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2  delivery-column"  style="display: none;">
+                    <div class="col-12 col-md-6 col-lg-2 hiddenDel  delivery-column"  >
                         <label for="">Delivery_Qty</label>
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]">
+                        <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php echo $od['delivery_qty']; ?>">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2  receivedQtyColumn"style="display: none;">
+                    <div class="col-12 col-md-6 col-lg-2 hiddenRec  receivedQtyColumn">
                         <label for="">Received_Qty</label>
-                        <input type="number" class="form-control mb-2" name="receivedqt[]">
+                        <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php echo $od['received_qty']; ?>">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {
+                        echo $od['received_qty'];
+                    } else {
+                        echo 0;
+                    } ?>" name="oldRecQty[]" hidden>
                         <input type="hidden" name="ty[]" value="2">
-                    </div>
+                
                 </div>
             <?php } ?>
         </div>
@@ -263,52 +241,133 @@ if (isset($_GET['id'])) {
 </div>
 </form>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // Function to handle "Delivered" status
-        function handleDeliveredStatus() {
-            var deliveryColumn = $('.delivery-column');
-            var receivedQtyColumn = $('.receivedQtyColumn');
+    function handleQty() {
 
-            deliveryColumn.show(); // Show the "Delivery_Qty" column
-            receivedQtyColumn.hide(); // Hide the "Received_Qty" column
+        let e = document.querySelector('[name="status"]')
+
+        let pro = document.querySelectorAll('[name="pro[]"]')
+        let cus = document.querySelectorAll('[name="cu[]"]')
+        let cat = document.querySelectorAll('[name="ca[]"]')
+        let pri = document.querySelectorAll('[name="pr[]"]')
+        let qty = document.querySelectorAll('[name="qt[]"]')
+        let dQty = document.querySelectorAll('[name="deliveryqt[]"]')
+        let rQty = document.querySelectorAll('[name="receivedqt[]"]')
+
+
+        let db = document.querySelectorAll(".hiddenDel");
+        let rb = document.querySelectorAll('.hiddenRec');
+
+        db.forEach((p) => {
+            p.hidden = true
+        })
+        rb.forEach((p) => {
+            p.hidden = true
+        })
+
+        console.log(db)
+
+        if (e.value !== "created") {
+
+            pro.forEach((p) => {
+                p.disabled = true
+            })
+            cus.forEach((p) => {
+                p.disabled = true
+            })
+            cat.forEach((p) => {
+                p.disabled = true
+            })
+            pri.forEach((p) => {
+                p.disabled = true
+            })
+            qty.forEach((p) => {
+                p.disabled = true
+            })
+
+        } else {
+            pro.forEach((p) => {
+                p.disabled = false
+            })
+            cus.forEach((p) => {
+                p.disabled = false
+            })
+            cat.forEach((p) => {
+                p.disabled = false
+            })
+            pri.forEach((p) => {
+                p.disabled = false
+            })
+            qty.forEach((p) => {
+                p.disabled = false
+            })
         }
 
-        // Function to handle "Received" status
-        function handleReceivedStatus() {
-            var orderQtyColumn = $('.orderQtyColumn');
-            var deliveryColumn = $('.delivery-column ');
-            var receivedQtyColumn = $('.receivedQtyColumn');
+        if (e.value == "Delivered") {
+            dQty.forEach((p) => {
+                p.disabled = false
+            })
+            db.forEach((p) => {
+                p.hidden = false
+            })
 
-            orderQtyColumn.hide(); // Hide the "Order_Qty" column
-            deliveryColumn.find('input').prop('readonly', true);
-
-            deliveryColumn.show();
-            receivedQtyColumn.find('input').prop('readonly', false);
-            receivedQtyColumn.show();// Show the "Received_Qty" column
-
-
+        } else {
+            dQty.forEach((p) => {
+                p.disabled = true
+            })
         }
 
-        // Add an event listener to the "Status" select
-        $('select[name="status"]').on('change', function () {
-            var selectedStatus = $(this).val();
-
-            if (selectedStatus === 'Delivered') {
-                handleDeliveredStatus();
-            } else if (selectedStatus === 'Received') {
-                handleReceivedStatus();
-            } else {
-                // Handle other statuses here (if needed)
-            }
-        });
-        // Initial check for status on page load
-        var initialStatus = $('select[name="status"]').val();
-        if (initialStatus !== 'Created' && initialStatus !== 'Accepted') {
-            $('#addRow').hide(); // Hide the "plus" button initially for other statuses
+        if (e.value == "Received") {
+            rQty.forEach((p) => {
+                p.disabled = false
+            })
+            rb.forEach((p) => {
+                p.hidden = false
+            })
+        } else {
+            rQty.forEach((p) => {
+                p.disabled = true
+            })
         }
-    });
+    }
+    handleQty()
 
+    function handleSubmit() {
+
+        let pro = document.querySelectorAll('[name="pro[]"]')
+        let cus = document.querySelectorAll('[name="cu[]"]')
+        let cat = document.querySelectorAll('[name="ca[]"]')
+        let pri = document.querySelectorAll('[name="pr[]"]')
+        let qty = document.querySelectorAll('[name="qt[]"]')
+        let dQty = document.querySelectorAll('[name="deliveryqt[]"]')
+        let rQty = document.querySelectorAll('[name="receivedqt[]"]')
+
+        pro.forEach((p) => {
+            p.disabled = false
+        })
+        cus.forEach((p) => {
+            p.disabled = false
+        })
+        cat.forEach((p) => {
+            p.disabled = false
+        })
+        pri.forEach((p) => {
+            p.disabled = false
+        })
+        qty.forEach((p) => {
+            p.disabled = false
+        })
+        dQty.forEach((p) => {
+            p.disabled = false
+        })
+        rQty.forEach((p) => {
+            p.disabled = false
+        })
+
+        return true;
+
+    }
 </script>
+
+
 <?php include('footer.php'); ?>

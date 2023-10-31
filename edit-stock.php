@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
         <div class="pro-box">
             <?php foreach ($stockItem as $od) { ?>
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="exampleInputStatus">Product</label>
                             <select class="form-control mb-2" name="pro[]">
@@ -79,7 +79,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <!-- <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
                             <label for="exampleInputStatus">Type</label>
                             <select class="form-control mb-2" name="ty[]">
@@ -92,8 +92,8 @@ if (isset($_GET['id'])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    </div> -->
+                    <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="exampleInputStatus">Category</label>
                             <select class="form-control mb-2" name="ca[]">
@@ -107,7 +107,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="exampleInputStatus">Cuisine</label>
                             <select class="form-control mb-2" name="cu[]">
