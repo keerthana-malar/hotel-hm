@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit consumption</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-consumption.php">
+    <form class="forms-sample" method="post" action="update-consumption.php" onsubmit="return handleForm()">
     <div class="row">
         <input type="hidden" name="id" value="<?php echo $consumptionData['id']; ?>">
 
@@ -186,6 +186,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
+</script>
+<script>
+    function handleForm() {
+        var branch = document.getElementById("branch");
+        var date = document.getElementById("date");
+
+        branch.disabled = false;
+        date.disabled = false;
+
+        return true;
+    }
 </script>
 
 <?php include('footer.php'); ?>
