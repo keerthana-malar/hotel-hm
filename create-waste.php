@@ -255,6 +255,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             totalCost += parseInt(cost.value);
             totalCostField.value = totalCost;
         })
+        return true;
     }
 
     function handleQty(e) {
