@@ -127,7 +127,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="foodcatalog.php">
-                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <i class="typcn typcn-th-list-outline menu-icon"></i>
                             <span class="menu-title">Food Catalog</span>
                         </a>
                     </li>
@@ -146,13 +146,13 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="wastes.php">
-                            <i class=" typcn typcn-th-menu menu-icon"></i>
+                            <i class=" typcn typcn-document-delete menu-icon"></i>
                             <span class="menu-title">wastage</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="counter.php">
-                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <i class="typcn typcn-calculator menu-icon"></i>
                             <span class="menu-title">Counter Closing</span>
                         </a>
                     </li>
