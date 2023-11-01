@@ -43,7 +43,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="exampleInputPhone">Phone</label>
-            <input type="text" class="form-control" name="phone" id="exampleInputPhone" value="<?php echo $branchData['phone']; ?>">
+            <input type="text" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]{10}" id="exampleInputPhone" value="<?php echo $branchData['phone']; ?>">
         </div>
         </div>     
         <div class="col-12 col-md-6 col-lg-3">

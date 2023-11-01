@@ -69,7 +69,7 @@ $currentDate = date('Y-m-d');
                         <option value="Created">Created</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
-                        <option value="Received">Received</option>
+                        <!-- <option value="Received">Received</option> -->
                         <option value="Cancelled">Cancelled</option>
                         <option value="Rejected">Rejected</option>
                     </select>

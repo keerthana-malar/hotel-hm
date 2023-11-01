@@ -141,13 +141,13 @@ $todayOrdersResult->execute(['today' => $today]);
 $todayTotalOrders = $todayOrdersResult->fetch(PDO::FETCH_ASSOC)['todayTotalOrders'];
 
 // Calculate total complete orders for today
-$todayCompletedOrdersQuery = "SELECT COUNT(*) as todayCompletedOrders FROM `order` WHERE DATE(orderdate) = :today AND status = 'Received'";
+$todayCompletedOrdersQuery = "SELECT COUNT(*) as todayCompletedOrders FROM `order` WHERE DATE(orderdate) = :today AND status = 'Delivered'";
 $todayCompletedOrdersResult = $pdo->prepare($todayCompletedOrdersQuery);
 $todayCompletedOrdersResult->execute(['today' => $today]);
 $todayCompletedOrders = $todayCompletedOrdersResult->fetch(PDO::FETCH_ASSOC)['todayCompletedOrders'];
 
 // Calculate total pending orders for today
-$todayPendingOrdersQuery = "SELECT COUNT(*) as todayPendingOrders FROM `order` WHERE DATE(orderdate) = :today AND (status = 'Created' OR status = 'Accepted' OR status = 'Delivered')";
+$todayPendingOrdersQuery = "SELECT COUNT(*) as todayPendingOrders FROM `order` WHERE DATE(orderdate) = :today AND (status = 'Created' OR status = 'Accepted' )";
 $todayPendingOrdersResult = $pdo->prepare($todayPendingOrdersQuery);
 $todayPendingOrdersResult->execute(['today' => $today]);
 $todayPendingOrders = $todayPendingOrdersResult->fetch(PDO::FETCH_ASSOC)['todayPendingOrders'];
