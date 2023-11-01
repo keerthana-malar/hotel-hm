@@ -13,9 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $wasteID = $_POST['id'];
     $branch = $_POST['branch'];
     $date = $_POST['date'];
-    $wasteAmount = $_POST['waste_amount'];
-
-    
+    $wasteAmount = $_POST['amount'];
 
     // Update data in waste table
     $updateSql = "UPDATE `waste` SET branchid = :branchid, date = :date,  waste_amount = :waste_amount WHERE id = :id";
@@ -29,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Error handling for preparing the statement
         die("Error preparing statement: " . $pdo->errorInfo()[2]);
     }
-    
+
     if ($stmt->execute()) {
         // The execution was successful, handle it accordingly
     } else {
@@ -38,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     $oid = $_POST['oid'];
-    
+
     $deleteDaysQuery = "DELETE FROM wasteitem WHERE waste_id = :postID";
     $stmtDelete = $pdo->prepare($deleteDaysQuery);
     $stmtDelete->bindParam(':postID', $oid);
@@ -50,10 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $typeID = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
-        
+        $cost = $_POST['cost'][$i];
 
-
-        $wasteItemSql = "INSERT INTO `wasteitem` (waste_id, product_id, cuisine_id, type_id, qty, category_id) VALUES (:waste_id, :product_id, :cuisine_id, :type_id, :qty, :category_id)";
+        $wasteItemSql = "INSERT INTO `wasteitem` (waste_id, product_id, cuisine_id, type_id, qty, category_id, cost) VALUES (:waste_id, :product_id, :cuisine_id, :type_id, :qty, :category_id, :cost)";
         $wasteItemStmt = $pdo->prepare($wasteItemSql);
         $wasteItemStmt->bindParam(':waste_id', $wasteID);
         $wasteItemStmt->bindParam(':product_id', $productID);
@@ -61,10 +58,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $wasteItemStmt->bindParam(':type_id', $typeID);
         $wasteItemStmt->bindParam(':category_id', $categoryID);
         $wasteItemStmt->bindParam(':qty', $quantity);
+        $wasteItemStmt->bindParam(':cost', $cost);
 
-        $wasteItemStmt->execute();
+        if ($wasteItemStmt->execute()) {
+            // GEt Stock id
+            $sidSql = "SELECT id FROM `stock` WHERE branchid = $branch";
+            $sidStmt = $pdo->query($sidSql);
+            $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
+            $sid = $sidData["id"];
+
+            // GEt Stock Qty
+            $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+            $cqStmt = $pdo->query($cqSql);
+            $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+            $cq = $cqData["qty"];
+
+            // Find Used Qty 
+            $usedQty = $cq - $quantity;
+
+            // Create Closing Stock
+            $dateNow = date("Y-m-d");
+
+            // GEt Cons id
+            $cidSql = "SELECT id FROM `consumption` WHERE branchid = $branch AND date_created = '$date' AND is_auto = 1";
+            // var_dump($cidSql);
+            // exit();
+            $cidStmt = $pdo->query($cidSql);
+            $cidData = $cidStmt->fetch(PDO::FETCH_ASSOC);
+            $cid = $cidData["id"];
+
+            // Delete Items 
+            $ciIQuery = "DELETE FROM `consumptionitem` WHERE consumption_id = :cons";
+            $ciIstmt = $pdo->prepare($ciIQuery);
+            $ciIstmt->bindParam(':cons', $cid);
+
+
+            // $consumption Item Add 
+            if ($ciIstmt->execute()) {
+
+                $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+                $clsItemStmt = $pdo->prepare($clsItemSql);
+                $clsItemStmt->bindParam(':ci', $cid);
+                $clsItemStmt->bindParam(':ti', $typeID);
+                $clsItemStmt->bindParam(':cui', $cuisineID);
+                $clsItemStmt->bindParam(':cai', $categoryID);
+                $clsItemStmt->bindParam(':pri', $productID);
+                $clsItemStmt->bindParam(':qi', $quantity);
+                $clsItemStmt->bindParam(':ui', $usedQty);
+
+                if ($clsItemStmt->execute()) {
+                    $upStQ = "UPDATE `stockitem` SET qty = '0' WHERE product_id = $productID AND stock_id = $sid";
+                    $upStQStmt = $pdo->prepare($upStQ);
+                    $upStQStmt->execute();
+                }
+            }
+        }
     }
-
     header("Location: " . $u1 . urlencode('Waste Successfully Updated'));
     exit();
 }
