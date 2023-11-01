@@ -19,7 +19,12 @@ if ($branchID ==1 ) {
     $stmt->bindParam(':id', $branchID);
 
     if ($stmt->execute()) {
+        $delSqlb = "DELETE FROM stock WHERE branchid = :bid";
+        $stmtb = $pdo->prepare($delSqlb);
+        $stmtb->bindParam(':bid', $productID);
+        if ($stmtb->execute()) {
         header("Location: branchs.php?succ=" . urlencode('Branch Successfully Deleted'));
+    }
     } else {
         header("Location: branchs.php?err=" . urlencode('Something went wrong. Please try again later'));
     }

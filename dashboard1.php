@@ -120,6 +120,19 @@ $totalWastesQuery = "SELECT COUNT(*) as totalWastes FROM `waste`";
 $totalWastesResult = $pdo->query($totalWastesQuery)->fetch(PDO::FETCH_ASSOC);
 $totalWastes = $totalWastesResult['totalWastes'];
 
+
+
+$currentDay = date('Y-m-d');
+
+// Calculate total waste amount for today
+$totalWasteAmountQuery = "SELECT SUM(waste_amount) as totalWasteAmount FROM `waste` WHERE DATE(date) = :today";
+$totalWasteAmountResult = $pdo->prepare($totalWasteAmountQuery);
+$totalWasteAmountResult->execute(['today' => $currentDay]);
+$totalWasteAmount = $totalWasteAmountResult->fetch(PDO::FETCH_ASSOC)['totalWasteAmount'];
+
+
+
+
 // Calculate total orders for today
 $today = date('Y-m-d');
 $todayOrdersQuery = "SELECT COUNT(*) as todayTotalOrders FROM `order` WHERE orderdate = :today";
@@ -208,7 +221,7 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                         <div>
                             <h3> Total Waste Cost</h3>
                             <p>
-                                <?= $totalWastes ?>
+                                Rs.<?= $totalWasteAmount ?>
                             </p>
                         </div>
                         <div> <span class="icon">
