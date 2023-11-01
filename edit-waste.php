@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Waste</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-waste.php">
+    <form class="forms-sample" method="post" action="update-waste.php" onsubmit="handleSubmit(this)">
         <div class="row">
             <input type="hidden" name="id" value="<?php echo $wasteData['id']; ?>">
             <!-- Branch -->
@@ -59,8 +59,8 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="waste_amount">Waste Amount</label>
-                    <input type="number" class="form-control" id="waste_amount" name="waste_amount"
-                        value="<?php echo $wasteData['waste_amount']; ?>">
+                    <input type="number" class="form-control" id="waste_amount" name="amount"
+                        value="<?php echo $wasteData['waste_amount']; ?>" readonly>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@ if (isset($_GET['id'])) {
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
                                 <label for="exampleInputStatus">Product</label>
-                                <select class="form-control mb-2" name="pro[]">
+                                <select class="form-control mb-2" name="pro[]" onchange="handleQty(this)">
                                     <?php foreach ($productdata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
                                               echo 'selected';
@@ -127,10 +127,12 @@ if (isset($_GET['id'])) {
 
 
                         <div class="col-12 col-md-6 col-lg-2">
-                            <label for="">Qty</label>
-                            <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>">
+                            <label for="">Waste Qty</label>
+                            <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" value="<?php echo $od['qty']; ?>">
                         </div>
 
+                        <input class="form-control mb-2" type="number"  name="cost[]" value="<?php echo $od['cost']; ?>" readonly>
+                        <input class="form-control mb-2" type="number"  name="oldWasteQty[]" value="<?php echo $od['cost']; ?>" readonly>
                     </div>
                 <?php } ?>
             </div>
@@ -146,4 +148,43 @@ if (isset($_GET['id'])) {
             </div>
     </form>
 </div>
+<script>
+    function handleCost(e) {
+        var proData = [];
+        proData = <?php echo json_encode($productdata); ?>;
+
+        var proId = e.closest(".row").querySelector('[name="pro[]"]').value;
+        var proCost = e.closest(".row").querySelector('[name="cost[]"]');
+
+        var product = proData.find(function (product) {
+            return product.id === proId;
+        });
+
+        if (product) {
+            var Cost = product.price * e.value;
+            proCost.value = Cost;
+        }
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault;
+        let costFields = document.querySelectorAll('[name="cost[]"]');
+        let totalCostField = document.querySelector('[name="amount"]');
+        let totalCost = 0;
+        costFields.forEach((cost) => {
+            totalCost += parseInt(cost.value);
+            totalCostField.value = totalCost;
+        })
+        return true;
+    }
+
+    function handleQty(e) {
+        var qtyField = e.closest(".row").querySelector('[name="qt[]"]');
+        var costField = e.closest(".row").querySelector('[name="cost[]"]');
+        var oldCostField = e.closest(".row").querySelector('[name="oldWasteQty[]"]');
+        qtyField.value = "";
+        costField.value = "";
+        oldCostField.value = "";
+    }
+</script>
 <?php include('footer.php'); ?>
