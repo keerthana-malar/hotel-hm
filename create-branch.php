@@ -26,7 +26,7 @@ include('menu.php');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputPassword4">phone <span>*</span></label>
-                    <input type="text" class="form-control" name="phone" pattern="[0-9]+" placeholder="Phone" required>
+                    <input type="text" class="form-control" name="phone"  pattern="[0-9]{10}"  placeholder="Phone" required>
                 </div>
 
             </div>
