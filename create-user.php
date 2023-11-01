@@ -50,7 +50,7 @@ $roleData = $pdo->query($roleSql);
                 </div>
 
             </div>
-            <div class="col-12 col-md-6 col-lg-2">
+            <!-- <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
                     <label for="exampleSelectGender">Role</label>
                     <select class="form-control" id="exampleSelectGender" name="role" disabled>
@@ -60,7 +60,7 @@ $roleData = $pdo->query($roleSql);
                     </select>
                 </div>
 
-            </div>
+            </div> -->
             <div class="col-12 col-md-6 col-lg-2">
             <div class="form-group">
                     <label for="exampleSelectGender">Branch <span>*</span></label>

@@ -23,10 +23,10 @@
         }
     
         // Validation
-        if ( empty($status) || empty($typename) ) {
-            header("Location: " . $u2 . urlencode('All fields must be filled'));           
-            exit();
-        }
+        // if ( empty($status) || empty($typename) ) {
+        //     header("Location: " . $u2 . urlencode('All fields must be filled'));           
+        //     exit();
+        // }
     
         $sql = "INSERT INTO type ( name, status) VALUES ( :name, :status)";
         $stmt = $pdo->prepare($sql);

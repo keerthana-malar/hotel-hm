@@ -23,10 +23,10 @@
         }
     
         // Validation
-        if ( empty($status) || empty($cuisinename) ) {
-            header("Location: " . $u2 . urlencode('All fields must be filled'));           
-            exit();
-        }
+        // if ( empty($status) || empty($cuisinename) ) {
+        //     header("Location: " . $u2 . urlencode('All fields must be filled'));           
+        //     exit();
+        // }
     
         $sql = "INSERT INTO cuisine ( name, status) VALUES ( :name, :status)";
         $stmt = $pdo->prepare($sql);

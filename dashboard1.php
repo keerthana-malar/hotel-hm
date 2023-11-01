@@ -208,7 +208,7 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
                             </p>
                         </div>
                         <div><span class="icon">
-                                <a href="stocks.php">
+                                <a href="branchs.php">
                                     <i class="fa-solid fa-box-open"></i> </a>
                             </span></div>
                     </div>

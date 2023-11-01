@@ -54,4 +54,5 @@
       color:red;
     }
   </style>
+  <?= error_reporting(E_ERROR); // Hide warnings?>
 </head>

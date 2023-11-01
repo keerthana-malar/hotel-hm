@@ -24,10 +24,10 @@ if (isset($_POST)) {
     }
 
     // Validation
-    if (empty($branch) || empty($address) || empty($phone)) {
-        header("Location: " . $u2 . urlencode('All fields must be filled'));
-        exit();
-    }
+    // if (empty($branch) || empty($address) || empty($phone)) {
+    //     header("Location: " . $u2 . urlencode('All fields must be filled'));
+    //     exit();
+    // }
 
     $sql = "INSERT INTO branch (name, address, phone, status) VALUES ( :name, :address, :phone, :status)";
     $stmt = $pdo->prepare($sql);

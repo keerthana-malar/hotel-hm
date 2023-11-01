@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //   $productType = "food";
 
     // Validation
-    if (empty($branch) || empty($orderdate) || empty($priority) || empty($status)) {
-        echo "Error: All fields are required.";
-        exit();
-    }
+    // if (empty($branch) || empty($orderdate) || empty($priority) || empty($status)) {
+    //     echo "Error: All fields are required.";
+    //     exit();
+    // }
 
     // Insert data into the order table
     $orderSql = "INSERT INTO `order` (branchid, orderdate, deliverydate, priority, status, description, order_name, ordertype) VALUES (:branchid, :orderdate, :deliverydate, :priority, :status, :description, :order_name, :ordertype)";

@@ -25,10 +25,10 @@ if (isset($_POST)) {
     }
 
     // Validation
-    if (empty($status) || empty($categoryname)) {
-        header("Location: " . $u2 . urlencode('All fields must be filled'));
-        exit();
-    }
+    // if (empty($status) || empty($categoryname)) {
+    //     header("Location: " . $u2 . urlencode('All fields must be filled'));
+    //     exit();
+    // }
 
     $sql = "INSERT INTO category ( name, typeid, status) VALUES ( :name, :typeid, :status)";
     $stmt = $pdo->prepare($sql);
