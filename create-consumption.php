@@ -33,7 +33,7 @@ $currentDate = date('Y-m-d');
         </div>
     <?php endif ?>
 
-    <h2 class="mb-3">Create Consumption</h2>
+    <h2 class="mb-3">Create Closing Stock</h2>
     <hr>
     <form class="forms-sample" method="post" action="create-consumption-post.php">
         <div class="row">

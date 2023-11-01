@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
-    <h2>Edit consumption</h2>
+    <h2>Edit Closing Stock</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-consumption.php" onsubmit="return handleForm()">
     <div class="row">
@@ -39,8 +39,8 @@ if (isset($_GET['id'])) {
         <!-- Branch -->
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
-            <label for="branch">Branch</label>
-            <select class="form-control" id="branch" name="branch" disabled >
+            <label for="branch">Branch <span>*</span></label>
+            <select class="form-control" id="branch" name="branch" disabled required>
                 <?php foreach ($branchData as $branch) : ?>
                     <option value="<?php echo $branch['id']; ?>" <?php if ($consumptionData['branchid'] == $branch['id']) echo 'selected'; ?>>
                         <?php echo $branch['name']; ?>
@@ -61,6 +61,16 @@ if (isset($_GET['id'])) {
         <div class="pro-box">
                 <?php  foreach($consumptionItem as $od) { ?>
                     <div class="row"> 
+                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <select class="form-control mb-2" name="pro[]">
+                            <?php foreach ($productdata as $row): ?>
+                                <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['product_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
                     <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Type</label>
@@ -91,19 +101,10 @@ if (isset($_GET['id'])) {
                         </select>
                     </div>
                 </div>
+                
                 <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
-                            <?php foreach ($productdata as $row): ?>
-                                <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['product_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Available Qty</label>
-                    <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>">
+                    <label for="">Available Qty <span>*</span></label>
+                    <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>" required>
                 </div>
              
             </div>
@@ -122,71 +123,6 @@ if (isset($_GET['id'])) {
     </form>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-        const addInputButton = document.querySelector('#addRow');
-        const inputContainer = document.querySelector('.pro-box');
-        
-
-
-        addInputButton.addEventListener('click', function() {
-        let inputCount = inputContainer.children.length;
-        let inputEle = `<div class="row"> 
-        <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Type</label>
-                        <select class="form-control mb-2" name="ty[]">
-                            <?php foreach ($typedata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Cuisine</label>
-                        <select class="form-control mb-2" name="cu[]">
-                            <?php foreach ($cuisinedata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Category</label>
-                        <select class="form-control mb-2" name="ca[]">
-                            <?php foreach ($categorydata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Product</label>
-                        <select class="form-control mb-2" name="pro[]">
-                            <?php foreach ($productdata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Used-Qty</label>
-                    <input class="form-control mb-2" name="qt[]">
-                </div>
-                 
-            </div>`;
-        const newInput = document.createElement('div');
-        newInput.innerHTML = inputEle;
-        inputContainer.appendChild(newInput);
-        
-  });
-  
-});
-
-</script>
 <script>
     function handleForm() {
         var branch = document.getElementById("branch");
