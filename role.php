@@ -25,9 +25,9 @@ include('menu.php');
             <tbody>
                 <tr>
                     <td>Food Order</td>
-                    <td><select class="form-control" name="fo_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="fo_access" onchange="handleAccessChange('fo')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="ena">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_fo"></td>
                     <td><input value="2" type="checkbox" name="edit_fo"></td>
                     <td><input value="3" type="checkbox" name="create_fo"></td>
@@ -35,9 +35,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Stock Order</td>
-                    <td><select class="form-control" name="so_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="so_access" onchange="handleAccessChange('so')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="ena">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_so"></td>
                     <td><input value="2" type="checkbox" name="edit_so"></td>
                     <td><input value="3" type="checkbox" name="create_so"></td>
@@ -45,9 +45,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Outdoor Order</td>
-                    <td><select class="form-control" name="odo_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="odo_access" onchange="handleAccessChange('odo')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_odo"></td>
                     <td><input value="2" type="checkbox" name="edit_odo"></td>
                     <td><input value="3" type="checkbox" name="create_odo"></td>
@@ -55,9 +55,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Food Catalog</td>
-                    <td><select class="form-control" name="fc_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="fc_access" onchange="handleAccessChange('fc')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_fc"></td>
                     <td><input value="2" type="checkbox" name="edit_fc"></td>
                     <td><input value="3" type="checkbox" name="create_fc"></td>
@@ -65,9 +65,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Stock Catalog</td>
-                    <td><select class="form-control" name="sc_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="sc_access"  onchange="handleAccessChange('sc')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_sc"></td>
                     <td><input value="2" type="checkbox" name="edit_sc"></td>
                     <td><input value="3" type="checkbox" name="create_sc"></td>
@@ -75,9 +75,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Closing Stock</td>
-                    <td><select class="form-control" name="cs_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="cs_access"  onchange="handleAccessChange('cs')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="view_cs"></td>
                     <td><input value="2" type="checkbox" name="edit_cs"></td>
                     <td><input value="3" type="checkbox" name="create_cs"></td>
@@ -85,19 +85,19 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Wastage</td>
-                    <td><select class="form-control" name="w_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
-                    <td><input value="1" type="checkbox" name="create_waste"></td>
-                    <td><input value="2" type="checkbox" name="view_waste"></td>
-                    <td><input value="3" type="checkbox" name="edit_waste"></td>
-                    <td><input value="4" type="checkbox" name="delete_waste"></td>
+                    <td><select class="form-control" name="w_access" onchange="handleAccessChange('w')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
+                    <td><input value="1" type="checkbox" name="create_w"></td>
+                    <td><input value="2" type="checkbox" name="view_w"></td>
+                    <td><input value="3" type="checkbox" name="edit_w"></td>
+                    <td><input value="4" type="checkbox" name="delete_w"></td>
                 </tr>
                 <tr>
                     <td>Counter Closing</td>
-                    <td><select class="form-control" name="cc_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="cc_access"  onchange="handleAccessChange('cc')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input value="1" type="checkbox" name="create_cc"></td>
                     <td><input value="2" type="checkbox" name="view_cc"></td>
                     <td><input value="3" type="checkbox" name="edit_cc"></td>
@@ -105,9 +105,9 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>User</td>
-                    <td><select class="form-control" name="user_access">
-                    <option value="0">Disable</option>
-                    <option value="1">Enable</option></select></td>
+                    <td><select class="form-control" name="user_access"  onchange="handleAccessChange('user')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td><input type="checkbox" name="create_user"></td>
                     <td><input type="checkbox" name="view_user"></td>
                     <td><input type="checkbox" name="edit_user"></td>
@@ -115,7 +115,7 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Report</td>
-                    <td><select class="form-control" name="r_access">
+                    <td><select class="form-control" name="r_access" onchange="handleAccessChange('r')">
                     <option value="0">Disable</option>
                     <option value="1">Enable</option></select></td>
                     <td></td>
@@ -125,7 +125,7 @@ include('menu.php');
                 </tr>
                 <tr>
                     <td>Dashboard</td>
-                    <td><select class="form-control" name="d_access">
+                    <td><select class="form-control" name="d_access" onchange="handleAccessChange('d')">
                     <option value="1">Disable</option>
                     <option value="0">Enable</option></select></td>
                     <td></td>
@@ -152,6 +152,42 @@ include('menu.php');
 </div>
 <!-- page-body-wrapper ends -->
 </div>
+
+<!-- Access enable and disable function controlled  -->
+<script>
+function handleAccessChange(e) {
+    
+    // Get the "fo_access" dropdown element
+    var foAccessDropdown = document.querySelector(`[name='${e}_access']`);
+
+    console.log(foAccessDropdown)
+
+    // Get all the checkboxes
+    var viewCheckbox = document.getElementsByName(`view_${e}`)[0];
+    var editCheckbox = document.getElementsByName(`edit_${e}`)[0];
+    var createCheckbox = document.getElementsByName(`create_${e}`)[0];
+    var deleteCheckbox = document.getElementsByName(`delete_${e}`)[0];
+
+    // Check the selected option of the "fo_access" dropdown
+    if (foAccessDropdown.value === "0") { // "0" represents "Disable"
+        // Disable all the checkboxes
+        viewCheckbox.disabled = true;
+        editCheckbox.disabled = true;
+        createCheckbox.disabled = true;
+        deleteCheckbox.disabled = true;
+    } else {
+        // Enable all the checkboxes
+        viewCheckbox.disabled = false;
+        editCheckbox.disabled = false;
+        createCheckbox.disabled = false;
+        deleteCheckbox.disabled = false;
+    }
+}
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d"]
+callAccess.forEach((acc)=>{
+    handleAccessChange(acc)
+})
+</script>
 
 <script src="vendors/js/vendor.bundle.base.js"></script>
 

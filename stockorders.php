@@ -14,7 +14,7 @@ $logUser = $_SESSION['user'];
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-stockorder.php">
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" <?php if($rdata["so_create"]=="0"){echo "disabled";} ?> >Create</button>
         </a>
     </div>
     <?php if (!empty($_GET['succ'])): ?>

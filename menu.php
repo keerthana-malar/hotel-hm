@@ -111,7 +111,10 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     
-                    <li class="nav-item">
+                    
+                    <li class="nav-item" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#us" aria-expanded="false" aria-controls="">
                             <i class=" typcn typcn-media-eject-outline menu menu-icon"></i>
                             <span class="menu-title">Orders</span>
@@ -119,12 +122,13 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </a>
                         <div class="collapse" id="us">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
+                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
+                                <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
+                                <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
                             </ul>
                         </div>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="foodcatalog.php">
                             <i class="typcn typcn-th-list-outline menu-icon"></i>
@@ -179,7 +183,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         <div class="collapse" id="user-manane">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="users.php">Users</a></li>
-                                <!-- <li class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li> -->
+                                <li class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li>
                             </ul>
                         </div>
                     </li>

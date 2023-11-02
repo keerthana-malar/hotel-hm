@@ -142,6 +142,7 @@
 
 </script>
 
+<!-- Delivery date validation checked  -->
 <script>
     var deliveryDateInput = document.getElementById('deliveryDateinput');
     
@@ -155,6 +156,14 @@
             deliveryDateInput.value = ''; 
         }
     });
+</script>
+
+<!-- Icons disable script  -->
+<script>
+    var dislink =document.querySelectorAll(".disabled");
+    dislink.forEach((e)=>{
+        e.removeAttribute("href");
+    })
 </script>
 
 

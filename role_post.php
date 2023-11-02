@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve data from the form
     $role_name = $_POST['role_name'];
     $fo_access = $_POST['fo_access'];
+    $foena = isset($_POST['ena']) ? 1 : 0;
     $view_fo = isset($_POST['view_fo']) ? 1 : 0;
     $edit_fo = isset($_POST['edit_fo']) ? 1 : 0;
     $create_fo = isset($_POST['create_fo']) ? 1 : 0;
@@ -45,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $create_cs = isset($_POST['create_cs']) ? 1 : 0;
     $delete_cs = isset($_POST['delete_cs']) ? 1 : 0;
     $w_access = $_POST['w_access'];
-    $create_waste = isset($_POST['create_waste']) ? 1 : 0;
-    $view_waste = isset($_POST['view_waste']) ? 1 : 0;
-    $edit_waste = isset($_POST['edit_waste']) ? 1 : 0;
-    $delete_waste = isset($_POST['delete_waste']) ? 1 : 0;
+    $create_w = isset($_POST['create_w']) ? 1 : 0;
+    $view_w = isset($_POST['view_w']) ? 1 : 0;
+    $edit_w = isset($_POST['edit_w']) ? 1 : 0;
+    $delete_w = isset($_POST['delete_w']) ? 1 : 0;
     $cc_access = $_POST['cc_access'];
     $create_cc = isset($_POST['create_cc']) ? 1 : 0;
     $view_cc = isset($_POST['view_cc']) ? 1 : 0;
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Create a prepared statement to insert the data
     $sql = "INSERT INTO role (role_name, fo_access, view_fo, edit_fo, create_fo, delete_fo, so_access, view_so, edit_so, create_so, delete_so, odo_access, view_odo, edit_odo, create_odo, delete_odo, 
      fc_access, view_fc, edit_fc, create_fc, delete_fc, sc_access, view_sc, edit_sc, create_sc, delete_sc, cs_access, view_cs, edit_cs, create_cs, delete_cs,
-     w_access, create_waste, view_waste, edit_waste, delete_waste, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
+     w_access, create_w, view_w, edit_w, delete_w, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
      create_user, view_user, edit_user, delete_user, r_access, d_access)
      VALUES (:role_name, :fo_access, :view_fo, :edit_fo, :create_fo, :delete_fo, :so_access, :view_so, :edit_so, :create_so, :delete_so, :odo_access, :view_odo, :edit_odo, :create_odo, :delete_odo,
      :fc_access, :view_fc, :edit_fc, :create_fc, :delete_fc, :sc_access, :view_sc, :edit_sc, :create_sc, :delete_sc, :cs_access, :view_cs, :edit_cs, :create_cs, :delete_cs,
@@ -138,3 +139,5 @@ if (!$stmt->execute()) {
     }
 }
 ?>
+
+
