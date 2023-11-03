@@ -36,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="fo_access" onchange="handleAccessChange('fo')">
                     <option value="0" name="dis" <?php echo ($role['fo_access'] == 0) ? 'selected' : ''; ?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['fo_access'] == 1) ? 'selected' : ''; ?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_fo" <?php echo ($role['create_fo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_fo" <?php echo ($role['view_fo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_fo" <?php echo ($role['edit_fo'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_fo" <?php echo ($role['create_fo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_fo" <?php echo ($role['delete_fo'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -46,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="so_access" onchange="handleAccessChange('so')">
                     <option value="0" name="dis" <?php echo ($role['so_access'] == 0) ? 'selected' : ''; ?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['so_access'] == 1) ? 'selected' : ''; ?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_so" <?php echo ($role['create_so'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_so" <?php echo ($role['view_so'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_so" <?php echo ($role['edit_so'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_so" <?php echo ($role['create_so'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_so" <?php echo ($role['delete_so'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -56,9 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="odo_access" onchange="handleAccessChange('odo')">
                     <option value="0" name="dis" <?php echo ($role['odo_access'] == 0) ? 'selected' : ''?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['odo_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_odo" <?php echo ($role['create_odo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_odo" <?php echo ($role['view_odo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_odo" <?php echo ($role['edit_odo'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_odo" <?php echo ($role['create_odo'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_odo" <?php echo ($role['delete_odo'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -66,9 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="fc_access" onchange="handleAccessChange('fc')">
                     <option value="0" name="dis" <?php echo ($role['fc_access'] == 0) ? 'selected' : ''?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['fc_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_fc" <?php echo ($role['create_fc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_fc" <?php echo ($role['view_fc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_fc" <?php echo ($role['edit_fc'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_fc" <?php echo ($role['create_fc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_fc" <?php echo ($role['delete_fc'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -76,9 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="sc_access" onchange="handleAccessChange('sc')">
                     <option value="0" name="dis" <?php echo ($role['sc_access'] == 0) ? 'selected' : ''?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['sc_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_sc" <?php echo ($role['create_sc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_sc" <?php echo ($role['view_sc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_sc" <?php echo ($role['edit_sc'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_sc" <?php echo ($role['create_sc'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_sc" <?php echo ($role['delete_sc'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -86,9 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><select class="form-control" name="cs_access" onchange="handleAccessChange('cs')">
                     <option value="0" name="dis" <?php echo ($role['cs_access'] == 0) ? 'selected' : ''?>>Disable</option>
                     <option value="1" name="enb" <?php echo ($role['cs_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_cs" <?php echo ($role['create_cs'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="view_cs" <?php echo ($role['view_cs'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_cs" <?php echo ($role['edit_cs'] == 1) ? 'checked' : ''; ?>></td>
-                    <td><input type="checkbox" name="create_cs" <?php echo ($role['create_cs'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_cs" <?php echo ($role['delete_cs'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
@@ -122,6 +122,36 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><input type="checkbox" name="delete_user" <?php echo ($role['delete_user'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
+                    <td>Role</td>
+                    <td><select class="form-control" name="role_access" onchange="handleAccessChange('role')">
+                    <option value="0" name="dis" <?php echo ($role['role_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb" <?php echo ($role['role_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_role" <?php echo ($role['create_role'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="view_role" <?php echo ($role['view_role'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="edit_role" <?php echo ($role['edit_role'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="delete_role" <?php echo ($role['delete_role'] == 1) ? 'checked' : ''; ?>></td>
+                </tr>
+                <tr>
+                    <td>Branch</td>
+                    <td><select class="form-control" name="role_access" onchange="handleAccessChange('b')">
+                    <option value="0" name="dis" <?php echo ($role['b_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb" <?php echo ($role['b_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td><input type="checkbox" name="create_b" <?php echo ($role['create_b'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="view_b" <?php echo ($role['view_b'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="edit_b" <?php echo ($role['edit_b'] == 1) ? 'checked' : ''; ?>></td>
+                    <td><input type="checkbox" name="delete_b" <?php echo ($role['delete_b'] == 1) ? 'checked' : ''; ?>></td>
+                </tr>
+                <tr>
+                    <td>Product Configuration</td>
+                    <td><select class="form-control" name="p_access" onchange="handleAccessChange('p')">
+                    <option value="0" name="dis" <?php echo ($role['p_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb" <?php echo ($role['p_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>      
+                </tr>
+                <tr>
                     <td>Report</td>
                     <td><select class="form-control" name="r_access" onchange="handleAccessChange('r')">
                     <option value="0" name="dis" <?php echo ($role['r_access'] == 0) ? 'selected' : ''?>>Disable</option>
@@ -129,13 +159,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td></td>      
                 </tr>
                 <tr>
                     <td>Dashboard</td>
                     <td><select class="form-control" name="d_access" onchange="handleAccessChange('d')">
-                    <option value="1" <?php echo ($role['d_access'] == 0) ? 'selected' : ''?>>Disable</option>
-                    <option value="0" <?php echo ($role['d_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <option value="1" name="dis"<?php echo ($role['d_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="0" name="enb"<?php echo ($role['d_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -192,7 +222,7 @@ function handleAccessChange(e) {
         deleteCheckbox.disabled = false;
     }
 }
-let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d"]
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d", "role", "p", "b"]
 callAccess.forEach((acc)=>{
     handleAccessChange(acc)
 })

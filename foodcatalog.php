@@ -9,13 +9,17 @@ include('header.php');
 include('menu.php');
 $productSql = "SELECT * FROM product WHERE typeid = '1'";
 $productData = $pdo->query($productSql);
-
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_fc'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_fc'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-product.php">
-      <button class="btn btn-success">Create</button>
+      <button class="btn btn-success" <?php if($rdata["create_fc"]=="0"){echo "disabled";} ?>>Create</button>
     </a>
   </div>
   <?php if (!empty($_GET['succ'])): ?>
@@ -76,9 +80,9 @@ $logUser = $_SESSION['user'];
       echo "<td>" . $catee['name'] . "</td>";
       echo "<td>" . $cusiee['name'] . "</td>";
       echo "<td>" . $row['status'] . "</td>";
-      echo "<td><a href='view-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye '></i></a> | ";
-      echo "<a href='edit-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | ";
-      echo "<a href='delete-product.php?id=" . $row['id'] . "' class='text-danger'><i class='  typcn typcn-trash'></a></td>";
+      echo "<td><a class='".$dslinkView."' href='view-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye '></i></a> | ";
+      echo "<a class='".$dslinkEdit."' href='edit-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | ";
+      echo "<a href='delete-product.php?id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."'><i class='  typcn typcn-trash'></a></td>";
       echo "</tr>";
     }
 

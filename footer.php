@@ -33,6 +33,7 @@
 <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
 
 
+<!-- DataTables sorting, string searching and pagination  -->
 <script>
          $(document).ready(function() {
          $('.table').DataTable({
@@ -45,8 +46,6 @@
         ]
          });
     });
-
-
 </script>
 
 <!-- Add btn and Product Data  -->
@@ -160,9 +159,14 @@
 
 <!-- Icons disable script  -->
 <script>
-    var dislink =document.querySelectorAll(".disabled");
+    var dislink =document.querySelectorAll(".dis");
     dislink.forEach((e)=>{
         e.removeAttribute("href");
+        e.removeAttribute('onclick');
+    })
+    var icon = document.querySelectorAll('.dis .typcn');
+    icon.forEach((ee)=>{
+        ee.style.color="grey";
     })
 </script>
 

@@ -62,6 +62,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $delete_user = isset($_POST['delete_user']) ? 1 : 0;
     $r_access = $_POST['r_access'];
     $d_access = $_POST['d_access'];
+    $p_access = $_POST['p_access'];
+    $role_access = $_POST['role_access'];
+    $create_role = isset($_POST['create_role']) ? 1 : 0;
+    $view_role = isset($_POST['view_role']) ? 1 : 0;
+    $edit_role = isset($_POST['edit_role']) ? 1 : 0;
+    $delete_role = isset($_POST['delete_role']) ? 1 : 0;
+    $b_access = $_POST['b_access'];
+    $create_b = isset($_POST['create_b']) ? 1 : 0;
+    $view_b = isset($_POST['view_b']) ? 1 : 0;
+    $edit_b = isset($_POST['edit_b']) ? 1 : 0;
+    $delete_b = isset($_POST['delete_b']) ? 1 : 0;
 
     $sql = "UPDATE role
     SET
@@ -97,10 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         create_cs = :create_cs,
         delete_cs = :delete_cs,
         w_access = :w_access,
-        create_w = :create_waste,
-        view_w = :view_waste,
-        edit_w = :edit_waste,
-        delete_w = :delete_waste,
+        create_waste = :create_w,
+        view_waste = :view_w,
+        edit_waste = :edit_w,
+        delete_waste = :delete_w,
         cc_access = :cc_access,
         create_cc = :create_cc,
         view_cc = :view_cc,
@@ -112,7 +123,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         edit_user = :edit_user,
         delete_user = :delete_user,
         r_access = :r_access,
-        d_access = :d_access
+        d_access = :d_access,
+        p_access = :p_access,
+        role_access = :role_access,
+        create_role = :create_role,
+        view_role = :view_role,
+        edit_role = :edit_role,
+        delete_role = :delete_role,
+        b_access = :b_access,
+        create_b = :create_b,
+        view_b = :view_b,
+        edit_b = :edit_b,
+        delete_b = :delete_b
     WHERE
         role_id = :role_id;
 ";
@@ -154,10 +176,10 @@ $stmt->bindParam(':edit_cs', $edit_cs);
 $stmt->bindParam(':create_cs', $create_cs);
 $stmt->bindParam(':delete_cs', $delete_cs);
 $stmt->bindParam(':w_access', $w_access);
-$stmt->bindParam(':create_waste', $create_waste);
-$stmt->bindParam(':view_waste', $view_waste);
-$stmt->bindParam(':edit_waste', $edit_waste);
-$stmt->bindParam(':delete_waste', $delete_waste);
+$stmt->bindParam(':create_w', $create_w);
+$stmt->bindParam(':view_w', $view_w);
+$stmt->bindParam(':edit_w', $edit_w);
+$stmt->bindParam(':delete_w', $delete_w);
 $stmt->bindParam(':cc_access', $cc_access);
 $stmt->bindParam(':create_cc', $create_cc);
 $stmt->bindParam(':view_cc', $view_cc);
@@ -170,7 +192,18 @@ $stmt->bindParam(':d_access', $d_access);
 $stmt->bindParam(':edit_user', $edit_user);
 $stmt->bindParam(':delete_user', $delete_user);
 $stmt->bindParam(':r_access', $r_access);
+$stmt->bindParam(':p_access', $p_access);
 $stmt->bindParam(':role_id', $role_id);
+$stmt->bindParam(':role_access', $role_access);
+$stmt->bindParam(':create_role', $create_role);
+$stmt->bindParam(':view_role', $view_role);
+$stmt->bindParam(':edit_role', $edit_role);
+$stmt->bindParam(':delete_role', $delete_role);
+$stmt->bindParam(':b_access', $b_access);
+$stmt->bindParam(':create_b', $create_b);
+$stmt->bindParam(':view_b', $view_b);
+$stmt->bindParam(':edit_b', $edit_b);
+$stmt->bindParam(':delete_b', $delete_b);
 
 
 if (!$stmt->execute()) {

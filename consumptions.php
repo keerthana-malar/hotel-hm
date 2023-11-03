@@ -9,13 +9,17 @@ include('header.php');
 include('menu.php');
 $consumptionSql = "SELECT * FROM `consumption`";
 $consumptionData = $pdo->query($consumptionSql);
-
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_cs'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_cs'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_cs'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-consumption.php">
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" <?php if($rdata["create_cs"]=="0"){echo "disabled";} ?>>Create</button>
         </a>
     </div>
     <?php if (!empty($_GET['succ'])): ?>
@@ -60,9 +64,9 @@ $logUser = $_SESSION['user'];
 
             
             echo "<td>
-            <a href='view-consumption.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
-            <a href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-consumption.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkView."' href='view-consumption.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
+            <a class='".$dslinkEdit."' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a href='delete-consumption.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
     
 

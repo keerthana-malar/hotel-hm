@@ -10,11 +10,17 @@ include('menu.php');
 $orderSql = "SELECT * FROM `order` WHERE ordertype = '2'";
 $orderData = $pdo->query($orderSql);
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_so'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_so'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_so'] == '0'){$dslinkDelete = 'dis';}
+
 ?>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-stockorder.php">
-            <button class="btn btn-success" <?php if($rdata["so_create"]=="0"){echo "disabled";} ?> >Create</button>
+            <button class="btn btn-success" <?php if($rdata["create_so"]=="0"){echo "disabled";} ?> >Create</button>
         </a>
     </div>
     <?php if (!empty($_GET['succ'])): ?>
@@ -57,16 +63,14 @@ $logUser = $_SESSION['user'];
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $branchee['name']. "</td>";
-
             echo "<td>" . $row['orderdate'] . "</td>";
             echo "<td>" . $row['deliverydate'] . "</td>";
             echo "<td>" . $row['priority'] . "</td>";
             echo "<td>" . $row['status'] . "</td>";
-            
             echo "<td>
-            <a href='edit-stockorder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
-            <a href='view-stockorder.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
+            <a class='".$dslinkEdit."' href='edit-stockorder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='typcn typcn-trash'></i></a> |
+            <a class='".$dslinkView."' href='view-stockorder.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
         echo "<td>
                 <a href='print-order.php?id=" . $row['id'] . "' target='_blank'><i class='typcn typcn-print'></i></a>

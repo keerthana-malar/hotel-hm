@@ -367,6 +367,8 @@ if (isset($_GET['id'])) {
         return true;
 
     }
+
+    
 </script>
 
 <?php include('footer.php'); ?>

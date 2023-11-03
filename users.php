@@ -10,13 +10,16 @@ include('menu.php');
 
 $userSql = "SELECT * FROM user";
 $userData = $pdo->query($userSql);
-
 $logUser = $_SESSION['user'];
+
+if($rdata['edit_user'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_user'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_user'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-user.php">
-      <button class="btn btn-success">Create</button>
+      <button class="btn btn-success" <?php if($rdata["create_user"]=="0"){echo "disabled";} ?>>Create</button>
     </a>
   </div>
   <?php if (!empty($_GET['succ'])): ?>
@@ -65,8 +68,8 @@ $logUser = $_SESSION['user'];
       echo "<td>" . $row['username'] . "</td>";
       echo "<td>" . $branchee['name'] . "</td>";
       echo "<td>
-                <a href='edit-user.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
-                <a href='delete-user.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+                <a class='".$dslinkEdit."' href='edit-user.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
+                <a href='delete-user.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
                 </td>";
       echo "</tr>";
     }

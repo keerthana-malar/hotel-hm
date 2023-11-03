@@ -129,13 +129,17 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </div>
                     </li>
                     
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["fc_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" href="foodcatalog.php">
                             <i class="typcn typcn-th-list-outline menu-icon"></i>
                             <span class="menu-title">Food Catalog</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["sc_access"]!=="1" && $rdata["cc_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#use" aria-expanded="false" aria-controls="">
                             <i class="  typcn typcn-folder-open menu-icon"></i>
                             <span class="menu-title">Stock Management</span>
@@ -143,24 +147,30 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </a>
                         <div class="collapse" id="use">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="stocks.php">Stock Catalog</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="consumptions.php">Closing stock</a></li>
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stocks.php">Stock Catalog</a></li>
+                                <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="consumptions.php">Closing stock</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["w_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" href="wastes.php">
                             <i class=" typcn typcn-document-delete menu-icon"></i>
                             <span class="menu-title">wastage</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["cc_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" href="counter.php">
                             <i class="typcn typcn-calculator menu-icon"></i>
                             <span class="menu-title">Counter Closing</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["r_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#manane" aria-expanded="false" aria-controls="">
                             <i class="  typcn typcn-folder-open menu-icon"></i>
                             <span class="menu-title">Reports</span>
@@ -174,7 +184,9 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["user_access"]!=="1" && $rdata["role_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user-manane" aria-expanded="false" aria-controls="">
                             <i class="  typcn typcn-user-add menu-icon"></i>
                             <span class="menu-title">User Management</span>
@@ -182,12 +194,14 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                         </a>
                         <div class="collapse" id="user-manane">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="users.php">Users</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li>
+                                <li <?php if($rdata["user_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="users.php">Users</a></li>
+                                <li <?php if($rdata["role_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["p_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="">
                             <i class="  typcn typcn-upload menu-icon"></i>
                             <span class="menu-title">products Configuration</span>
@@ -204,7 +218,9 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                     </li>
                    
                     
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["b_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" href="branchs.php">
                             <i class=" typcn typcn-home-outline menu-icon"></i>
                             <span class="menu-title">Branch</span>

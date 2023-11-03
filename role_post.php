@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve data from the form
     $role_name = $_POST['role_name'];
     $fo_access = $_POST['fo_access'];
-    $foena = isset($_POST['ena']) ? 1 : 0;
-    $view_fo = isset($_POST['view_fo']) ? 1 : 0;
-    $edit_fo = isset($_POST['edit_fo']) ? 1 : 0;
-    $create_fo = isset($_POST['create_fo']) ? 1 : 0;
-    $delete_fo = isset($_POST['delete_fo']) ? 1 : 0;
+
+    $create_fo = isset($_POST["create_fo"]) ? 1 : 0;
+    $edit_fo = isset($_POST["edit_fo"]) ? 1 : 0;
+    $view_fo = isset($_POST["view_fo"]) ? 1 : 0;
+    $delete_fo = isset($_POST["delete_fo"]) ? 1 : 0;
     $so_access = $_POST['so_access'];
     $view_so = isset($_POST['view_so']) ? 1 : 0;
     $edit_so = isset($_POST['edit_so']) ? 1 : 0;
@@ -60,19 +60,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $view_user = isset($_POST['view_user']) ? 1 : 0;
     $edit_user = isset($_POST['edit_user']) ? 1 : 0;
     $delete_user = isset($_POST['delete_user']) ? 1 : 0;
+    $role_access = $_POST['role_access'];
+    $create_role = isset($_POST['create_role']) ? 1 : 0;
+    $view_role = isset($_POST['view_role']) ? 1 : 0;
+    $edit_role = isset($_POST['edit_role']) ? 1 : 0;
+    $delete_role = isset($_POST['delete_role']) ? 1 : 0;
+    $b_access = $_POST['role_access'];
+    $create_b = isset($_POST['create_b']) ? 1 : 0;
+    $view_b = isset($_POST['view_b']) ? 1 : 0;
+    $edit_b = isset($_POST['edit_b']) ? 1 : 0;
+    $delete_b = isset($_POST['delete_b']) ? 1 : 0;
     $r_access = $_POST['r_access'];
     $d_access = $_POST['d_access'];
+    $p_access = $_POST['p_access'];
     // ... (all other form fields)
+
+
 
     // Create a prepared statement to insert the data
     $sql = "INSERT INTO role (role_name, fo_access, view_fo, edit_fo, create_fo, delete_fo, so_access, view_so, edit_so, create_so, delete_so, odo_access, view_odo, edit_odo, create_odo, delete_odo, 
      fc_access, view_fc, edit_fc, create_fc, delete_fc, sc_access, view_sc, edit_sc, create_sc, delete_sc, cs_access, view_cs, edit_cs, create_cs, delete_cs,
-     w_access, create_w, view_w, edit_w, delete_w, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
-     create_user, view_user, edit_user, delete_user, r_access, d_access)
+     w_access, create_waste, view_waste, edit_waste, delete_waste, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
+     create_user, view_user, edit_user, delete_user, r_access, d_access, role_access, create_role, view_role, edit_role, delete_role, p_access, b_access, view_b, edit_b, delete_b)
      VALUES (:role_name, :fo_access, :view_fo, :edit_fo, :create_fo, :delete_fo, :so_access, :view_so, :edit_so, :create_so, :delete_so, :odo_access, :view_odo, :edit_odo, :create_odo, :delete_odo,
      :fc_access, :view_fc, :edit_fc, :create_fc, :delete_fc, :sc_access, :view_sc, :edit_sc, :create_sc, :delete_sc, :cs_access, :view_cs, :edit_cs, :create_cs, :delete_cs,
-     :w_access, :create_waste, :view_waste, :edit_waste, :delete_waste, :cc_access, :create_cc, :view_cc, :edit_cc, :delete_cc, :user_access,
-     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access)";
+     :w_access, :create_w, :view_w, :edit_w, :delete_w, :cc_access, :create_cc, :view_cc, :edit_cc, :delete_cc, :user_access,
+     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access, :role_access, :create_role, :view_role, :edit_role, :delete_role, :p_access, :b_access, :view_b, :edit_b, :delete_b)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -110,10 +123,10 @@ $stmt->bindParam(':edit_cs', $edit_cs);
 $stmt->bindParam(':create_cs', $create_cs);
 $stmt->bindParam(':delete_cs', $delete_cs);
 $stmt->bindParam(':w_access', $w_access);
-$stmt->bindParam(':create_waste', $create_waste);
-$stmt->bindParam(':view_waste', $view_waste);
-$stmt->bindParam(':edit_waste', $edit_waste);
-$stmt->bindParam(':delete_waste', $delete_waste);
+$stmt->bindParam(':create_w', $create_w);
+$stmt->bindParam(':view_w', $view_w);
+$stmt->bindParam(':edit_w', $edit_w);
+$stmt->bindParam(':delete_w', $delete_w);
 $stmt->bindParam(':cc_access', $cc_access);
 $stmt->bindParam(':create_cc', $create_cc);
 $stmt->bindParam(':view_cc', $view_cc);
@@ -126,6 +139,17 @@ $stmt->bindParam(':d_access', $d_access);
 $stmt->bindParam(':edit_user', $edit_user);
 $stmt->bindParam(':delete_user', $delete_user);
 $stmt->bindParam(':r_access', $r_access);
+$stmt->bindParam(':p_access', $p_access);
+$stmt->bindParam(':role_access', $role_access);
+$stmt->bindParam(':create_role', $create_role);
+$stmt->bindParam(':view_role', $view_role);
+$stmt->bindParam(':edit_role', $edit_role);
+$stmt->bindParam(':delete_role', $delete_role);
+$stmt->bindParam(':b_access', $b_access);
+$stmt->bindParam(':create_b', $create_b);
+$stmt->bindParam(':view_b', $view_b);
+$stmt->bindParam(':edit_b', $edit_b);
+$stmt->bindParam(':delete_b', $delete_b);
 
 
 if (!$stmt->execute()) {

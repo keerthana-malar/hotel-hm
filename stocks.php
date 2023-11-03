@@ -9,8 +9,12 @@ include('header.php');
 include('menu.php');
 $stockSql = "SELECT * FROM `stock`";
 $stockData = $pdo->query($stockSql);
-
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_sc'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_sc'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_sc'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
     <!-- <div class="d-flex justify-content-end mb-5">
@@ -58,8 +62,8 @@ $logUser = $_SESSION['user'];
 
             
             echo "<td>
-            <a href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
-            <a href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a>
+            <a class='".$dslinkView."' href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a> |
+            <a class='".$dslinkEdit."' href='edit-stock.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a>
            
         </td>";
     

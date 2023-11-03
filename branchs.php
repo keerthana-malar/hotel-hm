@@ -8,13 +8,17 @@ include('header.php');
 include('menu.php');
 $branchSql = "SELECT * FROM branch";
 $branchData = $pdo->query($branchSql);
-
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_b'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_b'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_b'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-branch.php">
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" <?php if($rdata["create_b"]==="0"){echo "disabled";} ?>>Create</button>
         </a>
     </div>
 
@@ -60,8 +64,8 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['phone'] . "</td>";
             echo "<td>" . $row['status'] . "</td>";
             echo "<td>
-            <a href='edit-branch.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
-            <a href='delete-branch.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkEdit."' href='edit-branch.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
+            <a href='delete-branch.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
 
             echo "</tr>";

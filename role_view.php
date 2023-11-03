@@ -6,11 +6,16 @@ include('menu.php');
 $counterSql = "SELECT * FROM role";
 $counterData = $pdo->query($counterSql);
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_role'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_role'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="role.php">
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" <?php if($rdata["create_role"]=="0"){echo "disabled";} ?>>Create</button>
         </a>
     </div>
     <?php if (!empty($_GET['succ'])): ?>
@@ -48,8 +53,8 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['role_id'] . "</td>";
             echo "<td>" . $row['role_name'] . "</td>";
             echo "<td>
-            <a href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
-            <a href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkEdit."' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
+            <a href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";
         }

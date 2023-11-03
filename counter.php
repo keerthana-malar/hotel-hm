@@ -6,11 +6,16 @@ include('menu.php');
 $counterSql = "SELECT * FROM counter";
 $counterData = $pdo->query($counterSql);
 $logUser = $_SESSION['user'];
+
+// User access control 
+if($rdata['edit_cc'] == '0'){$dslinkEdit = 'dis';}
+if($rdata['view_cc'] == '0'){ $dslinkView = 'dis';}
+if($rdata['delete_cc'] == '0'){$dslinkDelete = 'dis';}
 ?>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="counter_create.php">
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" <?php if($rdata["create_cc"]=="0"){echo "disabled";} ?>>Create</button>
         </a>
     </div>
     <?php if (!empty($_GET['succ'])): ?>
@@ -58,8 +63,8 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['acc_dep'] . "</td>";
             echo "<td>" . $row['status'] . "</td>";
             echo "<td>
-            <a href='counter_edit.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
-            <a href='counter_delete.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkEdit."'href='counter_edit.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
+            <a href='counter_delete.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";
         }
