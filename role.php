@@ -212,7 +212,7 @@ function handleAccessChange(e) {
         deleteCheckbox.disabled = false;
     }
 }
-let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d", "role", "p", "b"]
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d","role","p","b"]
 callAccess.forEach((acc)=>{
     handleAccessChange(acc)
 })
