@@ -164,8 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                 <tr>
                     <td>Dashboard</td>
                     <td><select class="form-control" name="d_access" onchange="handleAccessChange('d')">
-                    <option value="1" name="dis"<?php echo ($role['d_access'] == 0) ? 'selected' : ''?>>Disable</option>
-                    <option value="0" name="enb"<?php echo ($role['d_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                    <option value="0" name="dis"<?php echo ($role['d_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb"<?php echo ($role['d_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
                     <td></td>
                     <td></td>
                     <td></td>

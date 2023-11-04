@@ -104,7 +104,9 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" <?php if($rdata["d_access"]!=="1"){
+                        echo "hidden";
+                    } ?>>
                         <a class="nav-link" href="dashboard1.php">
                             <i class="typcn typcn-device-desktop menu-icon"></i>
                             <span class="menu-title">Dashboard</span>

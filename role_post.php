@@ -81,11 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $sql = "INSERT INTO role (role_name, fo_access, view_fo, edit_fo, create_fo, delete_fo, so_access, view_so, edit_so, create_so, delete_so, odo_access, view_odo, edit_odo, create_odo, delete_odo, 
      fc_access, view_fc, edit_fc, create_fc, delete_fc, sc_access, view_sc, edit_sc, create_sc, delete_sc, cs_access, view_cs, edit_cs, create_cs, delete_cs,
      w_access, create_waste, view_waste, edit_waste, delete_waste, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
-     create_user, view_user, edit_user, delete_user, r_access, d_access, role_access, create_role, view_role, edit_role, delete_role, p_access, b_access, view_b, edit_b, delete_b)
-     VALUES (:role_name, :fo_access, :view_fo, :edit_fo, :create_fo, :delete_fo, :so_access, :view_so, :edit_so, :create_so, :delete_so, :odo_access, :view_odo, :edit_odo, :create_odo, :delete_odo,
+     create_user, view_user, edit_user, delete_user, r_access, d_access, role_access, create_role, view_role, edit_role, delete_role, p_access, b_access, create_b, view_b, edit_b, delete_b)
+     VALUES (:role_name, :fo_access, :view_fo, :edit_fo, :create_fo, :delete_fo, :so_access, :view_so, :edit_so, :create_so, :delete_so, :odo_access, :view_odo, :edit_odo, :create_odo, :delete_odo, 
      :fc_access, :view_fc, :edit_fc, :create_fc, :delete_fc, :sc_access, :view_sc, :edit_sc, :create_sc, :delete_sc, :cs_access, :view_cs, :edit_cs, :create_cs, :delete_cs,
      :w_access, :create_w, :view_w, :edit_w, :delete_w, :cc_access, :create_cc, :view_cc, :edit_cc, :delete_cc, :user_access,
-     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access, :role_access, :create_role, :view_role, :edit_role, :delete_role, :p_access, :b_access, :view_b, :edit_b, :delete_b)";
+     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access, :role_access, :create_role, :view_role, :edit_role, :delete_role, :p_access, :b_access, :create_b, :view_b, :edit_b, :delete_b)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -135,11 +135,11 @@ $stmt->bindParam(':delete_cc', $delete_cc);
 $stmt->bindParam(':user_access', $user_access);
 $stmt->bindParam(':create_user', $create_user);
 $stmt->bindParam(':view_user', $view_user);
-$stmt->bindParam(':d_access', $d_access);
 $stmt->bindParam(':edit_user', $edit_user);
 $stmt->bindParam(':delete_user', $delete_user);
 $stmt->bindParam(':r_access', $r_access);
 $stmt->bindParam(':p_access', $p_access);
+$stmt->bindParam(':d_access', $d_access);
 $stmt->bindParam(':role_access', $role_access);
 $stmt->bindParam(':create_role', $create_role);
 $stmt->bindParam(':view_role', $view_role);

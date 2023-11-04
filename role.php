@@ -113,7 +113,7 @@ include('menu.php');
                     <td><input type="checkbox" name="edit_user"></td>
                     <td><input type="checkbox" name="delete_user"></td>
                 </tr>
-                <tr>
+                <tr'<?php if($rdata["d_access"]!=="1"){ echo "hidden"; } ?>'>
                     <td>Role</td>
                     <td><select class="form-control" name="role_access"  onchange="handleAccessChange('role')">
                     <option value="0" name="dis">Disable</option>
@@ -156,8 +156,8 @@ include('menu.php');
                 <tr>
                     <td>Dashboard</td>
                     <td><select class="form-control" name="d_access" onchange="handleAccessChange('d')">
-                    <option value="1" name="dis">Disable</option>
-                    <option value="0" name="enb">Enable</option></select></td>
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -212,7 +212,7 @@ function handleAccessChange(e) {
         deleteCheckbox.disabled = false;
     }
 }
-let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d","role","p","b"]
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","role","b","r","d","role","p"]
 callAccess.forEach((acc)=>{
     handleAccessChange(acc)
 })

@@ -10,7 +10,7 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $branch = $_POST['branch'];
-        // $role = $_POST['role'];
+        $role = $_POST['role'];
     
         // Duplicate username check
         $checkDuplicateQuery = "SELECT COUNT(*) FROM user WHERE username = :username";
@@ -30,14 +30,14 @@
         //     exit();
         // }
     
-        $sql = "INSERT INTO user (name, username, password, branch) VALUES (:name, :username, :password, :branch)";
+        $sql = "INSERT INTO user (name, username, password, branch, role) VALUES (:name, :username, :password, :branch, :role)";
         $stmt = $pdo->prepare($sql);
     
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':branch', $branch);
-        // $stmt->bindParam(':role', $role);
+        $stmt->bindParam(':role', $role);
         
         if (!$stmt->execute()) {
             header("Location: " . $u2 . urlencode('Something Wrong please try again later'));
