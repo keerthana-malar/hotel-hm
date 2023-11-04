@@ -65,13 +65,13 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Status <span>*</span></label>
-                    <select class="form-control" name="status" id="exampleInputStatus" required>
+                    <select class="form-control" name="status" id="exampleInputStatus" required readonly>
                     <option value="Created">Created</option>
-                        <option value="Accepted">Accepted</option>
+                        <!-- <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
                         <option value="Received">Received</option>
                         <option value="Cancelled">Cancelled</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Rejected">Rejected</option> -->
                     </select>
                 </div>
             </div>
@@ -94,12 +94,12 @@ $currentDate = date('Y-m-d');
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row mb-4">
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label for="exampleInputStatus">Product <span>*</span></label>
                         <select class="form-control mb-2" name="pro[]" required>
                             <?php foreach ($productdata as $row): ?>
-                                <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                                <option value="<?= $row['id'] ?>"  data-unit="<?= $row['unit'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -131,10 +131,13 @@ $currentDate = date('Y-m-d');
                                 <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                             <?php endforeach; ?>
                         </select>
-             
+                        <div class="col-12 col-md-6 col-lg-2">
+                    <label for="">unit <span>*</span></label>
+                    <input type="text" class="form-control mb-2" name="unit[]" required>
+                </div>
               
                 
-                <div class="col-12 col-md-6 col-lg-2">
+                <!-- <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
                     <label for="exampleInputStatus">Priority</label>
                     <select class="form-control" name="pr[]" id="exampleInputStatus">
@@ -146,7 +149,7 @@ $currentDate = date('Y-m-d');
 
                     </select>
                 </div>
-            </div>
+            </div> -->
             <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Qty <span>*</span></label>
                     <input type="number" class="form-control mb-2" name="qt[]" required>
@@ -172,3 +175,13 @@ $currentDate = date('Y-m-d');
 <?php
 include('footer.php');
 ?>
+<script>
+    // Function to update the unit field based on the selected product
+    function updateUnit(selectElement) {
+        const unitInput = selectElement.parentElement.parentElement.nextElementSibling.querySelector('input[name="unit[]"]');
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        const unit = selectedOption.getAttribute('data-unit');
+        
+        unitInput.value = unit;
+    }
+</script>

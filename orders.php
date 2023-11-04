@@ -2,6 +2,7 @@
   .typcn {
     font-size: 22px;
   }
+  
 </style>
 <?php
 
@@ -40,6 +41,7 @@ $logUser = $_SESSION['user'];
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    
   <?php endif ?>
   <h2 class="mb-3">Food Orders</h2>
 
@@ -50,8 +52,8 @@ $logUser = $_SESSION['user'];
     echo "<table class='table table-hover'>";
     echo "<thead> <tr>
             <th> ID</th>
-            <th> Branch</th>
-            <th> Order Date</th>
+            <th class='col-filter'> Branch</th>
+            <th class='col-filter'> Order Date</th>
             <th> Delivery Date</th>
             <th>priority</th>
             <th>Status</th>

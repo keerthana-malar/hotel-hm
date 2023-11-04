@@ -8,7 +8,7 @@ if (isset($_GET['product_id'])) {
 
     // Perform a database query to retrieve product details based on $productId
     // Replace 'your_database_table_name' with your actual table name
-    $prosql = "SELECT categoryid, cuisineid, typeid FROM `product` WHERE id = :productId";
+    $prosql = "SELECT categoryid, cuisineid, typeid, unit FROM `product` WHERE id = :productId";
     $prostmt = $pdo->prepare($prosql);
     if ($prostmt === false) {
         die('Failed to prepare the query.');
@@ -20,6 +20,7 @@ if (isset($_GET['product_id'])) {
         $catId = $productDetails['categoryid'];
         $cusId = $productDetails['cuisineid'];
         $typId = $productDetails['typeid'];
+        $unit = $productDetails['unit'];
         // echo $catId;
     } else {
         $errorInfo = $prostmt->errorInfo();
@@ -74,7 +75,8 @@ if (isset($_GET['product_id'])) {
         "cusid"=> $productDetails['cuisineid'],
         "cusname"=> $cusDetails['name'],
         "typid"=> $productDetails['typeid'],
-        "typname"=> $typDetails['name']
+        "typname"=> $typDetails['name'],
+        "unit" => $unit
     ];
 
     // Return the product details as JSON

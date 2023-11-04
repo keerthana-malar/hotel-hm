@@ -38,13 +38,13 @@ $logUser = $_SESSION['user'];
     <h2 class="mb-3">Outdoor Orders</h2>
 
     <?php
-
+  
     if ($orderData) {
         echo "<div class='table-responsive'>";
         echo "<table class='table table-hover'>";
         echo "<thead> <tr>
             <th> ID</th>
-            <th> Branch</th>
+            <th  class='col-filter'> Branch</th>
             <th> Order Date</th>
             <th> Delivery Date</th>
             <th>priority</th>

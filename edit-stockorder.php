@@ -126,11 +126,31 @@ if (isset($_GET['id'])) {
 
         <!-- Additional product details rows -->
         <div class="pro-box">
+        <div class="row">
+                
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Product</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Category</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Cuisine</label>
+                </div>
+              
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Order_Qty</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Delivery_Qty</label>
+                </div>
+        </div>
+        
             <?php foreach ($orderItem as $od) { ?>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Product</label>
+                            <!-- <label for="exampleInputStatus">Product</label> -->
                             <select class="form-control mb-2" name="pro[]">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['productid']) {
@@ -157,7 +177,7 @@ if (isset($_GET['id'])) {
 
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Category</label>
+                            <!-- <label for="exampleInputStatus">Category</label> -->
                             <select class="form-control mb-2" name="ca[]">
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['categoryid']) {
@@ -171,7 +191,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Cuisine</label>
+                            <!-- <label for="exampleInputStatus">Cuisine</label> -->
                             <select class="form-control mb-2" name="cu[]">
                                 <?php foreach ($cuisinedata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisineid']) {
@@ -184,7 +204,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <!-- <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
                             <label for="exampleInputStatus">Priority</label>
                             <select class="form-control" name="pr[]">
@@ -203,18 +223,18 @@ if (isset($_GET['id'])) {
 
                         </div>
 
-                    </div>
+                    </div> -->
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
-                        <label for="">Order_Qty</label>
+                        <!-- <label for="">Order_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenDel  delivery-column"  >
-                        <label for="">Delivery_Qty</label>
+                        <!-- <label for="">Delivery_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php echo $od['delivery_qty']; ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenRec  receivedQtyColumn">
-                        <label for="">Received_Qty</label>
+                        <!-- <label for="">Received_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php echo $od['received_qty']; ?>">
                     </div>
                     <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {

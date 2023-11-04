@@ -90,7 +90,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $categoryStmt->bindParam(':categoryid', $item['categoryid']);
             $categoryStmt->execute();
             $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
-
+//   // Fetch cuisine name
+//   $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
+//   $cuisineStmt = $pdo->prepare($cuisineSql);
+//   $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
+//   $cuisineStmt->execute();
+//   $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
             // Fetch product name
             $productSql = "SELECT name FROM `product` WHERE id = :productid";
             $productStmt = $pdo->prepare($productSql);
@@ -101,7 +106,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $html .= '<tr>';
             $html .= '<td>' . $categoryData['name'] . '</td>';
             $html .= '<td>' . $productData['name'] . '</td>';
+            // echo "<td><div>{$cuisineData['name']}</div></td>";
             $html .= '<td>' . $item['order_qty'] . '</td>';
+
             $html .= '</tr>';
         }
 

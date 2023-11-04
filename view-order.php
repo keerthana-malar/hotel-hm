@@ -37,11 +37,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<li class='orderdetails'>Priority: " . $orderData['priority'] . "</li>";
         echo "<li class='orderdetails'>Status: " . $orderData['status'] . "</li>";
         echo "</ul>";
-
+ 
         // Fetch and display the order items associated with the order
         echo "<h3>Ordered Products</h3>";
         echo "<table>";
-        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Quantity</th></tr>";
+        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Unit</th><th>Quantity</th></tr>";
 
         $orderItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id";
         $orderItemstmt = $pdo->prepare($orderItemSql);
@@ -83,7 +83,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<td><div>{$productData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$cuisineData['name']}</div></td>";
+                echo "<td><div>{$item['unit']}</td>";
                 echo "<td><div>{$item['order_qty']}</td>";
+
                 echo "</tr>";
             } 
 
