@@ -49,12 +49,17 @@ if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
             <th>Action</th>
         </tr> </thead>";
         foreach ($counterData as $row) {
+            if($row["role_id"] == "1"){
+                $admin = "admin-role";
+            }else{
+                $admin = "";
+            }
             echo "<tr>";
             echo "<td>" . $row['role_id'] . "</td>";
             echo "<td>" . $row['role_name'] . "</td>";
             echo "<td>
-            <a class='".$dslinkEdit."' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
-            <a href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkEdit."' id='".$admin."' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
+            <a id='".$admin."' href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";
         }
@@ -70,6 +75,19 @@ if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
 function confirmDelete() {
     return confirm("Are you sure you want to delete this role?");
 }
+</script>
+
+<script>
+    var roleAcc =document.querySelectorAll("#admin-role");
+    var icon = document.querySelectorAll("#admin-role .typcn");
+
+    roleAcc.forEach((f)=>{
+        f.removeAttribute("href");
+        f.removeAttribute("onclick");
+    })
+    icon.forEach((fn)=>{
+        fn.style.color="grey";
+    })
 </script>
 
 <?php
