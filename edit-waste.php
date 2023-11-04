@@ -2,6 +2,11 @@
 
 include('header.php');
 include('menu.php');
+if($udata["role"]=="1"){
+    $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
+}else{
+    $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
+} 
 
 if (isset($_GET['id'])) {
     $wasteID = $_GET['id'];
@@ -16,7 +21,7 @@ if (isset($_GET['id'])) {
     $oi = $pdo->query("SELECT * FROM wasteitem WHERE waste_id = " . $wasteID . "");
     $wasteItem = $oi->fetchAll(PDO::FETCH_ASSOC);
     // Retrieve branch data for dropdown
-    $branchSql = "SELECT * FROM branch WHERE status = 'Active'";
+    // $branchSql = "SELECT * FROM branch WHERE status = 'Active'";
     $branchData = $pdo->query($branchSql);
     $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
@@ -66,11 +71,29 @@ if (isset($_GET['id'])) {
         </div>
             <!-- Additional product details rows -->
             <div class="pro-box">
+            <div class="row">
+                
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Product</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Type</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Cuisine</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Category <span>*</span></label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Waste_Qty</label>
+                </div>
+        </div>
                 <?php foreach ($wasteItem as $od) { ?>
                     <div class="row mb-4">
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
-                                <label for="exampleInputStatus">Product</label>
+                                <!-- <label for="exampleInputStatus">Product</label> -->
                                 <select class="form-control mb-2" name="pro[]" onchange="handleQty(this)">
                                     <?php foreach ($productdata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
@@ -84,7 +107,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
-                                <label for="exampleInputStatus">Type</label>
+                                <!-- <label for="exampleInputStatus">Type</label> -->
                                 <select class="form-control mb-2" name="ty[]">
                                     <?php foreach ($typedata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['type_id']) {
@@ -98,7 +121,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
-                                <label for="exampleInputStatus">Category</label>
+                                <!-- <label for="exampleInputStatus">Category</label> -->
                                 <select class="form-control mb-2" name="ca[]">
                                     <?php foreach ($categorydata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
@@ -112,7 +135,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
-                                <label for="exampleInputStatus">Cuisine</label>
+                                <!-- <label for="exampleInputStatus">Cuisine</label> -->
                                 <select class="form-control mb-2" name="cu[]">
                                     <?php foreach ($cuisinedata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
@@ -127,7 +150,7 @@ if (isset($_GET['id'])) {
 
 
                         <div class="col-12 col-md-6 col-lg-2">
-                            <label for="">Waste Qty</label>
+                            <!-- <label for="">Waste Qty</label> -->
                             <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" value="<?php echo $od['qty']; ?>">
                         </div>
 

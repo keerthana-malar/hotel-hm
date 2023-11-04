@@ -1,8 +1,13 @@
 <?php
 include('header.php');
 include('menu.php');
+if($udata["role"]=="1"){
+    $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
+}else{
+    $branchsql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
+} 
 
-$branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
+// $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);

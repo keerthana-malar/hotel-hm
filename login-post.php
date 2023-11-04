@@ -19,7 +19,6 @@
         $user = $loginStmt->fetch(PDO::FETCH_ASSOC);
         
         if ($user) {
-
             session_start();
             $_SESSION['user'] = $user;
 

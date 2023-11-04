@@ -59,11 +59,29 @@ if (isset($_GET['id'])) {
         </div>
         <!-- Additional product details rows -->
         <div class="pro-box">
+        <div class="row">
+                
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="exampleInputStatus">Product</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Type</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Cuisine</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Category <span>*</span></label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Available_Qty</label>
+                </div>
+        </div>
                 <?php  foreach($consumptionItem as $od) { ?>
                     <div class="row"> 
                     <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Product <span>*</span></label>
+                        <!-- <label for="exampleInputStatus">Product <span>*</span></label> -->
                         <select class="form-control mb-2" name="pro[]">
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['product_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
@@ -73,7 +91,7 @@ if (isset($_GET['id'])) {
                 </div>
                     <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Type</label>
+                        <!-- <label for="exampleInputStatus">Type</label> -->
                         <select class="form-control mb-2" name="ty[]">
                             <?php foreach ($typedata as $row): ?>
                                 <option value="<?= $row['id'] ?>" <?php if($row['id']=== $od['type_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
@@ -83,7 +101,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Cuisine</label>
+                        <!-- <label for="exampleInputStatus">Cuisine</label> -->
                         <select class="form-control mb-2" name="cu[]">
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['cuisine_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
@@ -93,7 +111,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
-                        <label for="exampleInputStatus">Category</label>
+                        <!-- <label for="exampleInputStatus">Category</label> -->
                         <select class="form-control mb-2" name="ca[]">
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['category_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
@@ -103,7 +121,7 @@ if (isset($_GET['id'])) {
                 </div>
                 
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Available Qty <span>*</span></label>
+                    <!-- <label for="">Available Qty <span>*</span></label> -->
                     <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>" required>
                 </div>
              

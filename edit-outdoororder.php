@@ -2,6 +2,11 @@
 
 include('header.php');
 include('menu.php');
+if($udata["role"]=="1"){
+    $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
+}else{
+    $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
+} 
 
 if (isset($_GET['id'])) {
     $orderID = $_GET['id'];
@@ -16,7 +21,7 @@ if (isset($_GET['id'])) {
     $oi = $pdo->query("SELECT * FROM orderitem WHERE order_id = ".$orderID."");
     $orderItem =$oi->fetchAll(PDO::FETCH_ASSOC);
 
-    $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
+    // $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
     $branchData = $pdo->query($branchSql);
     $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);

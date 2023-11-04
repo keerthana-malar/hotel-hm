@@ -24,6 +24,11 @@ $rstmt->bindParam(':r_id', $udata['role']);
 $rstmt->execute();
 $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
 
+$userBranch = $udata ["branch"];
+ $branchSql3 = "SELECT * FROM branch WHERE status = 'Active' AND id=$userBranch";
+ $brancData = $pdo->query($branchSql3);
+ $brancData = $brancData->fetch(PDO::FETCH_ASSOC);
+ var_dump($brancData);
 ?>
 
 <style>
@@ -99,7 +104,7 @@ $rdata = $rstmt->fetch(PDO::FETCH_ASSOC);
                                    <?php echo $logName ?>
                                 </p>
                                 <p class="sidebar-designation">
-                                    Welcome
+                                <?php echo $brancData["name"] ?>
                                 </p>
                             </div>
                         </div>
