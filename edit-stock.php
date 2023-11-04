@@ -32,6 +32,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
+    
     <h2>Edit Stock</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-stock.php" onsubmit="return handleForm()">
@@ -63,11 +64,30 @@ if (isset($_GET['id'])) {
         </div>
         <!-- Additional product details rows -->
         <div class="pro-box">
+        <div class="row">
+                
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="exampleInputStatus">Product</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="exampleInputStatus">Category</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Cuisine</label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Unit <span>*</span></label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Stock-Qty</label>
+                </div>
+            
+        </div>
             <?php foreach ($stockItem as $od) { ?>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Product</label>
+                            <!-- <label for="exampleInputStatus">Product</label> -->
                             <select class="form-control mb-2" name="pro[]">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
@@ -93,9 +113,9 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div> -->
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Category</label>
+                            <!-- <label for="exampleInputStatus">Category</label> -->
                             <select class="form-control mb-2" name="ca[]">
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
@@ -107,9 +127,9 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <label for="exampleInputStatus">Cuisine</label>
+                            <!-- <label for="exampleInputStatus">Cuisine</label> -->
                             <select class="form-control mb-2" name="cu[]">
                                 <?php foreach ($cuisinedata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
@@ -121,10 +141,14 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-
+                    <div class="col-12 col-md-6 col-lg-2">
+                    <!-- <label for="">Unit <span>*</span></label> -->
+                    <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>" required readonly>
+                    
+                </div>
 
                     <div class="col-12 col-md-6 col-lg-2">
-                        <label for="">Stock-Qty</label>
+                        <!-- <label for="">Stock-Qty</label> -->
                         <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">

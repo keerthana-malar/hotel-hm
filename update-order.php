@@ -20,70 +20,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $des = $_POST['des'];
     $orderName = $_POST['orderName'];
 
-    // Update data in the order table
-    $updateSql = "UPDATE `order` SET branchid = :branchid, orderdate = :orderdate, deliverydate = :deliverydate, priority = :priority, status = :status, description = :description, order_name = :order_name WHERE id = :id";
-    $stmt = $pdo->prepare($updateSql);
-    $stmt->bindParam(':id', $orderID);
-    $stmt->bindParam(':branchid', $branchID);
-    $stmt->bindParam(':orderdate', $orderDate);
-    $stmt->bindParam(':deliverydate', $deliveryDate);
-    $stmt->bindParam(':priority', $priority);
-    $stmt->bindParam(':status', $status);
-    $stmt->bindParam(':description', $des);
-    $stmt->bindParam(':order_name', $orderName);
+    try {
+        $pdo->beginTransaction();
 
-    if (!$stmt->execute()) {
-        header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
-        exit();
-    }
-    $oid = $_POST['oid'];
+        // Update data in the order table
+        $updateSql = "UPDATE `order` SET branchid = :branchid, orderdate = :orderdate, deliverydate = :deliverydate, priority = :priority, status = :status, description = :description, order_name = :order_name WHERE id = :id";
+        $stmt = $pdo->prepare($updateSql);
+        $stmt->bindParam(':id', $orderID);
+        $stmt->bindParam(':branchid', $branchID);
+        $stmt->bindParam(':orderdate', $orderDate);
+        $stmt->bindParam(':deliverydate', $deliveryDate);
+        $stmt->bindParam(':priority', $priority);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':description', $des);
+        $stmt->bindParam(':order_name', $orderName);
 
-    $deleteDaysQuery = "DELETE FROM orderitem WHERE order_id = :postID";
-    $stmtDelete = $pdo->prepare($deleteDaysQuery);
-    $stmtDelete->bindParam(':postID', $oid);
-    $stmtDelete->execute();
+        if (!$stmt->execute()) {
+            throw new PDOException('Error updating order');
+        }
 
+        $oid = $_POST['oid'];
 
-    for ($i = 0; $i < count($_POST['pro']); $i++) {
-        $productID = $_POST['pro'][$i];
-        $cuisineID = $_POST['cu'][$i];
-        $typeID = $_POST['ty'][$i];
-        $categoryID = $_POST['ca'][$i];
-        $quantity = $_POST['qt'][$i];
-        $priorityy = $_POST['pr'][$i];
-        $quantitys = $_POST['deliveryqt'][$i];
-        $quantit = $_POST['receivedqt'][$i];
+        $deleteDaysQuery = "DELETE FROM orderitem WHERE order_id = :postID";
+        $stmtDelete = $pdo->prepare($deleteDaysQuery);
+        $stmtDelete->bindParam(':postID', $oid);
+        $stmtDelete->execute();
 
-        $oldRecQty = $_POST['oldRecQty'][$i];
+        for ($i = 0; $i < count($_POST['pro']); $i++) {
+            $productID = $_POST['pro'][$i];
+            $cuisineID = $_POST['cu'][$i];
+            $typeID = $_POST['ty'][$i];
+            $unitID = $_POST['unit'][$i];
+            $categoryID = $_POST['ca'][$i];
+            $quantity = $_POST['qt'][$i];
+            // $priorityy = $_POST['pr'][$i];
+            $quantitys = $_POST['deliveryqt'][$i];
+            $quantit = $_POST['receivedqt'][$i];
 
+            $oldRecQty = $_POST['oldRecQty'][$i];
 
-        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, priority, delivery_qty, received_qty) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :priority, :delivery_qty, :received_qty)";
-        $orderItemStmt = $pdo->prepare($orderItemSql);
-        $orderItemStmt->bindParam(':order_id', $orderID);
-        $orderItemStmt->bindParam(':productid', $productID);
-        $orderItemStmt->bindParam(':cuisineid', $cuisineID);
-        $orderItemStmt->bindParam(':typeid', $typeID);
-        $orderItemStmt->bindParam(':categoryid', $categoryID);
-        $orderItemStmt->bindParam(':order_qty', $quantity);
-        $orderItemStmt->bindParam(':priority', $priorityy);
-        $orderItemStmt->bindParam(':received_qty', $quantit);
-        $orderItemStmt->bindParam(':delivery_qty', $quantitys);
+            $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, delivery_qty, received_qty, unit) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :delivery_qty, :received_qty, :unit)";
+            $orderItemStmt = $pdo->prepare($orderItemSql);
+            $orderItemStmt->bindParam(':order_id', $orderID);
+            $orderItemStmt->bindParam(':productid', $productID);
+            $orderItemStmt->bindParam(':cuisineid', $cuisineID);
+            $orderItemStmt->bindParam(':typeid', $typeID);
+            $orderItemStmt->bindParam(':unit', $unitID);
+            $orderItemStmt->bindParam(':categoryid', $categoryID);
+            $orderItemStmt->bindParam(':order_qty', $quantity);
+            // $orderItemStmt->bindParam(':priority', $priorityy);
+            $orderItemStmt->bindParam(':received_qty', $quantit);
+            $orderItemStmt->bindParam(':delivery_qty', $quantitys);
 
-
-        if ($orderItemStmt->execute()) {
-            if ($status == 'Received') {
+            if ($orderItemStmt->execute() && $status == 'Received') {
                 // Get Stock id 
-                $sidSql = "SELECT id FROM `stock` WHERE branchid = $branchID";
-                $sidStmt = $pdo->query($sidSql);
+                $sidSql = "SELECT id FROM `stock` WHERE branchid = :branchID";
+                $sidStmt = $pdo->prepare($sidSql);
+                $sidStmt->bindParam(':branchID', $branchID);
+                $sidStmt->execute();
                 $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
                 $sid = $sidData["id"];
 
-                // var_dump($sid);
-                // exit();
-
                 // Get Current qty 
-                $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
-                $cqStmt = $pdo->query($cqSql);
+                $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = :sid AND product_id = :productID";
+                $cqStmt = $pdo->prepare($cqSql);
+                $cqStmt->bindParam(':sid', $sid);
+                $cqStmt->bindParam(':productID', $productID);
+                $cqStmt->execute();
                 $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
                 $cq = $cqData["qty"];
 
@@ -97,42 +100,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $finalQty = $cq - $updatedQty;
                 }
 
-                // echo "NQ";
-                // var_dump($quantit);
-
-                // echo "OQ";
-                // var_dump($oldRecQty);
-
-                // echo "UQ";
-                // var_dump($updatedQty);
-
-                
-
-                // echo "CQ";
-                // var_dump($cq);
-
-                
-
-                // echo "FQ";
-                // var_dump($finalQty);
-
-                // exit();
-
                 // Update Stock
                 $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
                 $sustmt = $pdo->prepare($susql);
-
                 $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
                 $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
                 $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
-
                 $sustmt->execute();
             }
         }
+
+        $pdo->commit();
+        header("Location: " . $u1 . urlencode('Order Successfully Updated'));
+        exit();
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+        header("Location: " . $u2 . urlencode('An error occurred. Please try again later'));
+        exit();
     }
-
-    header("Location: " . $u1 . urlencode('Order Successfully Updated'));
-    exit();
-
 }
 ?>

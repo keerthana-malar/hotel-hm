@@ -22,34 +22,32 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     // Set font
     $pdf->SetFont('helvetica', '', 12);
-    // // Add company logo
-    // $logoImage = 'images/Magizham Logo.png'; // Change to the actual path and filename of your logo
-    // $pdf->Image($logoImage, 10, 10, 40, 0, '', '', '', false, 300);
+
     // Add company details with enhanced styling
     $companyDetails = '
-<table style="width: 100%; border-collapse: collapse;">
-    <tr>
-        <td style="background-color:#FEDD00; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Address</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">123 Main St, City, Country</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Phone</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">+1 123-456-7890</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Email</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">info@yourcompany.com</td>
-    </tr>
-</table>';
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="background-color:#FEDD00; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
+        </tr>
+        <tr>
+            <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Address</td>
+            <td style="background-color: #F9F9F9; padding: 10px;">123 Main St, City, Country</td>
+        </tr>
+        <tr>
+            <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Phone</td>
+            <td style="background-color: #F9F9F9; padding: 10px;">+1 123-456-7890</td>
+        </tr>
+        <tr>
+            <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Email</td>
+            <td style="background-color: #F9F9F9; padding: 10px;">info@yourcompany.com</td>
+        </tr>
+    </table>';
 
     // Apply CSS styles to the whole table
     $companyDetails .= '<style>
-    table { width: 100%; border-collapse: collapse; }
-    td { border: 1px solid #E0E0E0; }
-</style>';
+        table { width: 100%; border-collapse: collapse; }
+        td { border: 1px solid #E0E0E0; }
+    </style>';
     $pdf->writeHTML($companyDetails);
 
     // Fetch and display the order details from the database
@@ -68,7 +66,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         // Output the HTML content to the PDF
         $pdf->writeHTML('<h2>Order Details</h2>');
 
-        // Create an Excel-style table
+        // Create an Excel-style table for order details
         $html = '<table border="1" cellpadding="4" cellspacing="0">';
         $html .= '<tr bgcolor="#ECECEC"><th>ID</th><th>Order Name</th><th>Branch</th><th>Order Date</th><th>Delivery Date</th><th>Priority</th></tr>';
         $html .= '<tr>';
@@ -81,37 +79,33 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
         $html .= '</tr>';
         $html .= '</table>';
-
-        // Fetch and display the order items associated with the order
+        // Fetch and display the order items associated with the order, sorted by cuisine
         $html .= '<h3>Ordered Products</h3>';
         $html .= '<table border="1" cellpadding="4" cellspacing="0">';
-        $html .= '<tr bgcolor="#ECECEC"><th>Category</th><th>Product</th><th>Quantity</th></tr>';
+        $html .= '<tr bgcolor="#ECECEC"><th>Category</th><th>Cuisine</th><th>Product</th><th>Unit</th><th>Quantity</th></tr>';
 
-        $orderItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id";
+        // Modify the SQL query to join the necessary tables and sort by cuisine
+        $orderItemSql = "SELECT oi.order_qty, c.name AS category_name, cu.name AS cuisine_name, p.name AS product_name, p.unit AS product_unit 
+    FROM `orderitem` AS oi
+    INNER JOIN `category` AS c ON oi.categoryid = c.id
+    INNER JOIN `cuisine` AS cu ON oi.cuisineid = cu.id
+    INNER JOIN `product` AS p ON oi.productid = p.id
+    WHERE oi.order_id = :order_id
+    ORDER BY cu.name"; // Sort by cuisine name
+
         $orderItemstmt = $pdo->prepare($orderItemSql);
         $orderItemstmt->bindParam(':order_id', $orderId);
         $orderItemstmt->execute();
         $orderItemData = $orderItemstmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($orderItemData as $item) {
-            // Fetch category name
-            $categorySql = "SELECT name FROM `category` WHERE id = :categoryid";
-            $categoryStmt = $pdo->prepare($categorySql);
-            $categoryStmt->bindParam(':categoryid', $item['categoryid']);
-            $categoryStmt->execute();
-            $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
-
-            // Fetch product name
-            $productSql = "SELECT name FROM `product` WHERE id = :productid";
-            $productStmt = $pdo->prepare($productSql);
-            $productStmt->bindParam(':productid', $item['productid']);
-            $productStmt->execute();
-            $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
-
             $html .= '<tr>';
-            $html .= '<td>' . $categoryData['name'] . '</td>';
-            $html .= '<td>' . $productData['name'] . '</td>';
+            $html .= '<td>' . $item['category_name'] . '</td>';
+            $html .= '<td>' . $item['cuisine_name'] . '</td>';
+            $html .= '<td>' . $item['product_name'] . '</td>';
+            $html .= '<td>' . $item['product_unit'] . '</td>';
             $html .= '<td>' . $item['order_qty'] . '</td>';
+
             $html .= '</tr>';
         }
 

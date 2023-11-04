@@ -65,13 +65,12 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Status <span>*</span></label>
-                    <select class="form-control" name="status" id="exampleInputStatus" required>
+                    <select class="form-control" name="status" id="exampleInputStatus" required readonly="">
                         <option value="Created">Created</option>
-                        <option value="Accepted">Accepted</option>
+                        <!-- <option value="Accepted">Accepted</option>
                         <option value="Delivered">Delivered</option>
-                        <!-- <option value="Received">Received</option> -->
                         <option value="Cancelled">Cancelled</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Rejected">Rejected</option> -->
                     </select>
                 </div>
             </div>
@@ -144,8 +143,11 @@ $currentDate = date('Y-m-d');
                         </select>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-6 col-lg-2">
+                    <label for="">Unit <span>*</span></label>
+                    <input type="text" class="form-control mb-2" name="unit[]" required readonly>
+                </div>
+                <!-- <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Priority</label>
                         <select class="form-control" name="pr[]" id="exampleInputStatus">
@@ -155,7 +157,7 @@ $currentDate = date('Y-m-d');
                             <option value="Urgent">Urgent</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Qty <span>*</span></label>
                     <input type="number" class="form-control mb-2" name="qt[]" required>

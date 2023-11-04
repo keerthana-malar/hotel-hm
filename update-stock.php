@@ -44,8 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $typeID = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
+        $unit = $_POST['unit'][$i];
 
-        $stockItemSql = "INSERT INTO `stockitem` (stock_id, product_id, cuisine_id, type_id, qty, category_id) VALUES (:stock_id, :product_id, :cuisine_id, :type_id, :qty, :category_id)";
+        $stockItemSql = "INSERT INTO `stockitem` (stock_id, product_id, cuisine_id, type_id, qty, category_id, unit) VALUES (:stock_id, :product_id, :cuisine_id, :type_id, :qty, :category_id, :unit))";
         $stockItemStmt = $pdo->prepare($stockItemSql);
         $stockItemStmt->bindParam(':stock_id', $stockID);
         $stockItemStmt->bindParam(':product_id', $productID);
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stockItemStmt->bindParam(':type_id', $typeID);
         $stockItemStmt->bindParam(':category_id', $categoryID);
         $stockItemStmt->bindParam(':qty', $quantity);
-
+        $stockItemStmt->bindParam(':unit', $unit); 
         $stockItemStmt->execute();
     }
 

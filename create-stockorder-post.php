@@ -63,10 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $type = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
-        $priorityy = $_POST['pr'][$i];
+        $unit = $_POST['unit'][$i];
+
+        // $priorityy = $_POST['pr'][$i];
 
 
-        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, typeid, order_qty, categoryid, priority) VALUES (:order_id, :productid, :typeid, :order_qty, :categoryid, :priority)";
+        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, typeid, unit, order_qty, categoryid) VALUES (:order_id, :productid, :typeid, :unit, :order_qty, :categoryid)";
         $orderItemStmt = $pdo->prepare($orderItemSql);
         $orderItemStmt->bindParam(':order_id', $orderID);
         $orderItemStmt->bindParam(':productid', $productID);
@@ -74,7 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderItemStmt->bindParam(':typeid', $type);
         $orderItemStmt->bindParam(':categoryid', $categoryID);
         $orderItemStmt->bindParam(':order_qty', $quantity);
-        $orderItemStmt->bindParam(':priority', $priorityy);
+        $orderItemStmt->bindParam(':unit', $unit);
+
+        // $orderItemStmt->bindParam(':priority', $priorityy);
 
         $orderItemStmt->execute();
     }
