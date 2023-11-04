@@ -30,13 +30,13 @@ $currentDate = date('Y-m-d');
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <!-- <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
                     <input type="date" class="form-control" name="date" id="exampleInputDate"
                         value="<?= $currentDate ?>" readonly>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 

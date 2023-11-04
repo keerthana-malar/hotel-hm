@@ -16,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branchPhone = $_POST['phone']; // Updated Phone Number
     $branchStatus = $_POST['status']; // Updated Status
 
+    // var_dump($branchPhone);
+    // exit();
+
     // Update data in branch table
     $updateSql = "UPDATE branch SET name = :name, address = :address, phone = :phone, status = :status WHERE id = :id";
     $stmt = $pdo->prepare($updateSql);

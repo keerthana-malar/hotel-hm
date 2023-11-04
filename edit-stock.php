@@ -53,13 +53,13 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <!-- Date -->
-            <div class="col-12 col-md-6 col-lg-3">
+            <!-- <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="date">Date Modified</label>
                     <input type="date" class="form-control" id="date" name="date"
                         value="<?php echo $stockData['date_created']; ?>" value="<?= $currentDate ?>" disabled>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- Additional product details rows -->
         <div class="pro-box">
