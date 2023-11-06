@@ -4,22 +4,23 @@
         border: none;
         color: black !important;
     }
+
     .search-input:hover {
         border: 1px solid black !important;
-    
-/* Add border when hovering */
+
+        /* Add border when hovering */
     }
- 
+
     .search-input::placeholder {
         color: black !important;
         font-weight: bold;
     }
+
     thead input {
         width: 100%;
         padding: 3px;
         box-sizing: border-box;
     }
-
 </style>
 <!-- <footer class="footer">
     <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -44,7 +45,7 @@
 <!-- plugin js for this page -->
 <script src="vendors/progressbar.js/progressbar.min.js"></script>
 <script src="vendors/chart.js/Chart.min.js"></script>
-<!-- End plugin js for this page -->  
+<!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 <script src="js/dashboard.js"></script>
 <!-- End custom js for this page-->
@@ -55,7 +56,8 @@
 <script type="text/javascript" charset="utf8"
     src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-L6ziqmHr0DKKGovWfCGR6chGWm5IefSeDNXb8yF2t04eo2fOnVjLZKp7yltj3gdl" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha384-L6ziqmHr0DKKGovWfCGR6chGWm5IefSeDNXb8yF2t04eo2fOnVjLZKp7yltj3gdl" crossorigin="anonymous">
 
 
 <!-- DataTables sorting, string searching and pagination  -->
@@ -70,7 +72,7 @@
                 'pdf',   // Export to PDF
                 'print'  // Print button 
             ],
-            
+
         });
 
         // Add column-wise search functionality
@@ -83,7 +85,7 @@
                 table.column(index).search(this.value).draw();
             });
         });
-        
+
     });
 </script>
 
@@ -200,14 +202,14 @@
 
 <!-- Icons disable script  -->
 <script>
-    var dislink =document.querySelectorAll(".dis");
-    dislink.forEach((e)=>{
+    var dislink = document.querySelectorAll(".dis");
+    dislink.forEach((e) => {
         e.removeAttribute("href");
         e.removeAttribute('onclick');
     })
     var icon = document.querySelectorAll('.dis .typcn');
-    icon.forEach((ee)=>{
-        ee.style.color="grey";
+    icon.forEach((ee) => {
+        ee.style.color = "grey";
     })
 </script>
 

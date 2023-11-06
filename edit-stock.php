@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
-    
+
     <h2>Edit Stock</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-stock.php" onsubmit="return handleForm()">
@@ -54,35 +54,35 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <!-- Date -->
-            <div class="col-12 col-md-6 col-lg-3">
+            <!-- <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="date">Date Modified</label>
                     <input type="date" class="form-control" id="date" name="date"
                         value="<?php echo $stockData['date_created']; ?>" value="<?= $currentDate ?>" disabled>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- Additional product details rows -->
-        <div class="pro-box">
         <div class="row">
-                
-                <div class="col-12 col-md-6 col-lg-3">
-                    <label for="exampleInputStatus">Product</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Category</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <label for="exampleInputStatus">Product</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Category</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Unit <span>*</span></label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Stock-Qty</label>
-                </div>
-            
+            </div>
+
         </div>
+        <div class="pro-box">
             <?php foreach ($stockItem as $od) { ?>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -142,10 +142,11 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-2">
-                    <!-- <label for="">Unit <span>*</span></label> -->
-                    <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>" required readonly>
-                    
-                </div>
+                        <!-- <label for="">Unit <span>*</span></label> -->
+                        <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
+                            required readonly>
+
+                    </div>
 
                     <div class="col-12 col-md-6 col-lg-2">
                         <!-- <label for="">Stock-Qty</label> -->
@@ -159,7 +160,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <!-- End of additional product details rows -->
-        <div class="col-3">
+        <div class="col-3" hidden>
             <a class="btn add-btn btn-success" id="addRow">+</a>
         </div><br><br><br>
         <input type="hidden" name="oid" value="<?php echo $stockID ?>">
@@ -170,6 +171,14 @@ if (isset($_GET['id'])) {
 </form>
 </div>
 <script>
+    
+    var pro = document.querySelectorAll('[name="pro[]"]');
+    var cat = document.querySelectorAll('[name="ca[]"]');
+    var cus = document.querySelectorAll('[name="cu[]"]');
+
+    function disableInputs(input){
+        
+    }
     function handleForm() {
         var branch = document.getElementById("branch");
         var date = document.getElementById("date");
