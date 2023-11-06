@@ -8,13 +8,17 @@
 include('header.php');
 include('menu.php');
 
-$userSql = "SELECT * FROM user";
+
+$userSql = "SELECT u.*, r.role_name AS role_name FROM user u
+            LEFT JOIN role r ON u.role = r.role_id";
 $userData = $pdo->query($userSql);
 $logUser = $_SESSION['user'];
+
 
 if($rdata['edit_user'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_user'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_user'] == '0'){$dslinkDelete = 'dis';}
+
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
@@ -54,8 +58,9 @@ if($rdata['delete_user'] == '0'){$dslinkDelete = 'dis';}
             <th>User Id</th>
             <th>Name</th>
             <th>Username</th>
+            <th>Role</th>
             <th>Branch</th>
-            <th>Actions</th>
+            <th class='action-column'></th>
             
         </tr> </thead>";
 
@@ -66,6 +71,7 @@ if($rdata['delete_user'] == '0'){$dslinkDelete = 'dis';}
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['name'] . "</td>";
       echo "<td>" . $row['username'] . "</td>";
+      echo "<td>" . $row['role_name'] . "</td>";
       echo "<td>" . $branchee['name'] . "</td>";
       echo "<td>
                 <a class='".$dslinkEdit."' href='edit-user.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |

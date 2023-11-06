@@ -49,9 +49,9 @@ if($rdata['delete_cc'] == '0'){$dslinkDelete = 'dis';}
             <th>Branch</th>
             <th>Shortage</th>
             <th>Excess</th>
-            <th>Accounts</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th >Accounts</th>
+            <th >Status</th>
+            <th class='action-column'></th>
         </tr> </thead>";
         foreach ($counterData as $row) {
             echo "<tr>";

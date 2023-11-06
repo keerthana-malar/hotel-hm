@@ -46,7 +46,7 @@ if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
         echo "<thead> <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Action</th>
+            <th class='action-column'></th>
         </tr> </thead>";
         foreach ($counterData as $row) {
             if($row["role_id"] == "1"){
