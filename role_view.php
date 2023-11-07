@@ -12,6 +12,11 @@ if($rdata['edit_role'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_role'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
 ?>
+<style>
+    .typcn{
+        font-size:22px
+    }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="role.php">

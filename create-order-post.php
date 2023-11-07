@@ -35,10 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderStmt->bindParam(':ordertype', $orderType);
 
     if (!$orderStmt->execute()) {
-
         header("Location: " . $u2 . urlencode('Something went wrong. Please try again later.'));
         exit();
-
     } else {
         $orderID = $pdo->lastInsertId();
     }

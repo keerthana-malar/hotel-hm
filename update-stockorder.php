@@ -85,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
                 $cq = $cqData["qty"];
 
+                // Get current quantity from main stock 
                 $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
                 $msStmt = $pdo->query($msSql);
                 $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
