@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cq = $cqData["qty"];
 
                 // Find Used Qty 
-                $usedQty = $cq - $quantity;
+                $usedQty = $cq - $quantity; 
 
                 // $consumption Item Add 
                 $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
