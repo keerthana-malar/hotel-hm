@@ -2,9 +2,9 @@
 
 include('header.php');
 include('menu.php');
-if($udata["role"]=="1"){
+if ($udata["role"] == "1") {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
-}else{
+} else {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
 }
 
@@ -28,8 +28,8 @@ if (isset($_GET['id'])) {
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
-    
-} 
+
+}
 
 ?>
 
@@ -48,7 +48,6 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-
                 <div class="form-group">
                     <label for="branch">Branch</label>
                     <select class="form-control" name="branch" id="branch">
@@ -128,9 +127,6 @@ if (isset($_GET['id'])) {
         </div>
 
 
-
-        <!-- Additional product details rows -->
-        <div class="pro-box">
         <div class="row">
                 
                 <div class="col-12 col-md-6 col-lg-2">
@@ -155,12 +151,15 @@ if (isset($_GET['id'])) {
                 <label for="">Received Qty</label>
                 </div>
         </div>
-        
+        <!-- Additional product details rows -->
+        <div class="pro-box">
+
+
             <?php foreach ($orderItem as $od) { ?>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus">Product</label> -->
+                            <!-- <label for="exampleInputStatus" >Product</label> -->
                             <select class="form-control mb-2" name="pro[]">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['productid']) {
@@ -172,22 +171,23 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="col-12 col-md-6 col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputStatus">Type</label>
-                        <select class="form-control mb-2" name="ty[]">
-                            <?php foreach ($typedata as $row): ?>
-                                <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['typeid']) {
-                                      echo 'selected';
-                                  } ?>><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="col-12 col-md-6 col-lg-2" hidden>
+                        <div class="form-group">
+                            <!-- <label for="exampleInputStatus" hidden>Type</label> -->
+                            <select class="form-control mb-2" name="ty[]">
+                                <?php foreach ($typedata as $row): ?>
+                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['typeid']) {
+                                          echo 'selected';
+                                      } ?>><?= $row['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div> -->
 
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus">Category</label> -->
+                            <!-- <label for="exampleInputStatus" hidden>Category</label> -->
                             <select class="form-control mb-2" name="ca[]">
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['categoryid']) {
@@ -199,9 +199,11 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
+
                     <div class="col-12 col-md-6 col-lg-2 hc">
+
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus">Cuisine</label> -->
+                            <!-- <label for="exampleInputStatus" hidden>Cuisine</label> -->
                             <select class="form-control mb-2" name="cu[]">
                                 <?php foreach ($cuisinedata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisineid']) {
@@ -235,12 +237,11 @@ if (isset($_GET['id'])) {
                                 </option>
                             </select>
 
-
                         </div>
 
                     </div> -->
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
-                        <!-- <label for="">Order_Qty</label> -->
+                        <!-- <label for="" hidden>Order_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
@@ -257,16 +258,16 @@ if (isset($_GET['id'])) {
                     } else {
                         echo 0;
                     } ?>" name="oldRecQty[]" hidden>
-                        <input type="hidden" name="ty[]" value="2">
-                
+                    <input type="hidden" name="ty[]" value="2">
+
                 </div>
             <?php } ?>
         </div>
 
         <!-- End of additional product details rows -->
         <div class="col-12 col-md-6 col-lg-2">
-        <?php if ($orderData['status'] !== 'Accepted'): ?>
-            <a class="btn add-btn btn-success" id="addRow">+</a>
+            <?php if ($orderData['status'] !== 'Accepted'): ?>
+                <a class="btn add-btn btn-success" id="addRow">+</a>
             <?php endif; ?>
         </div><br><br><br>
 
@@ -288,7 +289,6 @@ if (isset($_GET['id'])) {
         let qty = document.querySelectorAll('[name="qt[]"]')
         let dQty = document.querySelectorAll('[name="deliveryqt[]"]')
         let rQty = document.querySelectorAll('[name="receivedqt[]"]')
-
 
         let db = document.querySelectorAll(".hiddenDel");
         let rb = document.querySelectorAll('.hiddenRec');

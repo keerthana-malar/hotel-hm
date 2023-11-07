@@ -2,9 +2,9 @@
 
 include('header.php');
 include('menu.php');
-if($udata["role"]=="1"){
+if ($udata["role"] == "1") {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
-}else{
+} else {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
 }
 
@@ -100,24 +100,47 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" name="status" id="status" onchange="handleQty()">
-                        <option value="created" <?php if ($orderData['status'] === 'Created')
-                            echo 'selected'; ?>>Created
-                        </option>
-                        <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
-                            echo 'selected'; ?>>
-                            Accepted</option>
-                        <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
-                            echo 'selected'; ?>>
-                            Delivered</option>
-                        <option value="Received" <?php if ($orderData['status'] === 'Received')
-                            echo 'selected'; ?>>
-                            Received</option>
-                        <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
-                            echo 'selected'; ?>>
-                            Cancelled</option>
-                        <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
-                            echo 'selected'; ?>>
-                            Rejected</option>
+                        <?php if ($orderData['status'] === 'Created') { ?>
+                            <option value="created" <?php if ($orderData['status'] === 'Created')
+                                echo 'selected'; ?>>Created
+                            </option>
+                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                echo 'selected'; ?>>
+                                Accepted</option>
+                        <?php } ?>
+                        <?php if ($orderData['status'] === 'Accepted') { ?>
+                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                echo 'selected'; ?>>
+                                Accepted</option>
+                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                echo 'selected'; ?>>
+                                Delivered</option>
+                        <?php } ?>
+
+                        <?php if ($orderData['status'] === 'Delivered') { ?>
+                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                echo 'selected'; ?>>
+                                Delivered</option>
+                            <option value="Received" <?php if ($orderData['status'] === 'Received')
+                                echo 'selected'; ?>>
+                                Received</option>
+
+                        <?php } ?>
+                        <?php if ($orderData['status'] === 'Received') { ?>
+                            <option value="Received" <?php if ($orderData['status'] === 'Received')
+                                echo 'selected'; ?>>
+                                Received</option>
+                        <?php } ?>
+                        <?php if ($orderData['status'] !== 'Received') { ?>
+                            <option class="text-danger" value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
+                                echo 'selected'; ?>>
+                                Cancelled</option>
+                            <option class="text-danger" value="Rejected" <?php if ($orderData['status'] === 'Rejected')
+                                echo 'selected'; ?>>
+                                Rejected</option>
+                        <?php } ?>
+
+
                     </select>
                 </div>
             </div>
@@ -409,10 +432,10 @@ if (isset($_GET['id'])) {
         })
         rQty.forEach((p) => {
             p.disabled = false
+            p.removeClassName
         })
         return true;
     }
-    
 </script>
 
 <?php include('footer.php'); ?>
