@@ -77,6 +77,7 @@ if (isset($_GET['id'])) {
                         value="<?php echo $orderData['deliverydate']; ?>">
                 </div>
             </div>
+            
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -92,7 +93,6 @@ if (isset($_GET['id'])) {
                         <option value="Urgent" <?php if ($orderData['priority'] === 'Urgent')
                             echo 'selected'; ?>>Urgent
                         </option>
-
                     </select>
                 </div>
             </div>
@@ -145,7 +145,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
 
-            <div class="col-12 ">
+            <div class="col-12 mb-5">
                 <label for="">Description</label>
                 <textarea class="form-control mb-2" name="des"><?php echo $orderData['description']; ?></textarea>
             </div>
@@ -157,27 +157,33 @@ if (isset($_GET['id'])) {
         <!-- Additional product details rows -->
         <div class="pro-box">
             <div class="row">
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <label for="exampleInputStatus">Product</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Category</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <label for="exampleInputStatus">Product</label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <label for="exampleInputStatus">Category</label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2 hc">
                     <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-1">
                     <label for="">Unit <span>*</span></label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Order_Qty</label>
-                </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2">
+                    <label for="">Order Qty</label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2 hiddenDel">
+                    <label for="">Deliver Qty</label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2 hiddenRec">
+                    <label for="">Received Qty</label>
+                    </div>
             </div>
             <?php foreach ($orderItem as $od) { ?>
                 <div class="row">
 
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Product</label> -->
                             <select class="form-control mb-2" name="pro[]">
@@ -218,7 +224,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2 hc">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Cuisine</label> -->
                             <select class="form-control mb-2" name="cu[]">
@@ -232,11 +238,10 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-1">
                         <!-- <label for="">Unit <span>*</span></label> -->
                         <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
                             required readonly>
-
                     </div>
                     <!-- <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
@@ -260,12 +265,12 @@ if (isset($_GET['id'])) {
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenDel">
-                        <label for="">Delivery_Qty</label>
+                        <!-- <label for="">Delivery_Qty</label> -->
                         <input type="number" class="form-control mb-2" value="<?php echo $od['delivery_qty']; ?>"
                             name="deliveryqt[]">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenRec">
-                        <label for="">Received_Qty</label>
+                        <!-- <label for="">Received_Qty</label> -->
                         <input type="number" class="form-control mb-2" value="<?php echo $od['received_qty']; ?>"
                             name="receivedqt[]">
                     </div>
@@ -309,6 +314,7 @@ if (isset($_GET['id'])) {
 
         let db = document.querySelectorAll(".hiddenDel");
         let rb = document.querySelectorAll('.hiddenRec');
+        let cb = document.querySelectorAll(".hc");
 
         db.forEach((p) => {
             p.hidden = true
@@ -317,7 +323,6 @@ if (isset($_GET['id'])) {
             p.hidden = true
         })
 
-        console.log(db)
 
         if (e.value !== "created") {
 
@@ -373,12 +378,25 @@ if (isset($_GET['id'])) {
             rQty.forEach((p) => {
                 p.disabled = false
             })
+            db.forEach((p) => {
+                p.hidden = false
+            })
             rb.forEach((p) => {
                 p.hidden = false
             })
         } else {
             rQty.forEach((p) => {
                 p.disabled = true
+            })
+        }
+        if (e.value == "Delivered" || e.value == "Received" ) {
+            cb.forEach((f)=>{
+                f.hidden = true
+            })
+        }
+        else{
+            cb.forEach((f)=>{
+                f.hidden = false
             })
         }
     }
@@ -416,12 +434,8 @@ if (isset($_GET['id'])) {
             p.disabled = false
             p.removeClassName
         })
-
         return true;
-
     }
-
-
 </script>
 
 <?php include('footer.php'); ?>

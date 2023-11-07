@@ -52,7 +52,7 @@ if($rdata['delete_waste'] == '0'){$dslinkDelete = 'dis';}
             <th> Branch</th>
             <th> Total Waste Amount</th>
 
-            <th>Action</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
         foreach ($wasteData as $row) {

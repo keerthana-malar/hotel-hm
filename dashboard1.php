@@ -101,9 +101,14 @@ include('menu.php'); // Include your menu file
 // Include your database connection file
 
 // Calculate total orders
-$totalOrdersQuery = "SELECT COUNT(*) as totalOrders FROM `order`";
+if($udata['id'] == "1"){
+    $totalOrdersQuery = "SELECT COUNT(*) as totalOrders FROM `order`";
+}
+else{
+    $totalOrdersQuery = "SELECT COUNT(*) as totalOrders FROM `order` WHERE branchid = $userBranch";
+}
 $totalOrdersResult = $pdo->query($totalOrdersQuery)->fetch(PDO::FETCH_ASSOC);
-$totalOrders = $totalOrdersResult['totalOrders'];
+    $totalOrders = $totalOrdersResult['totalOrders'];
 
 // Calculate total stocks
 $totalStocksQuery = "SELECT COUNT(*) as totalStocks FROM `stock`";
@@ -111,55 +116,82 @@ $totalStocksResult = $pdo->query($totalStocksQuery)->fetch(PDO::FETCH_ASSOC);
 $totalStocks = $totalStocksResult['totalStocks'];
 
 // Calculate total Branches
-$totalbranchQuery = "SELECT COUNT(*) as totalbranch FROM `branch`";
-$totalbranchResult = $pdo->query($totalbranchQuery)->fetch(PDO::FETCH_ASSOC);
-$totalbranch = $totalbranchResult['totalbranch'];
+    $totalbranchQuery = "SELECT COUNT(*) as totalbranch FROM `branch`";
+    $totalbranchResult = $pdo->query($totalbranchQuery)->fetch(PDO::FETCH_ASSOC);
+    $totalbranch = $totalbranchResult['totalbranch'];
 
 // Calculate total wastes
-$totalWastesQuery = "SELECT COUNT(*) as totalWastes FROM `waste`";
+if($udata['id'] == "1"){
+    $totalWastesQuery = "SELECT COUNT(*) as totalWastes FROM `waste`";  
+}
+else{
+    $totalWastesQuery = "SELECT COUNT(*) as totalWastes FROM `waste` WHERE branchid = $userBranch";
+}
 $totalWastesResult = $pdo->query($totalWastesQuery)->fetch(PDO::FETCH_ASSOC);
 $totalWastes = $totalWastesResult['totalWastes'];
-
 
 
 $currentDay = date('Y-m-d');
 
 // Calculate total waste amount for today
-$totalWasteAmountQuery = "SELECT SUM(waste_amount) as totalWasteAmount FROM `waste` WHERE DATE(date) = :today";
+if($udata['id'] == "1"){
+    $totalWasteAmountQuery = "SELECT SUM(waste_amount) as totalWasteAmount FROM `waste` WHERE DATE(date) = :today";
+}
+else{
+    $totalWasteAmountQuery = "SELECT SUM(waste_amount) as totalWasteAmount FROM `waste` WHERE DATE(date) = :today AND branchid = $userBranch";
+}
 $totalWasteAmountResult = $pdo->prepare($totalWasteAmountQuery);
 $totalWasteAmountResult->execute(['today' => $currentDay]);
 $totalWasteAmount = $totalWasteAmountResult->fetch(PDO::FETCH_ASSOC)['totalWasteAmount'];
 
-
-
-
 // Calculate total orders for today
 $today = date('Y-m-d');
+if($udata['id'] == "1"){
 $todayOrdersQuery = "SELECT COUNT(*) as todayTotalOrders FROM `order` WHERE orderdate = :today";
+}
+else{
+    $todayOrdersQuery = "SELECT COUNT(*) as todayTotalOrders FROM `order` WHERE orderdate = :today AND branchid = $userBranch";
+}
 $todayOrdersResult = $pdo->prepare($todayOrdersQuery);
 $todayOrdersResult->execute(['today' => $today]);
 $todayTotalOrders = $todayOrdersResult->fetch(PDO::FETCH_ASSOC)['todayTotalOrders'];
 
 // Calculate total complete orders for today
+if($udata['id'] == "1"){
 $todayCompletedOrdersQuery = "SELECT COUNT(*) as todayCompletedOrders FROM `order` WHERE DATE(orderdate) = :today AND status = 'Delivered'";
+}else{
+$todayCompletedOrdersQuery = "SELECT COUNT(*) as todayCompletedOrders FROM `order` WHERE DATE(orderdate) = :today AND status = 'Delivered' AND branchid = $userBranch";
+}
 $todayCompletedOrdersResult = $pdo->prepare($todayCompletedOrdersQuery);
 $todayCompletedOrdersResult->execute(['today' => $today]);
 $todayCompletedOrders = $todayCompletedOrdersResult->fetch(PDO::FETCH_ASSOC)['todayCompletedOrders'];
 
 // Calculate total pending orders for today
+if($udata['id'] == "1"){
 $todayPendingOrdersQuery = "SELECT COUNT(*) as todayPendingOrders FROM `order` WHERE DATE(orderdate) = :today AND (status = 'Created' OR status = 'Accepted' )";
+}else{
+$todayPendingOrdersQuery = "SELECT COUNT(*) as todayPendingOrders FROM `order` WHERE DATE(orderdate) = :today AND (status = 'Created' OR status = 'Accepted' AND branchid = $userBranch)";
+}
 $todayPendingOrdersResult = $pdo->prepare($todayPendingOrdersQuery);
 $todayPendingOrdersResult->execute(['today' => $today]);
 $todayPendingOrders = $todayPendingOrdersResult->fetch(PDO::FETCH_ASSOC)['todayPendingOrders'];
 
 // Calculate total stocks for today
+if($udata['id'] == "1"){
 $todayStocksQuery = "SELECT COUNT(*) as todayTotalStocks FROM `stock` WHERE DATE(date_created) = :today";
+}else{
+$todayStocksQuery = "SELECT COUNT(*) as todayTotalStocks FROM `stock` WHERE DATE(date_created) = :today AND branchid = $userBranch";
+}
 $todayStocksResult = $pdo->prepare($todayStocksQuery);
 $todayStocksResult->execute(['today' => $today]);
 $todayTotalStocks = $todayStocksResult->fetch(PDO::FETCH_ASSOC)['todayTotalStocks'];
 
 // Calculate total wastes for today
+if($udata['id'] == "1"){
 $todayWastesQuery = "SELECT COUNT(*) as todayTotalWastes FROM `waste` WHERE DATE(date) = :today";
+}else{
+$todayWastesQuery = "SELECT COUNT(*) as todayTotalWastes FROM `waste` WHERE DATE(date) = :today AND branchid = $userBranch";   
+}
 $todayWastesResult = $pdo->prepare($todayWastesQuery);
 $todayWastesResult->execute(['today' => $today]);
 $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWastes'];

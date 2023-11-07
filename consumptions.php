@@ -50,7 +50,7 @@ if($rdata['delete_cs'] == '0'){$dslinkDelete = 'dis';}
             <th> ID</th>
             <th>  Date</th>
             <th> Branch</th>
-            <th>Action</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
         foreach ($consumptionData as $row) {
