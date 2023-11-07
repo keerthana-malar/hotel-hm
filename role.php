@@ -144,6 +144,16 @@ include('menu.php');
                     <td></td>
                 </tr>
                 <tr>
+                    <td>Production Chart</td>
+                    <td><select class="form-control" name="pc_access" onchange="handleAccessChange('pc')">
+                    <option value="0" name="dis">Disable</option>
+                    <option value="1" name="enb">Enable</option></select></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td>Report</td>
                     <td><select class="form-control" name="r_access" onchange="handleAccessChange('r')">
                     <option value="0" name="dis">Disable</option>
@@ -212,7 +222,7 @@ function handleAccessChange(e) {
         deleteCheckbox.disabled = false;
     }
 }
-let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","role","b","r","d","role","p"]
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","role","b","r","d","role","pc"]
 callAccess.forEach((acc)=>{
     handleAccessChange(acc)
 })

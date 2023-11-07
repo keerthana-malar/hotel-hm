@@ -118,7 +118,7 @@ $userBranch = $udata ["branch"];
                     </li>
                     
                     
-                    <li class="nav-item" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1"){
+                    <li class="nav-item" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1" && $rdata["pc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#us" aria-expanded="false" aria-controls="">
@@ -131,6 +131,7 @@ $userBranch = $udata ["branch"];
                                 <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
                                 <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
                                 <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
+                                <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="production.php">Production Chart</a></li>
                             </ul>
                         </div>
                     </li>
