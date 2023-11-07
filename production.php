@@ -58,7 +58,7 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['date'] . "</td>";
             echo "<td>
-            <a class='".$dslinkEdit."' href='production-view.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-eye'></i></i></a> 
+            <a class='".$dslinkEdit."' href='production-view.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye'></i></i></a> 
         </td>";
             echo "</tr>";
         }
