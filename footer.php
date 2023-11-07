@@ -119,7 +119,6 @@
                                 typ.value = data.typid;
                                 typName = data.typname;
                             }
-
                             var catName = catSel.text;
                             var cusName = cusSel.text;
                             cat.value = data.catid;

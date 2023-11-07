@@ -28,7 +28,6 @@ $userBranch = $udata ["branch"];
  $branchSql3 = "SELECT * FROM branch WHERE status = 'Active' AND id=$userBranch";
  $brancData = $pdo->query($branchSql3);
  $brancData = $brancData->fetch(PDO::FETCH_ASSOC);
- var_dump($brancData);
 ?>
 
 <style>

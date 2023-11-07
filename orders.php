@@ -54,10 +54,11 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
     echo "<div class='table-responsive'>";
     echo "<table class='table table-hover'>";
     echo "<thead> <tr>
-            <th> ID</th>
-            <th class='col-filter'> Branch</th>
-            <th class='col-filter'> Order Date</th>
-            <th> Delivery Date</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th class='col-filter'>Branch</th>
+            <th class='col-filter'>Order Date</th>
+            <th>Delivery Date</th>
             <th>priority</th>
             <th>Status</th>
             <th>Action</th>
@@ -69,6 +70,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
+      echo "<td>" . $row['order_name'] . "</td>";
       echo "<td>" . $branchee['name'] . "</td>";
       echo "<td>" . $row['orderdate'] . "</td>";
       echo "<td>" . $row['deliverydate'] . "</td>";

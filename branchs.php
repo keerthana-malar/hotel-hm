@@ -57,6 +57,11 @@ if($rdata['delete_b'] == '0'){$dslinkDelete = 'dis';}
         </tr> </thead>";
 
         foreach ($branchData as $row) {
+          if($row["id"] == "1"){
+            $admin = "admin-role";
+          }else{
+            $admin = "";
+          }
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['name'] . "</td>";
@@ -64,8 +69,8 @@ if($rdata['delete_b'] == '0'){$dslinkDelete = 'dis';}
             echo "<td>" . $row['phone'] . "</td>";
             echo "<td>" . $row['status'] . "</td>";
             echo "<td>
-            <a class='".$dslinkEdit."' href='edit-branch.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
-            <a href='delete-branch.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='".$dslinkEdit."' id='".$admin."' href='edit-branch.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |
+            <a id='".$admin."' href='delete-branch.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
 
             echo "</tr>";
@@ -87,4 +92,17 @@ include('footer.php');
 function confirmDelete() {
     return confirm("Are you sure you want to delete this order?");
 }
+</script>
+
+<script>
+    var roleAcc =document.querySelectorAll("#admin-role");
+    var icon = document.querySelectorAll("#admin-role .typcn");
+
+    roleAcc.forEach((f)=>{
+        f.removeAttribute("href");
+        f.removeAttribute("onclick");
+    })
+    icon.forEach((fn)=>{
+        fn.style.color="grey";
+    })
 </script>
