@@ -46,7 +46,7 @@ $logUser = $_SESSION['user'];
             <th>ID</th>
             <th>Name</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
         foreach ($categoryData as $row) {

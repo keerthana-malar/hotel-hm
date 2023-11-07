@@ -5,13 +5,20 @@ include('menu.php');
 
 if (isset($_GET['id'])) {
     $userID = $_GET['id'];
+    
+// Retrieve the user details from the database, joining with the role table to get the role name
+$userSql = "SELECT u.*, r.role_name FROM user u
+LEFT JOIN role r ON u.role = r.role_id
+WHERE u.id = :id";
+$userStmt = $pdo->prepare($userSql);
+$userStmt->bindParam(':id', $userID);
+$userStmt->execute();
+$userData = $userStmt->fetch(PDO::FETCH_ASSOC);
 
-    // Retrieve the user details from the database
-    $userSql = "SELECT * FROM user WHERE id = :id";
-    $userStmt = $pdo->prepare($userSql);
-    $userStmt->bindParam(':id', $userID);
-    $userStmt->execute();
-    $userData = $userStmt->fetch(PDO::FETCH_ASSOC);
+// Retrieve roles data for the dropdown
+$roleSql = "SELECT * FROM `role`";
+$roleData = $pdo->query($roleSql);
+
 } else {
     header("Location: users.php");
     exit();
@@ -41,7 +48,7 @@ $branchdata = $pdo->query($branchsql);
             <div class="col-12 col-md-6 col-lg-3">
             <div class="form-group">
                     <label for="exampleSelectGender">Branch</label>
-                    <select class="form-control" id="exampleSelectGender" name="branch">
+                    <select class="form-control" id="exampleSelectGender" name="branch" value="<?php echo $userData['name']; ?>">
                         
                 <?php foreach ($branchdata as $row): ?>
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
@@ -50,12 +57,16 @@ $branchdata = $pdo->query($branchsql);
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="form-group">
-                    <label for="exampleInputRole">Role</label>
-                    <input type="text" class="form-control" name="role" disabled id="exampleInputRole" value="<?php echo $userData['role']; ?> ">
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="exampleInputRole">Role</label>
+        <select class="form-control" name="role" id="exampleInputRole">
+            <?php foreach ($roleData as $r) { ?>
+                <option value="<?php echo $r['role_id'] ?>" <?php echo ($r['role_name'] === $userData['role_name']) ? 'selected' : ''; ?>><?php echo $r['role_name'] ?></option>
+            <?php } ?>
+        </select>
+    </div>
+</div>
+
         <button type="submit" class="btn btn-primary mr-2">Update</button>
     </form>
 </div>

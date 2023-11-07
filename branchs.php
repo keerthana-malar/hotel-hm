@@ -53,7 +53,7 @@ if($rdata['delete_b'] == '0'){$dslinkDelete = 'dis';}
             <th>Address</th>
             <th>phone</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
         foreach ($branchData as $row) {

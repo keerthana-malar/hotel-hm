@@ -46,13 +46,13 @@ $logUser = $_SESSION['user'];
             <th> ID</th>
             <th>product </th>
             <th>Unit</th>
-            <th>Price
-            (Per Unit)</th>
+            <th class=''>Price
+            )</th>
             <th>Type</th>
             <th>Category</th>
             <th>Cuisine</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
         foreach ($productData as $row) {

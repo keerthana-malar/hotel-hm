@@ -60,7 +60,7 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
             <th>Category</th>
             <th>Cuisine</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th class='action-column'></th>
         </tr> </thead>";
 
     foreach ($productData as $row) {

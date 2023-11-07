@@ -61,7 +61,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
             <th>Delivery Date</th>
             <th>priority</th>
             <th>Status</th>
-            <th>Action</th>
+            <th class='action-column'></th>
             <th></th>
         </tr> </thead>";
 

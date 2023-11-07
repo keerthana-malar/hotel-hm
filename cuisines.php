@@ -29,7 +29,7 @@ $logUser = $_SESSION['user'];
             <th>ID</th>
             <th>Name</th>
             <th>Status</th>
-            <th>Action</th>
+            <th class='action-column'></th>
 
         </tr> </thead>";
 

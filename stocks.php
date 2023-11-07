@@ -49,7 +49,7 @@ if($rdata['delete_sc'] == '0'){$dslinkDelete = 'dis';}
         echo "<thead> <tr>
             <th> ID</th>
             <th> Branch</th>
-            <th>Action</th>
+            <th class='action-column'>Action</th>
         </tr> </thead>";
 
         foreach ($stockData as $row) {

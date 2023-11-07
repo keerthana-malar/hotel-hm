@@ -60,31 +60,30 @@
 
 <!-- DataTables sorting, string searching and pagination  -->
 <script>
-    $(document).ready(function () {
-        var table = $('.table').DataTable({
-            ordering: false, // Disable sorting
-            buttons: [
-                'copy', // Copy to clipboard
-                'excel', // Export to Excel
-                'csv',   // Export to CSV
-                'pdf',   // Export to PDF
-                'print'  // Print button 
-            ],
-            
+   $(document).ready(function () {
+    var table = $('.table').DataTable({
+        ordering: false, // Disable sorting
+        buttons: [
+            'copy', // Copy to clipboard
+            'excel', // Export to Excel
+            'csv',   // Export to CSV
+            'pdf',   // Export to PDF
+            'print'  // Print button 
+        ]
         });
 
-        // Add column-wise search functionality
-        $('.table thead th').each(function (index) {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="' + title + '" class="search-input" />');
+    // Add column-wise search functionality
+    $('.table thead th:not(.action-column)').each(function (index) {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="' + title + '" class="search-input" />');
 
-            // Column-wise search event handler
-            $('input.search-input', this).on('input', function () {
-                table.column(index).search(this.value).draw();
-            });
+        // Column-wise search event handler
+        $('input.search-input', this).on('input', function () {
+            table.column(index).search(this.value).draw();
         });
-        
     });
+});
+
 </script>
 
 <!-- Add btn and Product Data  -->
