@@ -171,22 +171,33 @@ if (isset($_GET['id'])) {
 </form>
 </div>
 <script>
-    
+
     var pro = document.querySelectorAll('[name="pro[]"]');
     var cat = document.querySelectorAll('[name="ca[]"]');
     var cus = document.querySelectorAll('[name="cu[]"]');
 
-    function disableInputs(input){
-        
+    function disableInputs(input) {
+        input.forEach((e) => {
+            e.disabled = true
+        });
     }
+    disableInputs(pro)
+    disableInputs(cat)
+    disableInputs(cus)
+
     function handleForm() {
         var branch = document.getElementById("branch");
-        var date = document.getElementById("date");
 
         branch.disabled = false;
-        date.disabled = false;
 
-        return true;
+        function undisableInputs(input) {
+            input.forEach((e) => {
+                e.disabled = false
+            });
+        }
+        undisableInputs(pro)
+        undisableInputs(cat)
+        undisableInputs(cus)
     }
 </script>
 <?php include('footer.php'); ?>
