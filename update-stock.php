@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stockID = $_POST['id'];
     $branch = $_POST['branch'];
-    $date = $_POST['date'];
+    // $date = $_POST['date'];
 
     // Update data in stock table
     $updateSql = "UPDATE `stock` SET branchid = :branchid, date_created = :date_created WHERE id = :id";
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = $_POST['qt'][$i];
         $unit = $_POST['unit'][$i];
 
-        $stockItemSql = "INSERT INTO `stockitem` (stock_id, product_id, cuisine_id, type_id, qty, category_id, unit) VALUES (:stock_id, :product_id, :cuisine_id, :type_id, :qty, :category_id, :unit))";
+        $stockItemSql = "INSERT INTO `stockitem` (stock_id, product_id, cuisine_id, type_id, qty, category_id, unit) VALUES (:stock_id, :product_id, :cuisine_id, :type_id, :qty, :category_id, :unit)";
         $stockItemStmt = $pdo->prepare($stockItemSql);
         $stockItemStmt->bindParam(':stock_id', $stockID);
         $stockItemStmt->bindParam(':product_id', $productID);

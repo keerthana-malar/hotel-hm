@@ -107,6 +107,7 @@ $currentDate = date('Y-m-d');
                     <div class="form-group">
                         <label for="exampleInputStatus">Product <span>*</span></label>
                         <select class="form-control mb-2" name="pro[]" required>
+                            <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>" data-unit="<?= $row['unit'] ?>">
                                     <?= $row['name'] ?>
@@ -150,8 +151,8 @@ $currentDate = date('Y-m-d');
                     <?php endforeach; ?>
                 </select>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">unit <span>*</span></label>
-                    <input type="text" class="form-control mb-2" name="unit[]" required>
+                    <label for="">Unit <span>*</span></label>
+                    <input type="text" class="form-control mb-2" name="unit[]" readonly>
                 </div>
 
 

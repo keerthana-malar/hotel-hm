@@ -90,14 +90,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
                 $cq = $cqData["qty"];
 
+                // Crnt Qty from Main Stock 
+                $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
+                $msStmt = $pdo->query($msSql);
+                $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
+                $stqty = $msData["qty"];
+
                 $updatedQty = 0;
+                $finalstqty = 0;
 
                 if ($oldRecQty <= $quantit) {
                     $updatedQty = $quantit - $oldRecQty;
                     $finalQty = $cq + $updatedQty;
+                    $finalstqty = $stqty - $updatedQty;
                 } else {
                     $updatedQty = $oldRecQty - $quantit;
                     $finalQty = $cq - $updatedQty;
+                    $finalstqty = $stqty + $updatedQty;
                 }
 
                 // Update Stock
@@ -107,6 +116,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
                 $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
                 $sustmt->execute();
+
+                // Update Main Stock 
+                $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
+                $mqstmt = $pdo->prepare($mqsql);
+
+                $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
+                $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
+
+                $mqstmt->execute();
             }
         }
 
