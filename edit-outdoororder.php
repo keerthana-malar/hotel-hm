@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Outdoor Order</h2>
     <hr>
-    <form class="forms-sample" method="post" action="update-outdoororder.php">
+    <form class="forms-sample" method="post" action="update-outdoororder.php" onsubmit="handleSubmit()">
         <div class="row">
 
             <input type="hidden" name="orderID" value="<?php echo $orderData['id']; ?>">
@@ -98,24 +98,48 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select class="form-control" name="status" id="status">
-                        <option value="created" <?php if ($orderData['status'] === 'Created')
-                            echo 'selected'; ?>>Created
-                        </option>
-                        <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
-                            echo 'selected'; ?>>
-                            Accepted</option>
-                        <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
-                            echo 'selected'; ?>>
-                            Delivered</option>
-                        <!-- <option value="Received" <?php if ($orderData['status'] === 'Received')
-                            echo 'selected'; ?>>Received</option> -->
-                        <option value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
-                            echo 'selected'; ?>>
-                            Cancelled</option>
-                        <option value="Rejected" <?php if ($orderData['status'] === 'Rejected')
-                            echo 'selected'; ?>>
-                            Rejected</option>
+                    <select class="form-control" name="status" id="status" onchange="handleQty()">
+                        <?php if ($orderData['status'] === 'Created') { ?>
+                            <option value="created" <?php if ($orderData['status'] === 'Created')
+                                echo 'selected'; ?>>Created
+                            </option>
+                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                echo 'selected'; ?>>
+                                Accepted</option>
+                        <?php } ?>
+                        <?php if ($orderData['status'] === 'Accepted') { ?>
+                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                echo 'selected'; ?>>
+                                Accepted</option>
+                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                echo 'selected'; ?>>
+                                Delivered</option>
+                        <?php } ?>
+
+                        <?php if ($orderData['status'] === 'Delivered') { ?>
+                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                echo 'selected'; ?>>
+                                Delivered</option>
+                            <option value="Received" <?php if ($orderData['status'] === 'Received')
+                                echo 'selected'; ?>>
+                                Received</option>
+
+                        <?php } ?>
+                        <?php if ($orderData['status'] === 'Received') { ?>
+                            <option value="Received" <?php if ($orderData['status'] === 'Received')
+                                echo 'selected'; ?>>
+                                Received</option>
+                        <?php } ?>
+                        <?php if ($orderData['status'] !== 'Received') { ?>
+                            <option class="text-danger" value="Cancelled" <?php if ($orderData['status'] === 'Cancelled')
+                                echo 'selected'; ?>>
+                                Cancelled</option>
+                            <option class="text-danger" value="Rejected" <?php if ($orderData['status'] === 'Rejected')
+                                echo 'selected'; ?>>
+                                Rejected</option>
+                        <?php } ?>
+
+
                     </select>
                 </div>
             </div>
@@ -139,7 +163,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="exampleInputStatus">Category</label>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-2 hc">
                     <label for="exampleInputStatus">Cuisine</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
@@ -198,7 +222,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2 hc">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Cuisine</label> -->
                             <select class="form-control mb-2" name="cu[]">
@@ -236,26 +260,28 @@ if (isset($_GET['id'])) {
         </div>
 
     </div> -->
-    <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
+                    <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <!-- <label for="">Order_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
                             readonly>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column"  >
+                    <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column">
                         <!-- <label for="">Delivery_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php echo $od['delivery_qty']; ?>">
+                        <input type="number" class="form-control mb-2" name="deliveryqt[]"
+                            value="<?php echo $od['delivery_qty']; ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenRec receivedQtyColumn">
                         <!-- <label for="">Received_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php echo $od['received_qty']; ?>">
+                        <input type="number" class="form-control mb-2" name="receivedqt[]"
+                            value="<?php echo $od['received_qty']; ?>">
                     </div>
                     <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {
                         echo $od['received_qty'];
                     } else {
                         echo 0;
                     } ?>" name="oldRecQty[]" hidden>
-                        <input type="hidden" name="ty[]" value="2">
-                
+                    <input type="hidden" name="ty[]" value="2">
+
                 </div>
             <?php } ?>
         </div>
@@ -289,6 +315,7 @@ if (isset($_GET['id'])) {
 
         let db = document.querySelectorAll(".hiddenDel");
         let rb = document.querySelectorAll('.hiddenRec');
+        let cb = document.querySelectorAll(".hc");
 
         db.forEach((p) => {
             p.hidden = true
@@ -368,7 +395,11 @@ if (isset($_GET['id'])) {
                 f.hidden = true
             })
         }
-
+        else {
+            cb.forEach((f) => {
+                f.hidden = false
+            })
+        }
     }
     handleQty()
 
@@ -402,10 +433,9 @@ if (isset($_GET['id'])) {
         })
         rQty.forEach((p) => {
             p.disabled = false
+            p.removeClassName
         })
-
         return true;
-
     }
 </script>
 

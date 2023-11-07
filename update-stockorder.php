@@ -142,6 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $sustmt->execute();
 
+                // Update Main Stock 
                 $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
                 $mqstmt = $pdo->prepare($mqsql);
 

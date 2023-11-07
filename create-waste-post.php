@@ -4,6 +4,7 @@ require('db.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Redirection 
     $u1 = "wastes.php?succ=";
     $u2 = "create-waste.php?err=";
 
@@ -13,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount = $_POST['amount'];
 
     // Duplicate product name check
-    $checkDuplicateQuery = "SELECT COUNT(*) FROM `waste` WHERE id = :id";
-    $checkStmt = $pdo->prepare($checkDuplicateQuery);
-    $checkStmt->bindParam(':id', $id);
-    $checkStmt->execute();
-    $duplicateCount = $checkStmt->fetchColumn();
+    // $checkDuplicateQuery = "SELECT COUNT(*) FROM `waste` WHERE id = :id";
+    // $checkStmt = $pdo->prepare($checkDuplicateQuery);
+    // $checkStmt->bindParam(':id', $id);
+    // $checkStmt->execute();
+    // $duplicateCount = $checkStmt->fetchColumn();
 
     // Duplicate date and branch check 
     $sql_check = "SELECT COUNT(*) FROM `waste` WHERE branchid = :branchid AND date = :date";
@@ -41,6 +42,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $wasteID = $pdo->lastInsertId();
         }
 
+        // GEt Stock id
+        $sidSql = "SELECT id FROM `stock` WHERE branchid = $branch";
+        $sidStmt = $pdo->query($sidSql);
+        $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
+        $sid = $sidData["id"];
+
+        // Create Closing Stock
+        $dateNow = date("Y-m-d");
+        $auto = 1;
+
+        // Create Closing Stock Acc 
+        $clsSql = "INSERT INTO `consumption` (date_created, branchid, is_auto) VALUES (:dc, :bi, :au)";
+        $clsStmt = $pdo->prepare($clsSql);
+        $clsStmt->bindParam(':dc', $dateNow);
+        $clsStmt->bindParam(':bi', $branch);
+        $clsStmt->bindParam(':au', $auto);
+        if ($clsStmt->execute()) {
+            $clsId = $pdo->lastInsertId();
+        }
+
+
         // Insert waste item details into the associated table
         for ($i = 0; $i < count($_POST['pro']); $i++) {
             $productID = $_POST['pro'][$i];
@@ -49,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $categoryID = $_POST['ca'][$i];
             $quantity = $_POST['qt'][$i];
             $cost = $_POST['cost'][$i];
-
-
+            $stQtyCur = "0";
 
             $wasteItemSql = "INSERT INTO `wasteitem` (waste_id, product_id, cuisine_id, type_id, category_id, qty, cost) VALUES (:waste_id, :product_id, :cuisine_id, :type_id, :category_id, :qty, :cost)";
             $wasteItemStmt = $pdo->prepare($wasteItemSql);
@@ -63,12 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $wasteItemStmt->bindParam(':cost', $cost);
 
             if ($wasteItemStmt->execute()) {
-                // GEt Stock id
-                $sidSql = "SELECT id FROM `stock` WHERE branchid = $branch";
-                $sidStmt = $pdo->query($sidSql);
-                $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
-                $sid = $sidData["id"];
-
                 // GEt Stock Qty
                 $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
                 $cqStmt = $pdo->query($cqSql);
@@ -78,36 +93,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Find Used Qty 
                 $usedQty = $cq - $quantity;
 
-                // Create Closing Stock
-                $dateNow = date("Y-m-d");
-                $auto = 1;
-
-                $clsSql = "INSERT INTO `consumption` (date_created, branchid, is_auto) VALUES (:dc, :bi, :au)";
-                $clsStmt = $pdo->prepare($clsSql);
-                $clsStmt->bindParam(':dc', $dateNow);
-                $clsStmt->bindParam(':bi', $branch);
-                $clsStmt->bindParam(':au', $auto);
-
                 // $consumption Item Add 
-                if ($clsStmt->execute()) {
-                    $clsId = $pdo->lastInsertId();
+                $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+                $clsItemStmt = $pdo->prepare($clsItemSql);
+                $clsItemStmt->bindParam(':ci', $clsId);
+                $clsItemStmt->bindParam(':ti', $typeID);
+                $clsItemStmt->bindParam(':cui', $cuisineID);
+                $clsItemStmt->bindParam(':cai', $categoryID);
+                $clsItemStmt->bindParam(':pri', $productID);
+                $clsItemStmt->bindParam(':qi', $stQtyCur);
+                $clsItemStmt->bindParam(':ui', $usedQty);
 
-                    $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
-                    $clsItemStmt = $pdo->prepare($clsItemSql);
-                    $clsItemStmt->bindParam(':ci', $clsId);
-                    $clsItemStmt->bindParam(':ti', $typeID);
-                    $clsItemStmt->bindParam(':cui', $cuisineID);
-                    $clsItemStmt->bindParam(':cai', $categoryID);
-                    $clsItemStmt->bindParam(':pri', $productID);
-                    $clsItemStmt->bindParam(':qi', $quantity);
-                    $clsItemStmt->bindParam(':ui', $usedQty);
-
-                    if ($clsItemStmt->execute()) {
-                        $upStQ = "UPDATE `stockitem` SET qty = '0' WHERE product_id = $productID";
-                        $upStQStmt = $pdo->prepare($upStQ);
-                        $upStQStmt->execute();
-                    }
+                if ($clsItemStmt->execute()) {
+                    $upStQ = "UPDATE `stockitem` SET qty = '0' WHERE product_id = $productID";
+                    $upStQStmt = $pdo->prepare($upStQ);
+                    $upStQStmt->execute();
                 }
+
             }
 
         }
