@@ -63,30 +63,30 @@
 <!-- DataTables sorting, string searching and pagination  -->
 <script>
 
-   $(document).ready(function () {
-    var table = $('.table').DataTable({
-        ordering: false, // Disable sorting
-        buttons: [
-            'copy', // Copy to clipboard
-            'excel', // Export to Excel
-            'csv',   // Export to CSV
-            'pdf',   // Export to PDF
-            'print'  // Print button 
-        ]
+    $(document).ready(function () {
+        var table = $('.table').DataTable({
+            ordering: false, // Disable sorting
+            buttons: [
+                'copy', // Copy to clipboard
+                'excel', // Export to Excel
+                'csv',   // Export to CSV
+                'pdf',   // Export to PDF
+                'print'  // Print button 
+            ]
         });
 
-    // Add column-wise search functionality
-    $('.table thead th:not(.action-column)').each(function (index) {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="' + title + '" class="search-input" />');
+        // Add column-wise search functionality
+        $('.table thead th:not(.action-column)').each(function (index) {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" class="search-input" />');
 
-        // Column-wise search event handler
-        $('input.search-input', this).on('input', function () {
-            table.column(index).search(this.value).draw();
+            // Column-wise search event handler
+            $('input.search-input', this).on('input', function () {
+                table.column(index).search(this.value).draw();
+            });
+
         });
-
     });
-});
 
 </script>
 
@@ -210,6 +210,25 @@
     var icon = document.querySelectorAll('.dis .typcn');
     icon.forEach((ee) => {
         ee.style.color = "grey";
+    })
+</script>
+
+<!-- Disbale + Button After Accepted Status  -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let status = document.querySelector('[name="status"]').value;
+        let plusBtn = document.querySelector('#addRow');
+        
+        function disBtn(){
+
+            if (status != "Created") {
+                plusBtn.classList.add('d-none')
+            }else{
+                plusBtn.classList.remove('d-none')
+            }
+        }
+        disBtn()
     })
 </script>
 

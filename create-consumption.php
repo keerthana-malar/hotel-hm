@@ -2,7 +2,7 @@
 include('header.php');
 include('menu.php');
 
-$branchsql = "SELECT * FROM `branch`WHERE status = 'Active'";
+$branchsql = "SELECT * FROM `branch`WHERE status = 'Active' AND id = {$udata['branch']}";
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);

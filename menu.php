@@ -7,6 +7,13 @@ if (!isset($_SESSION['user'])) {
 $logUser = $_SESSION['user'];
 $logName = $logUser['name'];
 $logid = $logUser['id'];
+$logbranch = $logUser['branch'];
+
+if($logbranch == '1') {
+    $logbranchQ = "";
+}else{
+    $logbranchQ = "AND branchid = ". $logbranch;
+}
 
 require("db.php");
 

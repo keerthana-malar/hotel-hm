@@ -9,7 +9,7 @@ require('db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "stockorders.php?succ=";
     $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
-
+    $oid = $_POST['oid'];
     $orderID = $_POST['orderID'];
     $branchID = $_POST['branch']; // Updated Branch ID
     $orderDate = $_POST['orderdate']; // Updated Order Date
@@ -18,6 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status']; // Updated Status
     $des = $_POST['des'];
     $orderName = $_POST['orderName'];
+
+    $orderOldDataSql = "SELECT status FROM `order` WHERE id = :id";
+    $oodStmt = $pdo->prepare($orderOldDataSql);
+    $oodStmt->bindParam(":id", $oid);
+    $oodStmt->execute();
+    $orderOdata = $oodStmt->fetch(PDO::FETCH_ASSOC);
+    $oldstatus = $orderOdata['status'];
+
+    if ($oldstatus == 'Accepted') {
+        header("Location: " . $u2 . urlencode('Order Already Accepted'));
+        exit();
+    }
 
     // Update data in the order table
     $updateSql = "UPDATE `order` SET branchid = :branchid, orderdate = :orderdate, deliverydate = :deliverydate, priority = :priority, status = :status, description = :description, status = :status, order_name = :order_name WHERE id = :id";
@@ -35,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
         exit();
     }
-    $oid = $_POST['oid'];
+
 
     $deleteDaysQuery = "DELETE FROM orderitem WHERE order_id = :postID";
     $stmtDelete = $pdo->prepare($deleteDaysQuery);
@@ -52,11 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $priorityy = $_POST['pr'][$i];
         $quantitys = $_POST['deliveryqt'][$i];
         $quantit = $_POST['receivedqt'][$i];
+        $unit = $_POST['unit'][$i];
 
         $oldRecQty = $_POST['oldRecQty'][$i];
 
 
-        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, delivery_qty, received_qty) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :delivery_qty, :received_qty)";
+        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, delivery_qty, received_qty, unit) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :delivery_qty, :received_qty, :unit)";
         $orderItemStmt = $pdo->prepare($orderItemSql);
         $orderItemStmt->bindParam(':order_id', $orderID);
         $orderItemStmt->bindParam(':productid', $productID);
@@ -67,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $orderItemStmt->bindParam(':priority', $priorityy);
         $orderItemStmt->bindParam(':received_qty', $quantit);
         $orderItemStmt->bindParam(':delivery_qty', $quantitys);
+        $orderItemStmt->bindParam(':unit', $unit);
 
         if ($orderItemStmt->execute()) {
             if ($status == 'Received') {
@@ -106,10 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
 
-                
 
-                
-                
+
+
+
                 // echo "NQ";
                 // var_dump($finalstqty);
                 // exit();
@@ -120,12 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // echo "UQ";
                 // var_dump($updatedQty);
 
-                
+
 
                 // echo "CQ";
                 // var_dump($cq);
 
-                
+
 
                 // echo "FQ";
                 // var_dump($finalQty);
@@ -153,9 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-    }
+}
 
-    header("Location: " . $u1 . urlencode('Order Successfully Updated'));
-    exit();
+header("Location: " . $u1 . urlencode('Order Successfully Updated'));
+exit();
 
 ?>

@@ -6,7 +6,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$wasteSql = "SELECT * FROM `waste`";
+$wasteSql = "SELECT * FROM `waste`".$logbranchQ;
 $wasteData = $pdo->query($wasteSql);
 $logUser = $_SESSION['user'];
 

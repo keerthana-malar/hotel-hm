@@ -7,7 +7,7 @@
 
 include('header.php');
 include('menu.php');
-$orderSql = "SELECT * FROM `order`  WHERE ordertype = '3' ";
+$orderSql = "SELECT * FROM `order`  WHERE ordertype = '3' ".$logbranchQ;
 $orderData = $pdo->query($orderSql);
 
 $logUser = $_SESSION['user'];

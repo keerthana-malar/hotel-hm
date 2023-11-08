@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branch = $_POST['branch'];
     $role = $_POST['role'];
     $u1 =  "users.php?succ=";
-    $u2 = "create-user.php?err=";
+    $u2 = "edit-user.php?id=".$userID."&err=";
 
     // Duplicate  username check (excluding the current user being edited)
     $checkDuplicateQuery = "SELECT COUNT(*) FROM user WHERE username = :username AND id != :id";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         header("Location: $u1 User Successfully Updated");
     } else {
-        header("Location:  $u2 edit-user.php?id=$userID&err=Something went wrong. Please try again later");
+        header("Location:  $u2 Something went wrong. Please try again later");
     }
 }
 ?>

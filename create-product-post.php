@@ -78,13 +78,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stAccData = $stAccStmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($stAccData as $row) {
             $stockId = $row['id'];
-            $stockSql = "INSERT INTO `stockitem` (stock_id, type_id, cuisine_id, category_id, product_id)
-            VALUES (:stock_id, :type_id, :cuisine_id, :category_id, :product_id)";
+            $stockSql = "INSERT INTO `stockitem` (stock_id, type_id, cuisine_id, category_id, product_id, unit)
+            VALUES (:stock_id, :type_id, :cuisine_id, :category_id, :product_id, :unit)";
             $itemStmt = $pdo->prepare($stockSql);
             $itemStmt->bindParam(':stock_id', $stockId);
             $itemStmt->bindParam(':type_id', $typeid);
             $itemStmt->bindParam(':cuisine_id', $cuisineid);
             $itemStmt->bindParam(':category_id', $categoryid);
+            $itemStmt->bindParam(':unit', $unit);
             $itemStmt->bindParam(':product_id', $proId);
 
             if (!$itemStmt->execute()) {

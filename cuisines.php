@@ -13,6 +13,26 @@ $cuisineData = $pdo->query($cuisineSql);
 $logUser = $_SESSION['user'];
 ?>
 <div class="main-box">
+<?php if (!empty($_GET['succ'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <div class="d-flex justify-content-end mb-5">
         <a href="create-cuisine.php">
             <button class="btn btn-success">Create</button>
