@@ -8,7 +8,7 @@
 
 include('header.php');
 include('menu.php');
-$orderSql = "SELECT * FROM `order`  WHERE ordertype = '1' ";
+$orderSql = "SELECT * FROM `order`  WHERE ordertype = '1'".$logbranchQ;
 $orderData = $pdo->query($orderSql);
 $logUser = $_SESSION['user'];
 
@@ -47,9 +47,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
     
   <?php endif ?>
   <h2 class="mb-3">Food Orders</h2>
-
   <?php
-
   if ($orderData) {
     echo "<div class='table-responsive'>";
     echo "<table class='table table-hover'>";

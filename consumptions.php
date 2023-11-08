@@ -7,7 +7,7 @@
 
 include('header.php');
 include('menu.php');
-$consumptionSql = "SELECT * FROM `consumption`";
+$consumptionSql = "SELECT * FROM `consumption`".$logbranchQ;
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
 

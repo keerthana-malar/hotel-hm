@@ -128,7 +128,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                     <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" required>
                 </div>
                 
-                <input class="form-control mb-2" type="number" value="" name="cost[]" readonly >
+                <input class="form-control mb-2" type="number" value="" name="cost[]" readonly hidden >
 
             </div>
         </div>

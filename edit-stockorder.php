@@ -97,27 +97,37 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" name="status" id="status" onchange="handleQty()">
+
                         <?php if ($orderData['status'] === 'Created') { ?>
-                            <option value="created" <?php if ($orderData['status'] === 'Created')
+                            <option value="Created" <?php if ($orderData['status'] === 'Created')
                                 echo 'selected'; ?>>Created
                             </option>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
                                 echo 'selected'; ?>>
                                 Accepted</option>
                         <?php } ?>
+                        <?php } ?>
+                        
                         <?php if ($orderData['status'] === 'Accepted') { ?>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
                                 echo 'selected'; ?>>
                                 Accepted</option>
+                        <?php } ?>
+                                <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
                                 echo 'selected'; ?>>
                                 Delivered</option>
+                                <?php } ?>
                         <?php } ?>
 
                         <?php if ($orderData['status'] === 'Delivered') { ?>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
                                 echo 'selected'; ?>>
                                 Delivered</option>
+                                <?php } ?>
                             <option value="Received" <?php if ($orderData['status'] === 'Received')
                                 echo 'selected'; ?>>
                                 Received</option>
@@ -266,7 +276,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <!-- <label for="" hidden>Order_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
-                            readonly>
+                            >
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column"  >
                         <!-- <label for="">Delivery_Qty</label> -->
@@ -327,7 +337,7 @@ if (isset($_GET['id'])) {
         })
 
 
-        if (e.value !== "created") {
+        if (e.value !== "Created") {
 
             pro.forEach((p) => {
                 p.disabled = true

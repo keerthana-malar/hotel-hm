@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
     $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-    $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+    $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '1'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
 } else {
     header("Location: outdoororders.php");
@@ -99,27 +99,37 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" name="status" id="status" onchange="handleQty()">
+
                         <?php if ($orderData['status'] === 'Created') { ?>
-                            <option value="created" <?php if ($orderData['status'] === 'Created')
+                            <option value="Created" <?php if ($orderData['status'] === 'Created')
                                 echo 'selected'; ?>>Created
                             </option>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
                                 echo 'selected'; ?>>
                                 Accepted</option>
                         <?php } ?>
+                        <?php } ?>
+                        
                         <?php if ($orderData['status'] === 'Accepted') { ?>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
                                 echo 'selected'; ?>>
                                 Accepted</option>
+                        <?php } ?>
+                                <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
                                 echo 'selected'; ?>>
                                 Delivered</option>
+                                <?php } ?>
                         <?php } ?>
 
                         <?php if ($orderData['status'] === 'Delivered') { ?>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
                             <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
                                 echo 'selected'; ?>>
                                 Delivered</option>
+                                <?php } ?>
                             <option value="Received" <?php if ($orderData['status'] === 'Received')
                                 echo 'selected'; ?>>
                                 Received</option>
@@ -154,31 +164,31 @@ if (isset($_GET['id'])) {
 
 
         <!-- Additional product details rows -->
-        <div class="pro-box">
-            <div class="row">
+        <div class="row">
 
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Product</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Category</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hc">
-                    <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Unit <span>*</span></label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Order Qty</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hiddenDel">
-                    <label for="">Delivery Qty</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hiddenRec">
-                    <label for="">Received Qty</label>
-                </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Product</label>
             </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Category</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 hc">
+                <label for="exampleInputStatus">Cuisine</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Unit <span>*</span></label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Order Qty</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 hiddenDel">
+                <label for="">Delivery Qty</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 hiddenRec">
+                <label for="">Received Qty</label>
+            </div>
+        </div>
+        <div class="pro-box">
             <?php foreach ($orderItem as $od) { ?>
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-2">
@@ -325,7 +335,7 @@ if (isset($_GET['id'])) {
         })
 
 
-        if (e.value !== "created") {
+        if (e.value !== "Created") {
 
             pro.forEach((p) => {
                 p.disabled = true

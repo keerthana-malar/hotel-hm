@@ -7,7 +7,7 @@
 
 include('header.php');
 include('menu.php');
-$stockSql = "SELECT * FROM `stock`";
+$stockSql = "SELECT * FROM `stock`".$logbranchQ;
 $stockData = $pdo->query($stockSql);
 $logUser = $_SESSION['user'];
 

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $u1 = "orders.php?succ=";
     $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
-
+    $oid = $_POST['oid'];
     $orderID = $_POST['orderID'];
     $branchID = $_POST['branch']; 
     $orderDate = $_POST['orderdate']; 
@@ -19,6 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status']; 
     $des = $_POST['des'];
     $orderName = $_POST['orderName'];
+
+    $orderOldDataSql = "SELECT status FROM `order` WHERE id = :id";
+    $oodStmt = $pdo->prepare($orderOldDataSql);
+    $oodStmt->bindParam(":id", $oid);
+    $oodStmt->execute();
+    $orderOdata = $oodStmt->fetch(PDO::FETCH_ASSOC);
+    $oldstatus = $orderOdata['status'];
+
+    if ($oldstatus == 'Accepted'){
+        header("Location: " . $u2 . urlencode('Order Already Accepted'));
+        exit();
+    }
+
 
     try {
         $pdo->beginTransaction();
@@ -39,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new PDOException('Error updating order');
         }
 
-        $oid = $_POST['oid'];
+        
 
         $deleteDaysQuery = "DELETE FROM orderitem WHERE order_id = :postID";
         $stmtDelete = $pdo->prepare($deleteDaysQuery);
