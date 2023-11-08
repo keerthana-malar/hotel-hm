@@ -8,56 +8,64 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-// Get the order ID from the query string
+// Get the chart ID 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $procId = $_GET['id'];
+    $chartId = $_GET['id'];
 
-    // Fetch the order details from the database based on the ID
-    $procSql = "SELECT * FROM `pro_chart` WHERE id = :id";
-    $procStmt = $pdo->prepare($procSql);
-    $procStmt->bindParam(':id', $procId);
-    $procStmt->execute();
-    $pcData = $procStmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch  chart details 
+    $chartSql = "SELECT * FROM `pro_chart` WHERE id = :id";
+    $chartStmt = $pdo->prepare($chartSql);
+    $chartStmt->bindParam(':id', $chartId);
+    $chartStmt->execute();
+    $chartData = $chartStmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($pcData) {
-        // Display the order details
-        echo "<h2 class='orderdetails'>Production Details</h2>";
+    if ($chartData) {
+        
+        // Chart Render
+        echo "<h2 class='chartdetails'>Production Chart</h2>";
         echo "<ul>";
-        echo "<li class='orderdetails'>ID: " . $pcData['id'] . "</li>";
-        echo "<li class='orderdetails'>ID: " . $pcData['date'] . "</li>";
+        echo "<li class='chartdetails'>ID: " . $chartData['id'] . "</li>";
+        echo "<li class='chartdetails'>Date: " . $chartData['date'] . "</li>";
         echo "</ul>";
  
-        // Fetch and display the order items associated with the order
-        echo "<h3>Production</h3>";
+        // Fetch items
+        echo "<h3>Production List</h3>";
         echo "<table>";
-        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Unit</th><th>Quantity</th></tr>";
+        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Qty</th></tr>";
 
-        $orderItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id";
-        $orderItemstmt = $pdo->prepare($orderItemSql);
-        if ($orderItemstmt) {
-            $orderItemstmt->bindParam(':order_id', $orderId);
-            $orderItemstmt->execute();
-            $orderItemData = $orderItemstmt->fetchAll(PDO::FETCH_ASSOC);
+        $chartItemSql = "SELECT * FROM `pro_chart_item` WHERE chart_id = :chart_id";
+        $chartItemstmt = $pdo->prepare($chartItemSql);
+        if ($chartItemstmt) {
+            $chartItemstmt->bindParam(':chart_id', $chartId);
+            $chartItemstmt->execute();
+            $chartItemData = $chartItemstmt->fetchAll(PDO::FETCH_ASSOC);
         
-            foreach ($orderItemData as $item) {
+            foreach ($chartItemData as $item) {
                 // Fetch category name
                 $categorySql = "SELECT name FROM `category` WHERE id = :categoryid";
                 $categoryStmt = $pdo->prepare($categorySql);
-                $categoryStmt->bindParam(':categoryid', $item['categoryid']);
+                $categoryStmt->bindParam(':categoryid', $item['category_id']);
                 $categoryStmt->execute();
                 $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
+        
+                // Fetch type name
+                $typeSql = "SELECT name FROM `type` WHERE id = :typeid";
+                $typeStmt = $pdo->prepare($typeSql);
+                $typeStmt->bindParam(':typeid', $item['type_id']);
+                $typeStmt->execute();
+                $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
         
                 // Fetch cuisine name
                 $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
                 $cuisineStmt = $pdo->prepare($cuisineSql);
-                $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
+                $cuisineStmt->bindParam(':cuisineid', $item['cuisine_id']);
                 $cuisineStmt->execute();
                 $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
         
                 // Fetch product name
                 $productSql = "SELECT name FROM `product` WHERE id = :productid";
                 $productStmt = $pdo->prepare($productSql);
-                $productStmt->bindParam(':productid', $item['productid']);
+                $productStmt->bindParam(':productid', $item['product_id']);
                 $productStmt->execute();
                 $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
         
@@ -65,8 +73,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<td><div>{$productData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$cuisineData['name']}</div></td>";
-                echo "<td><div>{$item['unit']}</td>";
-                echo "<td><div>{$item['order_qty']}</td>";
+                echo "<td><div>{$item['qty']}</td>";
 
                 echo "</tr>";
             } 
@@ -74,15 +81,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "</table>";
 
             // Add a Print button
-            echo '<a href="generateorder-pdf.php?id=' . $orderId . '" target="_blank" class="btn btn-primary">print</a>';
+            echo '<a href="generatechart-pdf.php?id=' . $chartId . '" target="_blank" class="btn btn-primary">print</a>';
         } else {
-            echo "Failed to prepare the order item query.";
+            echo "Failed to prepare the chart item query.";
         }
     } else {
-        echo "Order not found.";
+        echo "chart not found.";
     }
 } else {
-    echo "Invalid order ID.";
+    echo "Invalid chart ID.";
 }
 
 include('footer.php');
@@ -91,12 +98,12 @@ include('footer.php');
 // JavaScript code for printing
 document.getElementById("printButton").addEventListener("click", function() {
         // Open the PDF in a new tab for printing
-        window.open('generateorder-pdf.php?id=<?php echo $orderId; ?>', '_blank');
+        window.open('generatechart-pdf.php?id=<?php echo $chartId; ?>', '_blank');
     });</script>
 
 <style>
     table {
-    border-collapse: collapse;
+    bchart-collapse: collapse;
     width: 100%;
     margin-bottom: 20px;
 }
