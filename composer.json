@@ -1,13 +1,6 @@
-
-{    "name": "admin/hotel-hm",
+{
+    "name": "admin/hotel-hm",
     "require": {
-        "tecnickcom/tcpdf": "*"
-    },
-    "autoload": {
-                "psr-4": {
-                    "Admin\\HotelHm\\": "src/"
-                }
-            }
+        "tecnickcom/tcpdf": "^6.6"
+    }
 }
-
-

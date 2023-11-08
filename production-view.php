@@ -81,7 +81,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "</table>";
 
             // Add a Print button
-            echo '<a href="generatechart-pdf.php?id=' . $chartId . '" target="_blank" class="btn btn-primary">print</a>';
+            echo '<a href="generate-production-pdf.php?id=' . $chartId . '" target="_blank" class="btn btn-primary">print</a>';
         } else {
             echo "Failed to prepare the chart item query.";
         }
