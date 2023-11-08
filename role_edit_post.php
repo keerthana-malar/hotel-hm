@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         view_b = :view_b,
         edit_b = :edit_b,
         delete_b = :delete_b,
-        pc_access = :pc_access,
+        pc_access = :pc_access
 
     WHERE
         role_id = :role_id;

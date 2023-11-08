@@ -54,8 +54,7 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
             <th> ID</th>
             <th>product </th>
             <th>Unit</th>
-            <th>Price
-            (Per Unit)</th>
+            <th>Price (per Unit)</th>
             <th>Type</th>
             <th>Category</th>
             <th>Cuisine</th>
