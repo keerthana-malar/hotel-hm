@@ -1,10 +1,4 @@
-<style>
-  .typcn {
-    font-size: 18px;
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
 $productSql = "SELECT * FROM product WHERE typeid = '1'";
@@ -16,6 +10,11 @@ if($rdata['edit_fc'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_fc'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 ?>
+<style>
+  .typcn {
+    font-size: 18px;
+  }
+</style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-product.php">

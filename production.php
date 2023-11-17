@@ -1,13 +1,10 @@
 <?php
-
 include('header.php');
 include('menu.php');
-
-
 // User access control 
-if($rdata['edit_role'] == '0'){$dslinkEdit = 'dis';}
-if($rdata['view_role'] == '0'){ $dslinkView = 'dis';}
-if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
+// if($rdata['edit_role'] == '0'){$dslinkEdit = 'dis';}
+// if($rdata['view_role'] == '0'){ $dslinkView = 'dis';}
+// if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
 
 // Get production chart data from db 
 $pcSql = "SELECT * FROM pro_chart";

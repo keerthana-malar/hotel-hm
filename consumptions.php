@@ -1,13 +1,7 @@
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
-$consumptionSql = "SELECT * FROM `consumption`".$logbranchQ;
+$consumptionSql = "SELECT * FROM `consumption` WHERE branchid = $logbranch";
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
 
@@ -16,6 +10,11 @@ if($rdata['edit_cs'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_cs'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_cs'] == '0'){$dslinkDelete = 'dis';}
 ?>
+<style>
+  .typcn {
+    font-size: 22px; 
+  }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-consumption.php">

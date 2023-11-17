@@ -1,10 +1,4 @@
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
 $orderSql = "SELECT * FROM `order` WHERE ordertype = '2'".$logbranchQ;
@@ -17,6 +11,11 @@ if($rdata['view_so'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_so'] == '0'){$dslinkDelete = 'dis';}
 
 ?>
+<style>
+  .typcn {
+    font-size: 22px; 
+  }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-stockorder.php">

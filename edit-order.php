@@ -1,8 +1,7 @@
 <?php
-
 include('header.php');
 include('menu.php');
-if ($udata["role"] == "1") {
+if ($udata["branch"] == "1") {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
 } else {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
@@ -26,7 +25,7 @@ if (isset($_GET['id'])) {
     $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-    $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+    $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '1'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
 } else {
     header("Location: orders.php");
@@ -188,7 +187,6 @@ if (isset($_GET['id'])) {
 
 
         <!-- Additional product details rows -->
-        <div class="pro-box">
             <div class="row">
                 
                     <div class="col-12 col-md-6 col-lg-2">
@@ -213,6 +211,7 @@ if (isset($_GET['id'])) {
                     <label for="">Received Qty</label>
                     </div>
             </div>
+        <div class="pro-box">
             <?php foreach ($orderItem as $od) { ?>
                 <div class="row">
 

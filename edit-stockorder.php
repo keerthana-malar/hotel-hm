@@ -1,8 +1,7 @@
 <?php
-
 include('header.php');
 include('menu.php');
-if ($udata["role"] == "1") {
+if ($udata["branch"] == "1") {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
 } else {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";

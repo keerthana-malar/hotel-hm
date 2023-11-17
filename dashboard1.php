@@ -1,100 +1,3 @@
-<style>
-    .dashboard-item {
-        width: 100%;
-        padding: 20px;
-        box-sizing: border-box;
-        border-radius: 20px;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-        font-size: 1em;
-    }
-
-    .box {
-        padding: 10px;
-        width: 80%;
-        height: 100px;
-    }
-
-    .box p {
-        font-size: 100px;
-    }
-
-    .icon {
-        color: #000000;
-    }
-
-    .fas,
-    .fa-solid {
-        color: #fff;
-        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
-    }
-
-    .violet {
-        background-color: #D89216;
-    }
-
-    .pink {
-        background-color: #46B5D1;
-    }
-
-    .red {
-        background-color: #C62A88;
-    }
-
-    .green {
-        background-color: #511845;
-    }
-
-    .blue {
-        background-color: #E43F5A;
-    }
-
-    .orange {
-        background-color: #590995;
-        590995
-    }
-
-    .black {
-        background-color: #00337C;
-    }
-
-    .yellow {
-        background-color: #FF5733;
-    }
-
-    .inner {
-        display: flex;
-        gap: 1px;
-        color: #fff;
-    }
-
-    .fa-shopping-cart {
-        size: 100px;
-    }
-
-    .dashboard-item .icon i {
-        font-size: 5em;
-    }
-
-    .dashboard-item .inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .dashboard-item .inner h3 {
-        margin-bottom: 10px;
-    }
-
-    .dashboard-item .icon {
-        margin-left: 10px;
-    }
-
-    .inner p {
-        font-weight: bold;
-        font-size: 30px;
-        margin-top: 20px;
-    }
-</style>
 <?php
 include('header.php'); // Include your header file
 include('menu.php'); // Include your menu file
@@ -194,6 +97,106 @@ $todayTotalWastes = $todayWastesResult->fetch(PDO::FETCH_ASSOC)['todayTotalWaste
 
 
 ?>
+
+<style>
+    .dashboard-item {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        font-size: 1em;
+    }
+
+    .box {
+        padding: 10px;
+        width: 80%;
+        height: 100px;
+    }
+
+    .box p {
+        font-size: 100px;
+    }
+
+    .icon {
+        color: #000000;
+    }
+
+    .fas,
+    .fa-solid {
+        color: #fff;
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
+    }
+
+    .violet {
+        background-color: #D89216;
+    }
+
+    .pink {
+        background-color: #46B5D1;
+    }
+
+    .red {
+        background-color: #C62A88;
+    }
+
+    .green {
+        background-color: #511845;
+    }
+
+    .blue {
+        background-color: #E43F5A;
+    }
+
+    .orange {
+        background-color: #590995;
+        590995
+    }
+
+    .black {
+        background-color: #00337C;
+    }
+
+    .yellow {
+        background-color: #FF5733;
+    }
+
+    .inner {
+        display: flex;
+        gap: 1px;
+        color: #fff;
+    }
+
+    .fa-shopping-cart {
+        size: 100px;
+    }
+
+    .dashboard-item .icon i {
+        font-size: 5em;
+    }
+
+    .dashboard-item .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .dashboard-item .inner h3 {
+        margin-bottom: 10px;
+    }
+
+    .dashboard-item .icon {
+        margin-left: 10px;
+    }
+
+    .inner p {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 20px;
+    }
+</style>
+
+
 <div class="main-box">
     <h2 class="mb-3">Dashboard</h2>
 

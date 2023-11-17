@@ -1,13 +1,14 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit();
-}
 $logUser = $_SESSION['user'];
 $logName = $logUser['name'];
 $logid = $logUser['id'];
 $logbranch = $logUser['branch'];
+
+// $logbranch = 1;
+// $logid = 1;
+// $logName = "Admin";
+// $logUser = 1;
+
 
 if($logbranch == '1') {
     $logbranchQ = "";
@@ -59,7 +60,6 @@ $userBranch = $udata ["branch"];
 
 <body>
     <div class="container-scroller">
-        <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="" href="index.html"><img src="images/Magizham Logo.png" alt="logo" height="30"/></a>
@@ -90,13 +90,9 @@ $userBranch = $udata ["branch"];
                     <span class="typcn typcn-th-menu"></span>
                 </button>
             </div>
-        </nav>
-        <!-- partial -->
+        </nav> 
         <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_settings-panel.html -->
 
-            <!-- partial -->
-            <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">

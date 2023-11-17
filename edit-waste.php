@@ -1,5 +1,4 @@
 <?php
-
 include('header.php');
 include('menu.php');
 if($udata["role"]=="1"){
@@ -70,7 +69,6 @@ if (isset($_GET['id'])) {
             </div>
         </div>
             <!-- Additional product details rows -->
-            <div class="pro-box">
             <div class="row">
                 
                 <div class="col-12 col-md-6 col-lg-2">
@@ -89,6 +87,7 @@ if (isset($_GET['id'])) {
                 <label for="">Waste_Qty</label>
                 </div>
         </div>
+            <div class="pro-box">
                 <?php foreach ($wasteItem as $od) { ?>
                     <div class="row mb-4">
                         <div class="col-12 col-md-6 col-lg-2">
@@ -154,8 +153,8 @@ if (isset($_GET['id'])) {
                             <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" value="<?php echo $od['qty']; ?>">
                         </div>
 
-                        <input class="form-control mb-2" type="number"  name="cost[]" value="<?php echo $od['cost']; ?>" readonly>
-                        <input class="form-control mb-2" type="number"  name="oldWasteQty[]" value="<?php echo $od['cost']; ?>" readonly>
+                        <input class="form-control mb-2" type="number"  name="cost[]" value="<?php echo $od['cost']; ?>" readonly hidden>
+                        <input class="form-control mb-2" type="number"  name="oldWasteQty[]" value="<?php echo $od['cost']; ?>" readonly hidden>
                     </div>
                 <?php } ?>
             </div>

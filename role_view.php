@@ -1,5 +1,4 @@
 <?php
-
 include('header.php');
 include('menu.php');
 
@@ -67,11 +66,16 @@ if ($rdata['delete_role'] == '0') {
             } else {
                 $admin = "";
             }
+            if($row["role_id"] == "2" || $row["role_id"] == "3" || $row["role_id"] == "4"){
+                $managers = "manage-role";
+            }else{
+                $managers = "";
+            }
             echo "<tr>";
             echo "<td>" . $row['role_id'] . "</td>";
             echo "<td>" . $row['role_name'] . "</td>";
             echo "<td>
-            <a class='" . $dslinkEdit . "' id='" . $admin . "' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
+            <a class='" . $dslinkEdit . "' id='" . $admin .$managers . "' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
             <a id='" . $admin . "' href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";

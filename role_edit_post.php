@@ -4,7 +4,6 @@ if (!isset($_SESSION['user'])) {
     header("Location: index.php");
     exit();
 }
-
 // Include your database connection code here
 require('db.php'); 
 

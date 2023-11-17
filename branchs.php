@@ -1,8 +1,3 @@
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <?php
 include('header.php');
 include('menu.php');
@@ -15,6 +10,11 @@ if($rdata['edit_b'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_b'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_b'] == '0'){$dslinkDelete = 'dis';}
 ?>
+<style>
+  .typcn {
+    font-size: 22px; 
+  }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-branch.php">

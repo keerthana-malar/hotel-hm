@@ -1,5 +1,4 @@
 <?php
-
 include('header.php');
 include('menu.php');
 $consumptionSql = "SELECT * FROM `consumption`";
@@ -12,13 +11,26 @@ $b_data = $pdo->query($b_sql);
 <style>
     .amt-box {
         display: grid;
-        grid-template-columns: 100px 1fr 1fr;
+        grid-template-columns: 100px 200px 200px;
         gap: 30px;
     }
     .amt-box label {
         display: flex;
         align-items: center;
         font-weight: bold;
+    }
+    @media(width<650px){
+        .amt-box {
+        display: grid;
+        grid-template-columns: 50px 100px 100px;
+        gap: 30px;
+    }
+    }
+    @media(width<400px){
+        .amt-box {
+        grid-template-columns: 40px 80px 130px;
+        gap: 10px;
+    }
     }
 </style>
 <div class="main-box">

@@ -1,12 +1,7 @@
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <?php
 include('header.php');
 include('menu.php');
-$wasteSql = "SELECT * FROM `waste`".$logbranchQ;
+$wasteSql = "SELECT * FROM `waste` WHERE branchid = $logbranch";
 $wasteData = $pdo->query($wasteSql);
 $logUser = $_SESSION['user'];
 
@@ -16,6 +11,11 @@ if($rdata['view_waste'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_waste'] == '0'){$dslinkDelete = 'dis';}
 
 ?>
+<style>
+  .typcn {
+    font-size: 22px; 
+  }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-waste.php">

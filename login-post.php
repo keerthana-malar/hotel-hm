@@ -1,31 +1,28 @@
 <?php
+require('db.php');
+session_start();
 
-    require('db.php');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $pass = $_POST["password"];
 
-    if (isset($_POST)) {
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
+        $stmt->execute([$username, $pass]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $u1 = "counter.php?succ=";
-        $u2 = "counter.php?err=";
-
-        $username = $_POST['username'];
-        $pass = $_POST['password'];
-        
-        $loginQuery = "SELECT * FROM user WHERE username = :username AND password = :password";
-        $loginStmt = $pdo->prepare($loginQuery);
-        $loginStmt->bindParam(':username', $username);
-        $loginStmt->bindParam(':password', $pass);
-        $loginStmt->execute();
-        
-        $user = $loginStmt->fetch(PDO::FETCH_ASSOC);
-        
         if ($user) {
-            session_start();
-            $_SESSION['user'] = $user;
-
-            header("Location: dashboard1.php");
+            $_SESSION["user"] = $user;
+            header("Location: dashboard1.php"); 
             exit();
         } else {
-            header("Location: index.php?err=" . urlencode('Invalid Username or Password'));
+            $errorMessage = "Invalid Username or Password";
+            
+            header("Location: index.php?err=" . urlencode($errorMessage));
+            exit();
         }
+    } catch (PDOException $e) {
+        $error = "Database error: " . $e->getMessage();
     }
+}
 ?>

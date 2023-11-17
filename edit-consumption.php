@@ -1,5 +1,4 @@
 <?php
-
 include('header.php');
 include('menu.php');
 
@@ -58,7 +57,6 @@ if (isset($_GET['id'])) {
         </div>
         </div>
         <!-- Additional product details rows -->
-        <div class="pro-box">
         <div class="row">
                 
                 <div class="col-12 col-md-6 col-lg-3">
@@ -77,6 +75,7 @@ if (isset($_GET['id'])) {
                 <label for="">Available_Qty</label>
                 </div>
         </div>
+        <div class="pro-box">
                 <?php  foreach($consumptionItem as $od) { ?>
                     <div class="row"> 
                     <div class="col-12 col-md-6 col-lg-3">

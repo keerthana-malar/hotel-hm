@@ -1,10 +1,4 @@
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
 $cuisineSql = "SELECT * FROM cuisine";
@@ -12,6 +6,11 @@ $cuisineData = $pdo->query($cuisineSql);
 
 $logUser = $_SESSION['user'];
 ?>
+<style>
+  .typcn {
+    font-size: 22px; 
+  }
+</style>
 <div class="main-box">
 <?php if (!empty($_GET['succ'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -1,10 +1,4 @@
-<style>
-  .typcn {
-    font-size: 22px;
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
 
@@ -20,6 +14,11 @@ if($rdata['view_user'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_user'] == '0'){$dslinkDelete = 'dis';}
 
 ?>
+<style>
+  .typcn {
+    font-size: 22px;
+  }
+</style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-user.php">

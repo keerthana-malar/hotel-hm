@@ -1,10 +1,4 @@
-<style>
-  .typcn {
-    font-size: 18px; 
-  }
-</style>
 <?php
-
 include('header.php');
 include('menu.php');
 $productSql = "SELECT * FROM product";
@@ -12,6 +6,11 @@ $productData = $pdo->query($productSql);
 
 $logUser = $_SESSION['user'];
 ?>
+<style>
+  .typcn {
+    font-size: 18px; 
+  }
+</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-product.php">

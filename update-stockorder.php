@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderOdata = $oodStmt->fetch(PDO::FETCH_ASSOC);
     $oldstatus = $orderOdata['status'];
 
-    if ($oldstatus == 'Accepted') {
+    if ($oldstatus == 'Accepted' && $status == 'Accepted') {
         header("Location: " . $u2 . urlencode('Order Already Accepted'));
         exit();
     }
