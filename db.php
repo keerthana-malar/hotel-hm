@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'infygfqg_magizham_hotel';
-$username = 'infygfqg_hotel-hm';
-$password = 'Infy@2021';
+$dbname = 'magizham';
+$username = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
