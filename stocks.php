@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$stockSql = "SELECT * FROM `stock` WHERE branchid = $logbranch";
+$stockSql = "SELECT * FROM `stock` $logbranchA";
 $stockData = $pdo->query($stockSql);
 $logUser = $_SESSION['user'];
 

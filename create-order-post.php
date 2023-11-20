@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "orders.php?succ=";
     $u2 = "create-order.php?err=";
 
+
+
     // User Data 
     $branch = $_POST['branch'];
     $orderdate = $_POST['orderDate'];
@@ -12,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $priority = $_POST['priority'];
     $status = $_POST['status'];
     $des = $_POST['des'];
+    // var_dump($orderdate, $deliverydate) ;
+    // exit();
 
     $orderName = $_POST['orderName'];
     $orderType = $_POST['orderType'];

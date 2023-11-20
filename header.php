@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
 session_start();
 if (!isset($_SESSION['user'])) {
@@ -23,6 +23,7 @@ if (!isset($_SESSION['user'])) {
   <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="shortcut icon" href="images/favicon.png" />
   <style>
     .main-box {
@@ -62,6 +63,9 @@ if (!isset($_SESSION['user'])) {
 
     label>span {
       color: red;
+    }
+    .sz{
+        padding: 10px;
     }
   </style>
 

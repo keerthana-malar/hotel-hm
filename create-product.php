@@ -28,10 +28,10 @@ $cuisinedata = $pdo->query($cuisinesql);
                 <div class="form-group">
                     <label for="exampleInputStatus">Unit <span>*</span></label>
                     <select class="form-control" name="unit" id="exampleInputStatus" required>
-                    <option value="kg">Gram(g)</option>
-                        <option value="kg">Kilograms(kg)</option>
-                        <option value="Ltr">Liters(L)</option>
-                        <option value="piece">Piece</option>
+                    <option value="g">g</option>
+                        <option value="kg">kg</option>
+                        <option value="ltr">ltr</option>
+                        <option value="pcs">pcs</option>
 
                     </select>
                 </div>

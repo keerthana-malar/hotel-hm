@@ -177,7 +177,7 @@ if (isset($_GET['id'])) {
                 <label for="">Order Qty</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2 hiddenDel">
-                <label for="">Delivery Qty</label>
+                <label for="">Delivered Qty</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2 hiddenRec">
                 <label for="">Received Qty</label>
@@ -249,7 +249,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-1">
                         <!-- <label for="">Unit <span>*</span></label> -->
-                        <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
+                        <input type="text" class="form-control sz mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
                             required readonly>
                     </div>
 

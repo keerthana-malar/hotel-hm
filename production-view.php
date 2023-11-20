@@ -30,7 +30,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         // Fetch items
         echo "<h3>Production List</h3>";
         echo "<table>";
-        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Qty</th></tr>";
+        echo "<tr><th>Product</th><th>Category</th><th>Cuisine</th><th>Unit</th><th>Qty</th></tr>";
 
         $chartItemSql = "SELECT * FROM `pro_chart_item` WHERE chart_id = :chart_id";
         $chartItemstmt = $pdo->prepare($chartItemSql);
@@ -62,7 +62,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
         
                 // Fetch product name
-                $productSql = "SELECT name FROM `product` WHERE id = :productid";
+                $productSql = "SELECT name, unit FROM `product` WHERE id = :productid";
                 $productStmt = $pdo->prepare($productSql);
                 $productStmt->bindParam(':productid', $item['product_id']);
                 $productStmt->execute();
@@ -72,6 +72,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<td><div>{$productData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$cuisineData['name']}</div></td>";
+                echo "<td><div>{$productData['unit']}</div></td>";
                 echo "<td><div>{$item['qty']}</td>";
 
                 echo "</tr>";

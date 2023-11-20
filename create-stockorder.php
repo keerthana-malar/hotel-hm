@@ -23,8 +23,8 @@ $currentDate = date('Y-m-d');
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="orderName">Order Name <span>*</span></label>
-                    <input type="text" class="form-control" name="orderName" id="orderName" required>
+                    <label for="orderName">Order Name</label>
+                    <input type="text" class="form-control" value=<?php echo $logName ?> readonly name="orderName" id="orderName">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">

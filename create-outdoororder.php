@@ -23,7 +23,7 @@ $currentDate = date('Y-m-d');
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="orderName">Order Name<span>*</span></label>
+                    <label for="orderName">Order Name <span>*</span></label>
                     <input type="text" class="form-control" name="orderName" id="orderName" required>
                 </div>
             </div>

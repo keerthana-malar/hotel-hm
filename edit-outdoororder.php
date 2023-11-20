@@ -175,13 +175,13 @@ if (isset($_GET['id'])) {
                 <label for="exampleInputStatus">Cuisine</label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
-                <label for="">Unit <span>*</span></label>
+                <label for="">Unit </label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Order Qty</label>
             </div>
             <div class="col-12 col-md-6 col-lg-2 hiddenDel">
-                <label for="">Delivery Qty</label>
+                <label for="">Delivered Qty</label>
             </div>
             <div class="col-12 col-md-6 col-lg-2 hiddenRec">
                 <label for="">Received Qty</label>
