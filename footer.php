@@ -92,7 +92,7 @@
         dateFormat: 'dd/mm/yy',
         minDate: 0,
         onSelect: function (dateText, inst) {
-            $(this).prop("disabled", true);
+            $(this).prop("readonly", true);
         }
     });
 
@@ -100,12 +100,9 @@
 });
 
 </script>
-<script>
-    var nDate = 
-</script>
+
 <!-- DataTables sorting, string searching and pagination  -->
 <script>
-
     $(document).ready(function () {
         var table = $('.table').DataTable({
             ordering: false, // Disable sorting
