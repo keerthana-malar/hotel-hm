@@ -137,7 +137,7 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="us">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="orders.php">Food Order</a></li>
+                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="foodorders.php">Food Order</a></li>
                                 <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
                                 <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
                                 <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="production.php">Production Chart</a></li>
@@ -163,6 +163,7 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="use">
                             <ul class="nav flex-column sub-menu">
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockcatalog.php">Stock Catalog</a></li>
                                 <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stocks.php">View Stock</a></li>
                                 <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="consumptions.php">Closing stock</a></li>
                             </ul>

@@ -2,7 +2,7 @@
 require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $u1 = "orders.php?succ=";
+    $u1 = "foodorders.php?succ=";
     $u2 = "create-order.php?err=";
 
 
