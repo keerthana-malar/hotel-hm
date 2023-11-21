@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$productSql = "SELECT * FROM product WHERE typeid = '1'";
+$productSql = "SELECT * FROM product WHERE typeid = '2'";
 $productData = $pdo->query($productSql);
 $logUser = $_SESSION['user'];
 
@@ -17,7 +17,7 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
-    <a href="create-product.php?type=1">
+    <a href="create-product.php?type=2">
       <button class="btn btn-success" <?php if($rdata["create_fc"]=="0"){echo "disabled";} ?>>Create</button>
     </a>
   </div>
@@ -42,7 +42,7 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
       </button>
     </div>
   <?php endif ?>
-  <h2 class="mb-3">Food Catalog</h2>
+  <h2 class="mb-3">Stock Catalog</h2>
 
   <?php
 
@@ -50,12 +50,11 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
     echo "<div class='table-responsive'>";
     echo "<table class='table table-hover'>";
     echo "<thead> <tr>
-            <th>ID</th>
-            <th>Product </th>
+            <th> ID</th>
+            <th>product </th>
             <th>Unit</th>
             <th>Price (per Unit)</th>
             <th>Category</th>
-            <th>Cuisine</th>
             <th>Status</th>
             <th class='action-column'></th>
         </tr> </thead>";
@@ -73,8 +72,9 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
       echo "<td>" . $row['unit'] . "</td>";
 
       echo "<td>" . $row['price'] . "</td>";
+    //   echo "<td>" . $typee['name'] . "</td>";
       echo "<td>" . $catee['name'] . "</td>";
-      echo "<td>" . $cusiee['name'] . "</td>";
+    //   echo "<td>" . $cusiee['name'] . "</td>";
       echo "<td>" . $row['status'] . "</td>";
       echo "<td><a class='".$dslinkView."' href='view-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-eye '></i></a> | ";
       echo "<a class='".$dslinkEdit."' href='edit-product.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | ";
