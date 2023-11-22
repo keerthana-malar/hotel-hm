@@ -92,7 +92,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliverydate">Delivery Date</label>
-                    <input type="text" autocomplete="off" class="form-control datepic" name="deliverydate" id="deliverydate"
+                    <input type="text" autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?>" name="deliverydate" id="deliverydate"
                     <?php if ($orderData['status'] != 'Created') { echo 'readonly';}else{echo '';}?>
                         value="<?php echo $orderData['deliverydate']; ?>">
                 </div>
@@ -314,6 +314,7 @@ if (isset($_GET['id'])) {
                     <input type="hidden" name="ty[]" value="1">
 
                 </div>
+                
             <?php } ?>
         </div>
 

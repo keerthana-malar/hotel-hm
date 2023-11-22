@@ -39,7 +39,7 @@ if($rdata['delete_waste'] == '0'){$dslinkDelete = 'dis';}
                     </button>
                   </div>  
     <?php endif ?>
-    <h2 class="mb-3">Wastes</h2>
+    <h2 class="mb-3">Wastage</h2>
 
     <?php
 

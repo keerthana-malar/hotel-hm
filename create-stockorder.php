@@ -51,13 +51,9 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="text" autocomplete="off" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
-
-
-
-
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Priority</label>

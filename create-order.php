@@ -51,7 +51,7 @@ $currentDate = date('d-m-Y');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="text" autocomplete="off" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
 
@@ -149,7 +149,7 @@ $currentDate = date('d-m-Y');
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Unit <span>*</span></label>
+                    <label for="">Unit</label>
                     <input type="text" class="form-control mb-2" name="unit[]" required readonly>
                     
                 </div>
@@ -170,7 +170,7 @@ $currentDate = date('d-m-Y');
                 </div> -->
               
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty <span>*</span></label>
+                    <label for="">Qty</label>
                     <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
                

@@ -108,131 +108,136 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $oldRecQty = $_POST['oldRecQty'][$i];
 
-            $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, delivery_qty, received_qty, unit) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :delivery_qty, :received_qty, :unit)";
-            $orderItemStmt = $pdo->prepare($orderItemSql);
-            $orderItemStmt->bindParam(':order_id', $orderID);
-            $orderItemStmt->bindParam(':productid', $productID);
-            $orderItemStmt->bindParam(':cuisineid', $cuisineID);
-            $orderItemStmt->bindParam(':typeid', $typeID);
-            $orderItemStmt->bindParam(':unit', $unitID);
-            $orderItemStmt->bindParam(':categoryid', $categoryID);
-            $orderItemStmt->bindParam(':order_qty', $quantity);
-            // $orderItemStmt->bindParam(':priority', $priorityy);
-            $orderItemStmt->bindParam(':received_qty', $quantit);
-            $orderItemStmt->bindParam(':delivery_qty', $quantitys);
+            if(intval($quantity) > 0 ){
 
-            if ($orderItemStmt->execute()) {
-
-                // if ($status == "Accepted") {
-
-                //     //    Chart item insert 
-                //     $chartitemFind = "SELECT * FROM `pro_chart_item` WHERE chart_id = $chartid AND product_id = $productID";
-                //     $chitstmt = $pdo->query($chartitemFind);
-                //     $chitstmt->execute();
-                //     if ($chitstmt->fetchColumn() != 0) {
-                //         $chupSql = "UPDATE `pro_chart_item` SET qty = $quantity WHERE chart_id = $chartid AND product_id = $productID";
-                //         $chupstmt = $pdo->query($chupSql);
-                //         $chupstmt->execute();
-                //     } else {
-                //         $cchupSql = "INSERT INTO `pro_chart_item` (chart_id, product_id, type_id, category_id, cuisine_id, qty) VALUES ($chartid, $productID, $typeID, $categoryID, $cuisineID, $quantity)";
-                //         $cchupstmt = $pdo->query($cchupSql);
-                //         $cchupstmt->execute();
-                //     }
-                // }
-
-                if ($status == "Accepted") {
-                    // Check Chart already exists
-                    $chartitemFind = "SELECT * FROM `pro_chart_item` WHERE chart_id = :chartid AND product_id = :productID";
-                    $chitstmt = $pdo->prepare($chartitemFind);
-                    $chitstmt->bindParam(':chartid', $chartid);
-                    $chitstmt->bindParam(':productID', $productID);
-                    $chitstmt->execute();
+                $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, order_qty, categoryid, delivery_qty, received_qty, unit) VALUES (:order_id, :productid, :cuisineid, :typeid, :order_qty, :categoryid, :delivery_qty, :received_qty, :unit)";
+                $orderItemStmt = $pdo->prepare($orderItemSql);
+                $orderItemStmt->bindParam(':order_id', $orderID);
+                $orderItemStmt->bindParam(':productid', $productID);
+                $orderItemStmt->bindParam(':cuisineid', $cuisineID);
+                $orderItemStmt->bindParam(':typeid', $typeID);
+                $orderItemStmt->bindParam(':unit', $unitID);
+                $orderItemStmt->bindParam(':categoryid', $categoryID);
+                $orderItemStmt->bindParam(':order_qty', $quantity);
+                // $orderItemStmt->bindParam(':priority', $priorityy);
+                $orderItemStmt->bindParam(':received_qty', $quantit);
+                $orderItemStmt->bindParam(':delivery_qty', $quantitys);
+    
+                if ($orderItemStmt->execute()) {
+    
+                    // if ($status == "Accepted") {
+    
+                    //     //    Chart item insert 
+                    //     $chartitemFind = "SELECT * FROM `pro_chart_item` WHERE chart_id = $chartid AND product_id = $productID";
+                    //     $chitstmt = $pdo->query($chartitemFind);
+                    //     $chitstmt->execute();
+                    //     if ($chitstmt->fetchColumn() != 0) {
+                    //         $chupSql = "UPDATE `pro_chart_item` SET qty = $quantity WHERE chart_id = $chartid AND product_id = $productID";
+                    //         $chupstmt = $pdo->query($chupSql);
+                    //         $chupstmt->execute();
+                    //     } else {
+                    //         $cchupSql = "INSERT INTO `pro_chart_item` (chart_id, product_id, type_id, category_id, cuisine_id, qty) VALUES ($chartid, $productID, $typeID, $categoryID, $cuisineID, $quantity)";
+                    //         $cchupstmt = $pdo->query($cchupSql);
+                    //         $cchupstmt->execute();
+                    //     }
+                    // }
+    
+                    if ($status == "Accepted") {
+                        // Check Chart already exists
+                        $chartitemFind = "SELECT * FROM `pro_chart_item` WHERE chart_id = :chartid AND product_id = :productID";
+                        $chitstmt = $pdo->prepare($chartitemFind);
+                        $chitstmt->bindParam(':chartid', $chartid);
+                        $chitstmt->bindParam(':productID', $productID);
+                        $chitstmt->execute();
+                        
+                        $chartItemData = $chitstmt->fetch(PDO::FETCH_ASSOC);
                     
-                    $chartItemData = $chitstmt->fetch(PDO::FETCH_ASSOC);
-                
-                    if ($chartItemData) {
-                        // Find New Qty 
-                        $newQty = $chartItemData['qty'] + $quantity;
-                
-                        // Update Chart
-                        $chupSql = "UPDATE `pro_chart_item` SET qty = :quantity WHERE chart_id = :chartid AND product_id = :productID";
-                        $chupstmt = $pdo->prepare($chupSql);
-                        $chupstmt->bindParam(':quantity', $newQty);
-                        $chupstmt->bindParam(':chartid', $chartid);
-                        $chupstmt->bindParam(':productID', $productID);
-                        $chupstmt->execute();
-                    } else {
-                        // Insert new Chart record
-                        $cchupSql = "INSERT INTO `pro_chart_item` (chart_id, product_id, type_id, category_id, cuisine_id, qty) VALUES (:chartid, :productID, :typeID, :categoryID, :cuisineID, :quantity)";
-                        $cchupstmt = $pdo->prepare($cchupSql);
-                        $cchupstmt->bindParam(':chartid', $chartid);
-                        $cchupstmt->bindParam(':productID', $productID);
-                        $cchupstmt->bindParam(':typeID', $typeID);
-                        $cchupstmt->bindParam(':categoryID', $categoryID);
-                        $cchupstmt->bindParam(':cuisineID', $cuisineID);
-                        $cchupstmt->bindParam(':quantity', $quantity);
-                        $cchupstmt->execute();
+                        if ($chartItemData) {
+                            // Find New Qty 
+                            $newQty = $chartItemData['qty'] + $quantity;
+                    
+                            // Update Chart
+                            $chupSql = "UPDATE `pro_chart_item` SET qty = :quantity WHERE chart_id = :chartid AND product_id = :productID";
+                            $chupstmt = $pdo->prepare($chupSql);
+                            $chupstmt->bindParam(':quantity', $newQty);
+                            $chupstmt->bindParam(':chartid', $chartid);
+                            $chupstmt->bindParam(':productID', $productID);
+                            $chupstmt->execute();
+                        } else {
+                            // Insert new Chart record
+                            $cchupSql = "INSERT INTO `pro_chart_item` (chart_id, product_id, type_id, category_id, cuisine_id, qty) VALUES (:chartid, :productID, :typeID, :categoryID, :cuisineID, :quantity)";
+                            $cchupstmt = $pdo->prepare($cchupSql);
+                            $cchupstmt->bindParam(':chartid', $chartid);
+                            $cchupstmt->bindParam(':productID', $productID);
+                            $cchupstmt->bindParam(':typeID', $typeID);
+                            $cchupstmt->bindParam(':categoryID', $categoryID);
+                            $cchupstmt->bindParam(':cuisineID', $cuisineID);
+                            $cchupstmt->bindParam(':quantity', $quantity);
+                            $cchupstmt->execute();
+                        }
                     }
-                }
-                
-                
-
-
-                if ($status == 'Received') {
-                    // Get Stock id 
-                    $sidSql = "SELECT id FROM `stock` WHERE branchid = :branchID";
-                    $sidStmt = $pdo->prepare($sidSql);
-                    $sidStmt->bindParam(':branchID', $branchID);
-                    $sidStmt->execute();
-                    $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
-                    $sid = $sidData["id"];
-
-                    // Get Current qty 
-                    $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = :sid AND product_id = :productID";
-                    $cqStmt = $pdo->prepare($cqSql);
-                    $cqStmt->bindParam(':sid', $sid);
-                    $cqStmt->bindParam(':productID', $productID);
-                    $cqStmt->execute();
-                    $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
-                    $cq = $cqData["qty"];
-
-                    // Crnt Qty from Main Stock 
-                    $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
-                    $msStmt = $pdo->query($msSql);
-                    $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
-                    $stqty = $msData["qty"];
-
-                    $updatedQty = 0;
-                    $finalstqty = 0;
-
-                    if ($oldRecQty <= $quantit) {
-                        $updatedQty = $quantit - $oldRecQty;
-                        $finalQty = $cq + $updatedQty;
-                        $finalstqty = $stqty - $updatedQty;
-                    } else {
-                        $updatedQty = $oldRecQty - $quantit;
-                        $finalQty = $cq - $updatedQty;
-                        $finalstqty = $stqty + $updatedQty;
+                    
+                    
+    
+    
+                    if ($status == 'Received') {
+                        // Get Stock id 
+                        $sidSql = "SELECT id FROM `stock` WHERE branchid = :branchID";
+                        $sidStmt = $pdo->prepare($sidSql);
+                        $sidStmt->bindParam(':branchID', $branchID);
+                        $sidStmt->execute();
+                        $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
+                        $sid = $sidData["id"];
+    
+                        // Get Current qty 
+                        $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = :sid AND product_id = :productID";
+                        $cqStmt = $pdo->prepare($cqSql);
+                        $cqStmt->bindParam(':sid', $sid);
+                        $cqStmt->bindParam(':productID', $productID);
+                        $cqStmt->execute();
+                        $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+                        $cq = $cqData["qty"];
+    
+                        // Crnt Qty from Main Stock 
+                        $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
+                        $msStmt = $pdo->query($msSql);
+                        $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
+                        $stqty = $msData["qty"];
+    
+                        $updatedQty = 0;
+                        $finalstqty = 0;
+    
+                        if ($oldRecQty <= $quantit) {
+                            $updatedQty = $quantit - $oldRecQty;
+                            $finalQty = $cq + $updatedQty;
+                            $finalstqty = $stqty - $updatedQty;
+                        } else {
+                            $updatedQty = $oldRecQty - $quantit;
+                            $finalQty = $cq - $updatedQty;
+                            $finalstqty = $stqty + $updatedQty;
+                        }
+    
+                        // Update Stock
+                        $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
+                        $sustmt = $pdo->prepare($susql);
+                        $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
+                        $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
+                        $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
+                        $sustmt->execute();
+    
+                        // Update Main Stock 
+                        $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
+                        $mqstmt = $pdo->prepare($mqsql);
+    
+                        $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
+                        $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
+                        $mqstmt->execute();
                     }
-
-                    // Update Stock
-                    $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
-                    $sustmt = $pdo->prepare($susql);
-                    $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
-                    $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
-                    $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
-                    $sustmt->execute();
-
-                    // Update Main Stock 
-                    $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
-                    $mqstmt = $pdo->prepare($mqsql);
-
-                    $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
-                    $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
-                    $mqstmt->execute();
+    
                 }
-
             }
+            // var_dump(intval($quantity));
+            // exit();
         }
 
         $pdo->commit();

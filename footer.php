@@ -94,9 +94,15 @@
         onSelect: function (dateText, inst) {
             $(this).prop("readonly", true);
         }
-    });
+    });  
+});
 
-    
+$(document).ready(() => {
+    var dateFields = $(".datepicc");
+
+    dateFields.datepicker({
+        dateFormat: 'dd/mm/yy'
+    });  
 });
 
 </script>
@@ -106,6 +112,7 @@
     $(document).ready(function () {
         var table = $('.table').DataTable({
             ordering: false, // Disable sorting
+            searching: false,
             buttons: [
                 'copy', // Copy to clipboard
                 'excel', // Export to Excel
