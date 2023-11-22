@@ -22,37 +22,23 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     // Set font
     $pdf->SetFont('helvetica', '', 12);
-    // // Add company logo
-    // $logoImage = 'images/Magizham Logo.png'; // Change to the actual path and filename of your logo
-    // $pdf->Image($logoImage, 10, 10, 40, 0, '', '', '', false, 300);
+
     // Add company details with enhanced styling
     $companyDetails = '
-<table style="width: 100%; border-collapse: collapse;">
-    <tr>
-        <td style="background-color: yellow; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Address</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">123 Main St, City, Country</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Phone</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">+1 123-456-7890</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Email</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">info@yourcompany.com</td>
-    </tr>
-</table>';
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="background-color: yellow; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
+        </tr>
+    </table>';
 
     // Apply CSS styles to the whole table
     $companyDetails .= '<style>
-    table { width: 100%; border-collapse: collapse; }
-    td { border: 1px solid #E0E0E0; }
-</style>';
+        table { width: 100%; border-collapse: collapse; }
+        td { border: 1px solid #E0E0E0; }
+    </style>';
     $pdf->writeHTML($companyDetails);
 
-    // Fetch  chart details 
+    // Fetch chart details 
     $chartSql = "SELECT * FROM `pro_chart` WHERE id = :id";
     $chartStmt = $pdo->prepare($chartSql);
     $chartStmt->bindParam(':id', $chartId);
@@ -61,69 +47,61 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     if ($chartData) {
         // Output the HTML content to the PDF
-        $pdf->writeHTML('<h2>Production Chart</h2>');
+     // Output the HTML content to the PDF
+$pdf->writeHTML('<div style="display: flex; justify-content: space-between;">');
 
-        // Create an Excel-style table
-        $html = '<table border="1" cellpadding="4" cellspacing="0">';
-        $html .= '<tr bgcolor="#CCCCCC"><th>ID</th><th>Order Name</th></tr>';
-        $html .= '<tr>';
-        $html .= '<td>' . $chartData['id'] . '</td>';
-        $html .= '<td>' . $chartData['date'] . '</td>';
-        $html .= '</tr>';
-        $html .= '</table>';
 
         // Fetch and display the order items associated with the order
-        $html .= '<h3>Production List</h3>';
-        $html .= '<table border="1" cellpadding="4" cellspacing="0">';
-        $html .= '<tr bgcolor="#CCCCCC"><th>Product</th><th>Category</th><th>Cuisine</th><th>Qty</th></tr>';
-
-        $chartItemSql = "SELECT * FROM `pro_chart_item` WHERE chart_id = :chart_id";
+        $chartItemSql = "SELECT pci.qty, p.name AS product_name, c.name AS category_name, cu.name AS cuisine_name
+                        FROM `pro_chart_item` pci
+                        JOIN `product` p ON pci.product_id = p.id
+                        JOIN `category` c ON pci.category_id = c.id
+                        JOIN `cuisine` cu ON pci.cuisine_id = cu.id
+                        WHERE pci.chart_id = :chart_id";
         $chartItemstmt = $pdo->prepare($chartItemSql);
+
         if ($chartItemstmt) {
             $chartItemstmt->bindParam(':chart_id', $chartId);
             $chartItemstmt->execute();
             $chartItemData = $chartItemstmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $cuisineTables = [];
+
+            // Group items by cuisine
             foreach ($chartItemData as $item) {
-                // Fetch category name
-                $categorySql = "SELECT name FROM `category` WHERE id = :categoryid";
-                $categoryStmt = $pdo->prepare($categorySql);
-                $categoryStmt->bindParam(':categoryid', $item['category_id']);
-                $categoryStmt->execute();
-                $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
+                $cuisineName = $item['cuisine_name'];
 
-                //   // Fetch cuisine name
-//   $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
-//   $cuisineStmt = $pdo->prepare($cuisineSql);
-//   $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
-//   $cuisineStmt->execute();
-//   $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
-                // Fetch cuisine name
-                $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
-                $cuisineStmt = $pdo->prepare($cuisineSql);
-                $cuisineStmt->bindParam(':cuisineid', $item['cuisine_id']);
-                $cuisineStmt->execute();
-                $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
+                if (!isset($cuisineTables[$cuisineName])) {
+                    $cuisineTables[$cuisineName] = [];
+                }
 
-                // Fetch product name
-                $productSql = "SELECT name FROM `product` WHERE id = :productid";
-                $productStmt = $pdo->prepare($productSql);
-                $productStmt->bindParam(':productid', $item['product_id']);
-                $productStmt->execute();
-                $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
-                $html .= '<tr>';
-                $html .= '<td>' . $productData['name'] . '</td>';
-                $html .= '<td>' . $categoryData['name'] . '</td>';
-                $html .= '<td>' . $cuisineData['name'] . '</td>';
+                $cuisineTables[$cuisineName][] = $item;
+            }
 
-                // echo "<td><div>{$cuisineData['name']}</div></td>";
-                $html .= '<td>' . $item['qty'] . '</td>';
+            // Generate a table for each cuisine
+            foreach ($cuisineTables as $cuisineName => $cuisineItems) {
+                // Production Chart Column
+$pdf->writeHTML('<div style="width: 48%;">');
+$pdf->writeHTML('<h2 style="color: #336699;">Production Chart</h2>');
 
-                $html .= '</tr>';
+// Include the date in the PDF
+$pdf->writeHTML('<p style="font-size: 14px; font-weight: bold; color: #555;">Date: ' . $chartData['date'] . '</p>');
+                $html = '<h3>' . $cuisineName . ' </h3>';
+                $html .= '<table border="1" cellpadding="4" cellspacing="0">';
+                $html .= '<tr bgcolor="#CCCCCC"><th>Product</th><th>Category</th><th>Qty</th></tr>';
+
+                foreach ($cuisineItems as $item) {
+                    $html .= '<tr>';
+                    $html .= '<td>' . $item['product_name'] . '</td>';
+                    $html .= '<td>' . $item['category_name'] . '</td>';
+                    $html .= '<td>' . $item['qty'] . '</td>';
+                    $html .= '</tr>';
+                }
+
+                $html .= '</table>';
+                $pdf->writeHTML($html, true, false, true, false, '');
             }
         }
-        $html .= '</table>';
-
-        $pdf->writeHTML($html, true, false, true, false, '');
 
         // Close the PDF document
         $pdfContent = $pdf->Output('', 'S'); // Capture the PDF content
@@ -144,4 +122,5 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 } else {
     echo "Invalid order ID.";
 }
+
 ?>

@@ -1,6 +1,7 @@
 {
     "name": "admin/hotel-hm",
     "require": {
-        "tecnickcom/tcpdf": "^6.6"
+        "tecnickcom/tcpdf": "^6.6",
+        "box/spout": "^3.3"
     }
 }

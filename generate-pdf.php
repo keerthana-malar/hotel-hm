@@ -12,10 +12,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     // Set document information
     $pdf->SetCreator('Magizham');
-    $pdf->SetAuthor('Your Name');
-    $pdf->SetTitle('Order Details');
-    $pdf->SetSubject('Order Details');
-    $pdf->SetKeywords('TCPDF, PDF, Order Details');
+    // $pdf->SetAuthor('Your Name');
+    // $pdf->SetTitle('Order Details');
+    // $pdf->SetSubject('Order Details');
+    // $pdf->SetKeywords('TCPDF, PDF, Order Details');
 
     // Add a page
     $pdf->AddPage();
