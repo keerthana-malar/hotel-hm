@@ -54,11 +54,14 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
+  <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
+
     <a href="create-product.php?type=1">
       <button class="btn btn-success" <?php if($rdata["create_fc"]=="0"){echo "disabled";} ?>>Create</button>
     </a>
+
   </div>
-  
+
   <?php if (!empty($_GET['succ'])): ?>
 
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -80,11 +83,8 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
       </button>
     </div>
   <?php endif ?>
-  <form action="import.php" method="post" enctype="multipart/form-data">
-        <!-- Your form fields here -->
-        <input type="file" name="import_file" id="import_file" accept=".xlsx">
-        <input type="submit" name="submit_import" value="Import">
-    </form>
+
+
     <?php if (!empty($_GET['succ'])) : ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>
@@ -106,6 +106,11 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
         </div>
     <?php endif ?>
     <h2 class="mb-3">Food Catalog</h2>
+    <form id="importForm" action="import.php" method="post" enctype="multipart/form-data"  style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
+    <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
+    <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
+</form>
     <?php
     if ($productData) {
         echo "<div class='table-responsive'>";
@@ -155,5 +160,9 @@ include('footer.php');
 <script>
   function confirmDelete() {
     return confirm("Are you sure you want to delete this order?");
+  }
+  function toggleImportForm() {
+    var importForm = document.getElementById("importForm");
+    importForm.style.display = (importForm.style.display === "none") ? "block" : "none";
   }
 </script>
