@@ -115,7 +115,6 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
                 <th>product </th>
                 <th>Unit</th>
                 <th>Price (per Unit)</th>
-                <th>Type</th>
                 <th>Category</th>
                 <th>Cuisine</th>
                 <th>Status</th>
@@ -133,7 +132,6 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
             echo "<td>" . $row['name'] . "</td>";
             echo "<td>" . $row['unit'] . "</td>";
             echo "<td>" . $row['price'] . "</td>";
-            echo "<td>" . $typee['name'] . "</td>";
             echo "<td>" . $catee['name'] . "</td>";
             echo "<td>" . $cusiee['name'] . "</td>";
                        echo "<td>" . $row['status'] . "</td>";
