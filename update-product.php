@@ -7,10 +7,6 @@ if (!isset($_SESSION['user'])) {
 require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $u1 = "products.php?succ=";
-    $u2 = "edit-product.php?id=" . $_POST['productID'] . "&err=";
-    $u3 = "foodcatalog.php?succ=";
-
     $productID = $_POST['productID'];
     $productName = $_POST['product'];
     $unit = $_POST['unit']; // Updated Unit
@@ -20,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryID = $_POST['category']; // Updated Category ID
     $cuisineID = $_POST['cuisine']; // Updated Cuisine ID
     $status = $_POST['status']; // Updated Status
+
+    if ($typeID == 1) {
+        $u1 = "foodcatalog.php?succ=";
+        $u2 = "edit-product.php?type=1&err=";
+    } else {
+        $u1 = "stockcatalog.php?succ=";
+        $u2 = "edit-product.php?type=2&err=";
+    }
 
     // Handle image upload
     $img1FileName = $_POST['existing_img']; // Default to existing image

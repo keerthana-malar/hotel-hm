@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$stockSql = "SELECT * FROM `stock` $logbranchA";
+$stockSql = "SELECT * FROM `stock` $logbranchA ORDER BY id DESC";
 $stockData = $pdo->query($stockSql);
 $logUser = $_SESSION['user'];
 

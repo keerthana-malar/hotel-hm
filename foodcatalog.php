@@ -1,8 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$productSql = "SELECT * FROM product WHERE typeid = '1'";
-$productData = $pdo->query($productSql);
+
 $logUser = $_SESSION['user'];
 require 'vendor/autoload.php';
 
@@ -38,7 +37,7 @@ if (isset($_POST['submit_import']) && isset($_FILES['import_file'])) {
 }
 
 // Fetch the product data after import
-$productSql = "SELECT * FROM product WHERE typeid = '1'";
+$productSql = "SELECT * FROM product WHERE typeid = '1' ORDER BY `id` DESC";
 $productData = $pdo->query($productSql);
 $logUser = $_SESSION['user'];
 
@@ -70,27 +69,6 @@ if ($rdata['delete_fc'] == '0') {
 
   </div>
 
-  <?php if (!empty($_GET['succ'])): ?>
-
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>
-        <?php echo $_GET['succ'] ?>
-      </strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <?php endif ?>
-  <?php if (!empty($_GET['err'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>
-        <?php echo $_GET['err'] ?>
-      </strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <?php endif ?>
     <?php if (!empty($_GET['succ'])) : ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>

@@ -2,7 +2,7 @@
 include('header.php');
 include('menu.php');
 
-$counterSql = "SELECT * FROM counter";
+$counterSql = "SELECT * FROM counter ORDER BY id DESC";
 $counterData = $pdo->query($counterSql);
 $logUser = $_SESSION['user'];
 

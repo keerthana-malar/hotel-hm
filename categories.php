@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$categorySql = "SELECT * FROM category";
+$categorySql = "SELECT * FROM category ORDER BY id DESC";
 $categoryData = $pdo->query($categorySql);
 
 $logUser = $_SESSION['user'];
