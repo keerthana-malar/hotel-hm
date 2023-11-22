@@ -8,7 +8,35 @@ $logbranch = $logUser['branch'];
 // $logid = 1;
 // $logName = "Admin";
 // $logUser = 1;
+$currentPage = str_replace('.php', '', basename($_SERVER['SCRIPT_NAME']));
+function menuActive($val, $val1){
+    
+    $currentPage = str_replace('.php', '', basename($_SERVER['SCRIPT_NAME']));
+    if(strpos($currentPage, $val) !== false && strpos($currentPage, $val1) === false){
+        echo "active";
+    }
+}
+function menuShow($val, $val1){
+    $currentPage = str_replace('.php', '', basename($_SERVER['SCRIPT_NAME']));
+    if(strpos($currentPage, $val) !== false && strpos($currentPage, $val1) === false){
+        echo 'show';
+    }
+}
+function menuActive1($val){
+    
+    $currentPage = str_replace('.php', '', basename($_SERVER['SCRIPT_NAME']));
+    if(strpos($currentPage, $val) !== false){
+        echo "active";
+    }
+}
+function menuShow1($val){
+    $currentPage = str_replace('.php', '', basename($_SERVER['SCRIPT_NAME']));
+    if(strpos($currentPage, $val) !== false){
+        echo 'show';
+    }
+}
 
+$type = $_GET['type'];
 
 if($logbranch == '1') {
     $logbranchQ = "";
@@ -127,7 +155,7 @@ $userBranch = $udata ["branch"];
                     </li>
                     
                     
-                    <li class="nav-item set" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1" && $rdata["pc_access"]!=="1"){
+                    <li class="nav-item set <?php menuActive('food','catalog'); menuActive('stock', 'catalog'); menuActive1('outdoor'); menuActive1('production'); ?>" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1" && $rdata["pc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#us" aria-expanded="false" aria-controls="">
@@ -135,17 +163,17 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">Orders</span>
                             <i class="typcn typcn-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="us">
+                        <div class="collapse <?php menuShow('food', 'catalog'); menuShow('stock', 'catalog'); menuShow1('outdoor'); menuShow1('production'); ?>" id="us">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="foodorders.php">Food Order</a></li>
-                                <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stockorders.php">Stock Order</a></li>
-                                <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="outdoororders.php">Outdoor Order</a></li>
-                                <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="production.php">Production Chart</a></li>
+                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive('food', 'catalog'); ?>" href="foodorders.php">Food Order</a></li>
+                                <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive('stock', 'catalog'); ?>" href="stockorders.php">Stock Order</a></li>
+                                <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('outdoor'); ?>" href="outdoororders.php">Outdoor Order</a></li>
+                                <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('production'); ?>" href="production.php">Production Chart</a></li>
                             </ul>
                         </div>
                     </li>
                     
-                    <li class="nav-item" <?php if($rdata["fc_access"]!=="1"){
+                    <li class="nav-item <?php if($type == 1){echo 'active';} ?>" <?php if($rdata["fc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" href="foodcatalog.php">
@@ -153,7 +181,7 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">Food Catalog</span>
                         </a>
                     </li>
-                    <li class="nav-item set" <?php if($rdata["sc_access"]!=="1" && $rdata["cc_access"]!=="1"){
+                    <li class="nav-item set <?php if($type == 2){echo 'active';} menuActive1('inventory'); menuActive1('consumption'); ?>" <?php if($rdata["sc_access"]!=="1" && $rdata["cc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#use" aria-expanded="false" aria-controls="">
@@ -161,23 +189,23 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">Stock Management</span>
                             <i class="typcn typcn-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="use">
+                        <div class="collapse <?php if($type == 2){echo 'show';} menuShow1('inventory'); menuShow1('consumption'); ?>" id="use">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stockcatalog.php">Stock Catalog</a></li>
-                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stocks.php">View Stock</a></li>
-                                <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="consumptions.php">Closing stock</a></li>
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php if($type == 2){echo 'active';} ?>" href="stockcatalog.php">Stock Catalog</a></li>
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('inventory'); ?>" href="inventory.php">View Stock</a></li>
+                                <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('consumption'); ?>" href="consumptions.php">Closing stock</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item" <?php if($rdata["w_access"]!=="1"){
+                    <li class="nav-item <?php menuActive1('waste'); ?>" <?php if($rdata["w_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" href="wastes.php">
                             <i class=" typcn typcn-document-delete menu-icon"></i>
-                            <span class="menu-title">wastage</span>
+                            <span class="menu-title">Wastages</span>
                         </a>
                     </li>
-                    <li class="nav-item" <?php if($rdata["cc_access"]!=="1"){
+                    <li class="nav-item <?php menuActive1('counter'); ?>" <?php if($rdata["cc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" href="counter.php">
@@ -201,7 +229,7 @@ $userBranch = $udata ["branch"];
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item set" <?php if($rdata["user_access"]!=="1" && $rdata["role_access"]!=="1"){
+                    <li class="nav-item set <?php menuActive1('role'); menuActive1('user'); ?>" <?php if($rdata["user_access"]!=="1" && $rdata["role_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user-manane" aria-expanded="false" aria-controls="">
@@ -209,14 +237,14 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">User Management</span>
                             <i class="typcn typcn-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="user-manane">
+                        <div class="collapse <?php menuShow1('role'); menuShow1('user'); ?>" id="user-manane">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["user_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="users.php">Users</a></li>
-                                <li <?php if($rdata["role_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="role_view.php">Roles</a></li>
+                                <li <?php if($rdata["user_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('user'); ?>" href="users.php">Users</a></li>
+                                <li <?php if($rdata["role_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('role'); ?>" href="role_view.php">Roles</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item set" <?php if($rdata["p_access"]!=="1"){
+                    <li class="nav-item set <?php menuActive1('category'); menuActive1('cuisine'); ?>" <?php if($rdata["p_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="">
@@ -224,18 +252,18 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">products Configuration</span>
                             <i class="typcn typcn-chevron-right menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="user">
+                        <div class="collapse <?php menuShow1('category'); menuShow1('cuisine'); ?>" id="user">
                             <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link sub" href="products.php">products</a></li>
-                                <li class="nav-item"> <a class="nav-link sub" href="types.php">Food Type</a></li>
-                                <li class="nav-item"> <a class="nav-link sub" href="categories.php">Food Category</a></li>
-                                <li class="nav-item"> <a class="nav-link sub" href="cuisines.php">Cuisine</a></li>
+                            <!-- <li class="nav-item"> <a class="nav-link sub" href="products.php">products</a></li> -->
+                                <!-- <li class="nav-item"> <a class="nav-link sub" href="types.php">Food Type</a></li> -->
+                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('category'); ?> " href="categories.php">Food Category</a></li>
+                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('cuisine'); ?> " href="cuisines.php">Cuisine</a></li>
                             </ul>
                         </div>
                     </li>
                    
                     
-                    <li class="nav-item" <?php if($rdata["b_access"]!=="1"){
+                    <li class="nav-item <?php menuActive1('branch'); ?>" <?php if($rdata["b_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" href="branchs.php">

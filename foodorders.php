@@ -19,7 +19,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     
-      <a href="create-order.php">
+      <a href="create-food-order.php">
         <button class="btn btn-success" <?php if($rdata["create_fo"]==="0"){echo "disabled";} ?>>Create</button>
       </a>
   </div>
@@ -75,9 +75,9 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
       echo "<td>" . $row['status'] . "</td>";
 
       echo "<td>
-            <a class='".$dslinkEdit."' href='edit-order.php?id=" . $row['id'] . "'><i class='typcn typcn-edit '></i></a> | 
+            <a class='".$dslinkEdit."' href='edit-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-edit '></i></a> | 
             <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='typcn typcn-trash'></i></a> |
-            <a class='".$dslinkView."' href='view-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
+            <a class='".$dslinkView."' href='view-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>
                 <a href='print-order.php?id=" . $row['id'] . "' target='_blank'><i class='typcn typcn-print'></i></a>

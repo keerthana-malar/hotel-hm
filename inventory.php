@@ -61,7 +61,7 @@ if($rdata['delete_sc'] == '0'){$dslinkDelete = 'dis';}
 
             
             echo "<td>
-            <a class='".$dslinkView."' href='view-stock.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a>
+            <a class='".$dslinkView."' href='view-inventory.php?id=" . $row['id'] ."'><i class='typcn typcn-eye'></i></a>
         </td>";
     
 

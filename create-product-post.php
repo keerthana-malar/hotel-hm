@@ -3,9 +3,8 @@
 require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $u1 = "products.php?succ=";
-    $u2 = "create-product.php?err=";
-    $u3 = "foodcatalog.php?succ=";
+
+
 
     // User Data 
     $productname = $_POST['product'];
@@ -15,6 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryid = $_POST['category'];
     $cuisineid = $_POST['cuisine'];
     $status = $_POST['status'];
+
+    if ($typeid == 1) {
+        $u1 = "foodcatalog.php?succ=";
+        $u2 = "create-product.php?type=1&err=";
+    } else {
+        $u1 = "stockcatalog.php?succ=";
+        $u2 = "create-product.php?type=2&err=";
+    }
+
 
     // image uploads
     $img1 = $_FILES["img1"];
@@ -99,13 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             }
         }
-        if ($typeid == 1) {
-            header("Location: " . $u3 . urlencode('Product Successfully Created'));
-            exit();
-        } else {
-            header("Location: " . $u1 . urlencode('Product Successfully Created'));
-            exit();
-        }
+
+        header("Location: " . $u1 . urlencode('Product Successfully Created'));
+        exit();
     } else {
         header("Location: " . $u2 . urlencode('Something Wrong please try again later'));
         exit();
