@@ -17,7 +17,7 @@ function importProducts($file, $pdo)
         // Prepare the SQL statement for insert
         $insertSql = "
             INSERT INTO product (name, unit, price, categoryid, cuisineid, status, typeid)
-            VALUES (?, ?, ?, ?, ?, 'Active', 1)
+            VALUES (?, ?, ?, ?, 1, 'Active', 2)
             ON DUPLICATE KEY UPDATE
                 unit = VALUES(unit),
                 price = VALUES(price),
@@ -51,7 +51,7 @@ function importProducts($file, $pdo)
 
                 // If the product already exists, update specific fields
                 if ($existingProductId) {
-                    $pdo->prepare("UPDATE product SET unit = ?, price = ?, categoryid = ?, cuisineid = ?, status = 'Active', typeid = 1 WHERE name = ?")
+                    $pdo->prepare("UPDATE product SET unit = ?, price = ?, categoryid = ?, cuisineid = 1?, status = 'Active', typeid = 2 WHERE name = ?")
                         ->execute([$data[2], $data[3], $data[4], $data[5], $data[6], $data[1]]);
                 }
             }
