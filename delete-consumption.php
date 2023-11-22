@@ -15,7 +15,7 @@ if (isset($_GET['delete_id'])) {
     $stmt->bindParam(':id', $consumptionID);
 
     if ($stmt->execute()) {
-        header("Location: consumptions.php?succ=" . urlencode('consumptionSuccessfully Deleted'));
+        header("Location: consumptions.php?succ=" . urlencode('Closing Stock Deleted Successfully'));
     } else {
         header("Location: consumptions.php?err=" . urlencode('Something went wrong. Please try again later'));
     }
