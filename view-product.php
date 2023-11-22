@@ -41,12 +41,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<h2>Product Details</h2>";
         echo "<ul>";
 
-        echo "<li>ID: " . $productData['id'] . "</li>";
+        // echo "<li>ID: " . $productData['id'] . "</li>";
         echo "<li>Name: " . $productData['name'] . "</li>";
         echo "<li>Unit: " . $productData['unit'] . "</li>";
         // echo "<li>Stock Quantity: " . $productData['stock_qty'] . "</li>";
         echo "<li>Price: " . $productData['price'] . "</li>";
-        echo "<li>Type: " . $typeData['name'] . "</li>";
+        // echo "<li>Type: " . $typeData['name'] . "</li>";
         echo "<li>Category: " . $categoryData['name'] . "</li>";
         echo "<li>Cuisine: " . $cuisineData['name'] . "</li>";
         echo "<li>Status: " . $productData['status'] . "</li>";

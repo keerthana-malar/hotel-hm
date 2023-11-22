@@ -89,7 +89,7 @@ $currentDate = date('Y-m-d');
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-2" hidden>
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
                         <select class="form-control mb-2" name="cu[]">
@@ -111,6 +111,12 @@ $currentDate = date('Y-m-d');
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="exampleInputStatus">Unit</label>
+                        <input class="form-control" type="text" name="unit[]" readonly>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">

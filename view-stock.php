@@ -38,7 +38,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "<table>";
             
             if ($stockItemData) {
-                echo "<tr><th>Product</th><th>Cuisine</th><th>Category</th><th>Unit</th><th>Available Qty</th></tr>";
+                echo "<tr><th>Product</th><th>Unit</th><th>Available Qty</th></tr>";
             }
             if (!$stockItemData) {
                 echo '<p class="text-danger">No Products Available in Stock</p>';
@@ -78,8 +78,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<tr>";
                 echo "<td><div>{$productData['name']}</div></td>";
                 // echo "<td><div>{$typeData['name']}</div></td>";
-                echo "<td><div>{$cuisineData['name']}</div></td>";
-                echo "<td><div>{$categoryData['name']}</div></td>";
+                // echo "<td><div>{$cuisineData['name']}</div></td>";
+                // echo "<td><div>{$categoryData['name']}</div></td>";
                 echo "<td><div>{$item['unit']}</td>";
                 echo "<td><div>{$item['qty']}</div></td>";
                                                          

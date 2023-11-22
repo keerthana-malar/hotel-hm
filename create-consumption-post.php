@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $typeID = $_POST['ty'][$i];
             $categoryID = $_POST['ca'][$i];
             $quantity = $_POST['qt'][$i];
+            $units = $_POST['unit'][$i];
 
             // Find stock id 
             $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // var_dump($uqty);
             //     exit();
             
-            $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, cuisine_id, type_id, category_id, qty, used_qty) VALUES (:consumption_id, :product_id, :cuisine_id, :type_id, :category_id, :qty, :uqty)";
+            $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, cuisine_id, type_id, category_id, unit, qty, used_qty) VALUES (:consumption_id, :product_id, :cuisine_id, :type_id, :category_id, :unit, :qty, :uqty)";
             $consumptionItemStmt = $pdo->prepare($consumptionItemSql);
             $consumptionItemStmt->bindParam(':consumption_id', $consumptionID);
             $consumptionItemStmt->bindParam(':product_id', $productID);
@@ -83,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consumptionItemStmt->bindParam(':type_id', $typeID);
             $consumptionItemStmt->bindParam(':category_id', $categoryID);
             $consumptionItemStmt->bindParam(':qty', $quantity);
+            $consumptionItemStmt->bindParam(':unit', $units);
             $consumptionItemStmt->bindParam(':uqty', $uqty);
 
             $consumptionItemStmt->execute();
