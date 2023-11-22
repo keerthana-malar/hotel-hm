@@ -61,7 +61,15 @@ function importProducts($file, $pdo)
         $pdo->commit();
         $reader->close();
 
-        return true;
+        // Set the success message in the session
+        // $_SESSION['success_message'] = 'File has been uploaded and processed successfully.';
+// 
+        // Redirect to foodcatalog.php with the success message in the URL
+        $u1 = "foodcatalog.php?succ=";
+$u2 = "foodcatalog.php?err=";
+        header("Location: " . $u1 . urlencode('File has been uploaded and processed successfully.'));
+        exit();
+        // return true;
     } catch (PDOException $e) {
         // Log the error
         error_log('SQL Error: ' . $e->getMessage());
