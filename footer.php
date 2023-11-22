@@ -286,6 +286,43 @@ $(document).ready(() => {
     })
 </script>
 
+<!-- Menu Active State  -->
+<script>
+    var url = window.location.pathname;
+    var item = document.querySelectorAll('.sub');
+    var parEle; // Declare parEle outside the if block
+    var parEleLi; // Declare parEle outside the if block
+
+    item.forEach((e) => {
+        let pe = e.closest('.nav-item').closest('.nav').closest('.collapse').closest('.set')
+        let value = e.innerText.replace(/\s/g, '').trim().toLowerCase();
+        if (url.includes(value)) {
+            e.classList.add('active');
+            pe.classList.add('active');
+            // alert("IRUKU");
+            // console.log("value: " + value + " Path: " + url + " Par: " + pe);
+        } else {
+            e.classList.remove('active');
+            pe.classList.remove('active');
+            // alert("ILLA");
+            // console.log("value: " + value + " Path: " + url + " Par: " + pe);
+        }
+        console.log(pe);
+    });
+
+    
+    console.log(item);
+    console.log(url);
+
+    // function findPar(ele, cls) {
+    //     while (ele && !ele.classList.contains(cls)) {
+    //         ele = ele.parentElement;
+    //     }
+    //     return ele;
+    // }
+</script>
+
+
 
 </body>
 

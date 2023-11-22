@@ -127,7 +127,7 @@ $userBranch = $udata ["branch"];
                     </li>
                     
                     
-                    <li class="nav-item" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1" && $rdata["pc_access"]!=="1"){
+                    <li class="nav-item set" <?php if($rdata["fo_access"]!=="1" && $rdata["so_access"]!=="1" && $rdata["odo_access"]!=="1" && $rdata["pc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#us" aria-expanded="false" aria-controls="">
@@ -137,10 +137,10 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="us">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="foodorders.php">Food Order</a></li>
-                                <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockorders.php">Stock Order</a></li>
-                                <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="outdoororders.php">Outdoor Order</a></li>
-                                <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="production.php">Production Chart</a></li>
+                                <li <?php if($rdata["fo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="foodorders.php">Food Order</a></li>
+                                <li <?php if($rdata["so_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stockorders.php">Stock Order</a></li>
+                                <li <?php if($rdata["odo_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="outdoororders.php">Outdoor Order</a></li>
+                                <li <?php if($rdata["pc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="production.php">Production Chart</a></li>
                             </ul>
                         </div>
                     </li>
@@ -153,7 +153,7 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">Food Catalog</span>
                         </a>
                     </li>
-                    <li class="nav-item" <?php if($rdata["sc_access"]!=="1" && $rdata["cc_access"]!=="1"){
+                    <li class="nav-item set" <?php if($rdata["sc_access"]!=="1" && $rdata["cc_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#use" aria-expanded="false" aria-controls="">
@@ -163,9 +163,9 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="use">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stockcatalog.php">Stock Catalog</a></li>
-                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="stocks.php">View Stock</a></li>
-                                <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="consumptions.php">Closing stock</a></li>
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stockcatalog.php">Stock Catalog</a></li>
+                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="stocks.php">View Stock</a></li>
+                                <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="consumptions.php">Closing stock</a></li>
                             </ul>
                         </div>
                     </li>
@@ -185,7 +185,7 @@ $userBranch = $udata ["branch"];
                             <span class="menu-title">Counter Closing</span>
                         </a>
                     </li>
-                    <li class="nav-item" <?php if($rdata["r_access"]!=="1"){
+                    <li class="nav-item set" <?php if($rdata["r_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#manane" aria-expanded="false" aria-controls="">
@@ -195,13 +195,13 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="manane">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="order-report.php">Order Reports</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="stock-report.php">Stock Reports</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="waste-report.php">Waste Reports</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="order-report.php">Order Reports</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="stock-report.php">Stock Reports</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="waste-report.php">Waste Reports</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item" <?php if($rdata["user_access"]!=="1" && $rdata["role_access"]!=="1"){
+                    <li class="nav-item set" <?php if($rdata["user_access"]!=="1" && $rdata["role_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user-manane" aria-expanded="false" aria-controls="">
@@ -211,12 +211,12 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="user-manane">
                             <ul class="nav flex-column sub-menu">
-                                <li <?php if($rdata["user_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="users.php">Users</a></li>
-                                <li <?php if($rdata["role_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link" href="role_view.php">Roles</a></li>
+                                <li <?php if($rdata["user_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="users.php">Users</a></li>
+                                <li <?php if($rdata["role_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub" href="role_view.php">Roles</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item" <?php if($rdata["p_access"]!=="1"){
+                    <li class="nav-item set" <?php if($rdata["p_access"]!=="1"){
                         echo "hidden";
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="">
@@ -226,10 +226,10 @@ $userBranch = $udata ["branch"];
                         </a>
                         <div class="collapse" id="user">
                             <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="products.php">products</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="types.php">Food Type</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="categories.php">Food Category</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="cuisines.php">Cuisine</a></li>
+                            <li class="nav-item"> <a class="nav-link sub" href="products.php">products</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="types.php">Food Type</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="categories.php">Food Category</a></li>
+                                <li class="nav-item"> <a class="nav-link sub" href="cuisines.php">Cuisine</a></li>
                             </ul>
                         </div>
                     </li>

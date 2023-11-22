@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$orderSql = "SELECT * FROM `order`  WHERE ordertype = '1'".$logbranchQ;
+$orderSql = "SELECT * FROM `order` WHERE ordertype = '1'".$logbranchQ . "ORDER BY id DESC";
 $orderData = $pdo->query($orderSql);
 $logUser = $_SESSION['user'];
 

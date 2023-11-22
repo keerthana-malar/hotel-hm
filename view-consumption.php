@@ -20,7 +20,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     if ($consumptionData) {
         // Display the consumption details
-        echo "<h2 Class>consumption Details</h2>";
+        echo "<h2 Class>Consumption Details</h2>";
         echo "<ul>";
         echo "<li>ID: " . $consumptionData['id'] . "</li>";
         echo "<li>DATE: " . $consumptionData['date_created'] . "</li>";
@@ -29,7 +29,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "</ul>";
 
         // Fetch and display the stock item details associated with the stock
-        echo "<h3>consumption Items</h3>";
+        echo "<h3>Consumption Items</h3>";
         echo "<table>";
         echo "<tr><th>Product</th><th>Type</th><th>Cuisine</th><th>Category</th><th>Available Qty</th><th>Used Qty</th></tr>";
 

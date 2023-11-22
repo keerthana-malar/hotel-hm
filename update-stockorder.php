@@ -100,10 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cq = $cqData["qty"];
 
                 // Get current quantity from main stock 
-                $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
-                $msStmt = $pdo->query($msSql);
-                $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
-                $stqty = $msData["qty"];
+                // $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
+                // $msStmt = $pdo->query($msSql);
+                // $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
+                // $stqty = $msData["qty"];
 
                 $updatedQty = 0;
                 $finalstqty = 0;
@@ -111,40 +111,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($oldRecQty <= $quantit) {
                     $updatedQty = $quantit - $oldRecQty;
                     $finalQty = $cq + $updatedQty;
-                    $finalstqty = $stqty - $updatedQty;
+                    // $finalstqty = $stqty - $updatedQty;
 
                 } else {
                     $updatedQty = $oldRecQty - $quantit;
                     $finalQty = $cq - $updatedQty;
-                    $finalstqty = $stqty + $updatedQty;
+                    // $finalstqty = $stqty + $updatedQty;
                 }
-
-
-
-
-
-
-                // echo "NQ";
-                // var_dump($finalstqty);
-                // exit();
-
-                // echo "OQ";
-                // var_dump($oldRecQty);
-
-                // echo "UQ";
-                // var_dump($updatedQty);
-
-
-
-                // echo "CQ";
-                // var_dump($cq);
-
-
-
-                // echo "FQ";
-                // var_dump($finalQty);
-
-                // exit();
 
                 // Update Stock
                 $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
@@ -157,13 +130,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sustmt->execute();
 
                 // Update Main Stock 
-                $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
-                $mqstmt = $pdo->prepare($mqsql);
+                // $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
+                // $mqstmt = $pdo->prepare($mqsql);
 
-                $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
-                $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
+                // $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
+                // $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
 
-                $mqstmt->execute();
+                // $mqstmt->execute();
             }
         }
     }
