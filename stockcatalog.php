@@ -1,9 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$productSql = "SELECT * FROM product WHERE typeid = '2'";
-$productData = $pdo->query($productSql);
-$logUser = $_SESSION['user'];
+
 require 'vendor/autoload.php';
 
 // Check if the form is submitted and the "import_file" key is set in the $_FILES array
@@ -37,7 +35,7 @@ if (isset($_POST['submit_import']) && isset($_FILES['import_file'])) {
 }
 
 // Fetch the product data after import
-$productSql = "SELECT * FROM product WHERE typeid = '2'";
+$productSql = "SELECT * FROM product WHERE typeid = '2' ORDER BY id DESC";
 $productData = $pdo->query($productSql);
 $logUser = $_SESSION['user'];
 

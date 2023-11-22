@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$cuisineSql = "SELECT * FROM cuisine";
+$cuisineSql = "SELECT * FROM cuisine ORDER BY id DESC";
 $cuisineData = $pdo->query($cuisineSql);
 
 $logUser = $_SESSION['user'];

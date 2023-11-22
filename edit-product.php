@@ -4,6 +4,7 @@ include('menu.php');
 
 if (isset($_GET['id'])) {
     $productID = $_GET['id'];
+    $typeParam = $_GET['type'];
 
     // Retrieve the product details from the database
     $productSql = "SELECT * FROM product WHERE id = :id";
@@ -55,7 +56,7 @@ if (isset($_GET['id'])) {
                     <input type="text" class="form-control" name="price" id="exampleInputPrice" value="<?php echo $productData['price']; ?>">
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-3" hidden>
                 <div class="form-group">
                     <label for="exampleInputType">Type</label>
                     <select class="form-control" name="type" id="exampleInputType">
@@ -74,6 +75,7 @@ if (isset($_GET['id'])) {
                         <?php endforeach; ?>
                     </select>
                 </div>            </div>
+                <?php  if($typeParam == 1) {?>
                 <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputCuisine">Cuisine</label>
@@ -84,12 +86,15 @@ if (isset($_GET['id'])) {
                     </select>
                 </div>
             </div> 
+            <?php  }else{?>
+                <input type="text" name="cuisine" value="1" hidden>
+            <?php  }?>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Status</label>
                     <select class="form-control" name="status" id="exampleInputStatus">
-                        <option value="active" <?php if ($productData['status'] === 'active') echo 'selected'; ?>>Active</option>
-                        <option value="inactive" <?php if ($productData['status'] === 'inactive') echo 'selected'; ?>>Inactive</option>
+                        <option value="Active" <?php if ($productData['status'] === 'Active') echo 'selected'; ?>>Active</option>
+                        <option value="Inactive" <?php if ($productData['status'] === 'Inactive') echo 'selected'; ?>>Inactive</option>
                     </select>
                 </div>
             </div>
