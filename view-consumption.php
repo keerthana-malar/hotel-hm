@@ -31,7 +31,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         // Fetch and display the stock item details associated with the stock
         echo "<h3>Consumption Items</h3>";
         echo "<table>";
-        echo "<tr><th>Product</th><th>Type</th><th>Cuisine</th><th>Category</th><th>Available Qty</th><th>Used Qty</th></tr>";
+        echo "<tr><th>Product</th><th>Unit</th><th>Available Qty</th><th>Used Qty</th></tr>";
 
         $consumptionItemSql = "SELECT * FROM `consumptionitem` WHERE consumption_id = :consumption_id";
         $consumptionItemStmt = $pdo->prepare($consumptionItemSql);
@@ -73,9 +73,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 
                 echo "<tr>";
                 echo "<td><div>{$productData['name']}</div></td>";
-                echo "<td><div>{$typeData['name']}</div></td>";
-                echo "<td><div>{$cuisineData['name']}</div></td>";
-                echo "<td><div>{$categoryData['name']}</div></td>";
+              
+                echo "<td><div>{$item['unit']}</td>";
                 echo "<td><div>{$item['qty']}</div></td>";
                 echo "<td><div>{$item['used_qty']}</div></td>";
                 echo "</tr>";

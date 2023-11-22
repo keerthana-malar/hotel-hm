@@ -4,6 +4,43 @@ include('menu.php');
 $productSql = "SELECT * FROM product WHERE typeid = '2'";
 $productData = $pdo->query($productSql);
 $logUser = $_SESSION['user'];
+require 'vendor/autoload.php';
+
+// Check if the form is submitted and the "import_file" key is set in the $_FILES array
+if (isset($_POST['submit_import']) && isset($_FILES['import_file'])) {
+  // Specify the absolute path to the upload directory
+  $uploadDir = __DIR__ . '/uploads/';
+  // File upload path
+  $uploadFile = $uploadDir . basename($_FILES['import_file']['name']);
+  // Check if the file has a valid extension
+  $fileExtension = pathinfo($uploadFile, PATHINFO_EXTENSION);
+  $allowedExtensions = array('xlsx');
+  if (!in_array($fileExtension, $allowedExtensions)) {
+      echo 'Invalid file format. Only Excel files (xlsx) are allowed.';
+      exit;
+  }
+  // Create the upload directory if it doesn't exist
+  if (!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0777, true);
+  }
+  // Move the uploaded file to the specified directory
+  if (move_uploaded_file($_FILES['import_file']['tmp_name'], $uploadFile)) {
+      // Call the importProducts function with the file path
+      if (importProducts($uploadFile, $pdo)) {
+          echo 'File has been uploaded and processed successfully.';
+      } else {
+          echo 'Error processing the file.';
+      }
+  } else {
+      echo 'Error uploading the file.';
+  }
+}
+
+// Fetch the product data after import
+$productSql = "SELECT * FROM product WHERE typeid = '2'";
+$productData = $pdo->query($productSql);
+$logUser = $_SESSION['user'];
+
 
 // User access control 
 if($rdata['edit_fc'] == '0'){$dslinkEdit = 'dis';}
@@ -17,6 +54,7 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
+  <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
     <a href="create-product.php?type=2">
       <button class="btn btn-success" <?php if($rdata["create_fc"]=="0"){echo "disabled";} ?>>Create</button>
     </a>
@@ -43,7 +81,11 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
     </div>
   <?php endif ?>
   <h2 class="mb-3">Stock Catalog</h2>
-
+  <form id="importForm" action="stock_import.php" method="post" enctype="multipart/form-data"  style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
+    <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
+    <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
+  </form>
   <?php
 
   if ($productData) {
@@ -97,5 +139,9 @@ include('footer.php');
 <script>
   function confirmDelete() {
     return confirm("Are you sure you want to delete this order?");
+  }
+  function toggleImportForm() {
+    var importForm = document.getElementById("importForm");
+    importForm.style.display = (importForm.style.display === "none") ? "block" : "none";
   }
 </script>

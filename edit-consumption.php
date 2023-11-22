@@ -52,7 +52,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" class="form-control" id="date" name="date" disabled  value="<?php echo $consumptionData['date_created']; ?>">
+            <input type="text" class="form-control" id="date" name="date" disabled  value="<?php echo $consumptionData['date_created']; ?>">
         </div>
         </div>
         </div>
@@ -66,10 +66,7 @@ if (isset($_GET['id'])) {
                     <label for="exampleInputStatus">Type</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                <label for="">Category <span>*</span></label>
+                <label for="exampleInputStatus">Unit</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Available_Qty</label>
@@ -91,7 +88,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <!-- <label for="exampleInputStatus">Type</label> -->
-                        <select class="form-control mb-2" name="ty[]">
+                        <select class="form-control mb-2" name="ty[]" readonly>
                             <?php foreach ($typedata as $row): ?>
                                 <option value="<?= $row['id'] ?>" <?php if($row['id']=== $od['type_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
                             <?php endforeach; ?>
@@ -100,15 +97,12 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
-                        <!-- <label for="exampleInputStatus">Cuisine</label> -->
-                        <select class="form-control mb-2" name="cu[]">
-                            <?php foreach ($cuisinedata as $row): ?>
-                                <option value="<?= $row['id'] ?>"<?php if($row['id']=== $od['cuisine_id']){echo 'selected';} ?>><?= $row['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <!-- <label for="">Unit <span>*</span></label> -->
+                        <input type="text" class="form-control sz mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
+                            required readonly>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-2" hidden>
                     <div class="form-group">
                         <!-- <label for="exampleInputStatus">Category</label> -->
                         <select class="form-control mb-2" name="ca[]">

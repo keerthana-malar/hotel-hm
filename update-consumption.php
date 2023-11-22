@@ -43,26 +43,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     for ($i = 0; $i < count($_POST['pro']); $i++) {
         $productID = $_POST['pro'][$i];
-        $cuisineID = $_POST['cu'][$i];
+        // $cuisineID = $_POST['cu'][$i];
         $typeID = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
+        $quantity = $_POST['unit'][$i];
         
 
 
-        $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, cuisine_id, type_id, qty, category_id) VALUES (:consumption_id, :product_id, :cuisine_id, :type_id, :qty, :category_id)";
+        $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, unit, type_id, qty, category_id) VALUES (:consumption_id, :product_id, :unit, :type_id, :qty, :category_id)";
         $consumptionItemStmt = $pdo->prepare($consumptionItemSql);
         $consumptionItemStmt->bindParam(':consumption_id', $consumptionID);
         $consumptionItemStmt->bindParam(':product_id', $productID);
-        $consumptionItemStmt->bindParam(':cuisine_id', $cuisineID);
+        // $consumptionItemStmt->bindParam(':cuisine_id', $cuisineID);
         $consumptionItemStmt->bindParam(':type_id', $typeID);
         $consumptionItemStmt->bindParam(':category_id', $categoryID);
         $consumptionItemStmt->bindParam(':qty', $quantity);
+        $consumptionItemStmt->bindParam(':unit', $quantity);
 
         $consumptionItemStmt->execute();
     }
 
-    header("Location: " . $u1 . urlencode('consumption Successfully Updated'));
+    header("Location: " . $u1 . urlencode('Closing Stock Successfully Updated'));
     exit();
 }
 ?>
