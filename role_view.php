@@ -54,7 +54,7 @@ if ($rdata['delete_role'] == '0') {
     <?php
     if ($counterData) {
         echo "<div class='table-responsive'>";
-        echo "<table class='table table-hover'>";
+        echo "<table class='table sh table-hover'>";
         echo "<thead> <tr>
             <th>ID</th>
             <th>Name</th>

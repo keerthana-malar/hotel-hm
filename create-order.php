@@ -12,7 +12,7 @@ $typedata = $pdo->query("SELECT * FROM `type` WHERE status = 'Active'")->fetchAl
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine` WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $categorydata = $pdo->query("SELECT * FROM `category` WHERE status = 'Active' AND typeid = '1'")->fetchAll(PDO::FETCH_ASSOC);
 $productdata = $pdo->query("SELECT * FROM `product` WHERE status = 'Active' AND typeid = '1'")->fetchAll(PDO::FETCH_ASSOC);
-$currentDate = date('Y-m-d');
+$currentDate = date('d-m-Y');
 ?>
 
 <div class="main-box">
@@ -23,8 +23,8 @@ $currentDate = date('Y-m-d');
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="orderName">Order Name <span>*</span></label>
-                    <input type="text" class="form-control" name="orderName" id="orderName" required>
+                    <label for="orderName">Order Name</label>
+                    <input type="text" class="form-control" value=<?php echo $logName ?> name="orderName" id="orderName" readonly>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
@@ -44,14 +44,14 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Order Date</label>
-                    <input type="date" class="form-control" name="orderDate" id="exampleInputDate"
-                        value="<?= $currentDate ?>" readonly>
+                    <input type="text" class="form-control" name="orderDate" id="exampleInputDate"
+                         readonly>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="date" class="form-control" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
 
@@ -63,7 +63,6 @@ $currentDate = date('Y-m-d');
                         <option value="Low">Low</option>
                         <option value="Normal">Normal</option>
                         <option value="Urgent">Urgent</option>
-
                     </select>
                 </div>
             </div>
@@ -150,7 +149,7 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Unit <span>*</span></label>
+                    <label for="">Unit</label>
                     <input type="text" class="form-control mb-2" name="unit[]" required readonly>
                     
                 </div>
@@ -171,7 +170,7 @@ $currentDate = date('Y-m-d');
                 </div> -->
               
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty <span>*</span></label>
+                    <label for="">Qty</label>
                     <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
                

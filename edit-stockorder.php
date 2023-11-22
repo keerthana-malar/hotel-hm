@@ -62,14 +62,15 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderdate">Order Date</label>
-                    <input type="date" class="form-control" name="orderdate" id="orderdate"
+                    <input type="text" class="form-control" name="orderdate" id="orderdate"
                         value="<?php echo $orderData['orderdate']; ?>" value="<?= $currentDate ?>" readonly>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="form-group">
+            <div class="form-group">
                     <label for="deliverydate">Delivery Date</label>
-                    <input type="date" class="form-control" name="deliverydate" id="deliverydate"
+                    <input type="text" autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?>" name="deliverydate" id="deliverydate"
+                    <?php if ($orderData['status'] != 'Created') { echo 'readonly';}else{echo '';}?>
                         value="<?php echo $orderData['deliverydate']; ?>">
                 </div>
             </div>
@@ -145,8 +146,6 @@ if (isset($_GET['id'])) {
                                 echo 'selected'; ?>>
                                 Rejected</option>
                         <?php } ?>
-
-
                     </select>
                 </div>
             </div>
@@ -155,9 +154,7 @@ if (isset($_GET['id'])) {
                 <label for="">Description</label>
                 <textarea class="form-control mb-2" name="des"><?php echo $orderData['description']; ?></textarea>
             </div>
-
         </div>
-
 
         <div class="row">
                 
@@ -171,13 +168,13 @@ if (isset($_GET['id'])) {
                 <label for="exampleInputStatus">Cuisine</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-1">
-                <label for="">Unit <span>*</span></label>
+                <label for="">Unit</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Order Qty</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2 hiddenDel">
-                <label for="">Delivery Qty</label>
+                <label for="">Delivered Qty</label>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2 hiddenRec">
                 <label for="">Received Qty</label>
@@ -249,7 +246,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-1">
                         <!-- <label for="">Unit <span>*</span></label> -->
-                        <input type="text" class="form-control mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
+                        <input type="text" class="form-control sz mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
                             required readonly>
                     </div>
 

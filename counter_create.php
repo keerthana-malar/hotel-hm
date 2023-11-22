@@ -58,7 +58,7 @@ $b_data = $pdo->query($b_sql);
     <br>
     <form class="counter-form" method="post" action="counter_create_post.php">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label>Branch</label>
                     <select name="branch" id="" class="form-control">
@@ -68,10 +68,10 @@ $b_data = $pdo->query($b_sql);
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="date" class="form-control">
+                    <input type="text" name="date" class="form-control datepicc" placeholder="Choose Date">
                 </div>
             </div>
         </div>

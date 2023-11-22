@@ -57,8 +57,8 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Date</label>
-                    <input type="date" class="form-control" name="date" id="exampleInputDate"
-                        value="<?= date('Y-m-d') ?>" readonly>
+                    <input type="text" class="form-control" name="date" id="exampleInputDate"
+                        value="<?= date('d-m-Y') ?>" readonly>
                 </div>
             </div>
 

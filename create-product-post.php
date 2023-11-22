@@ -23,20 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $uploadPath = "uploads/";
 
-    if (!empty($img1FileName)) {
-        // Move the uploaded image to the specified directory
-        if (move_uploaded_file($img1TmpName, $uploadPath . $img1FileName)) {
-            // Image uploaded successfully
-        } else {
-            // Handle image upload error
-            header("Location: " . $u2 . urlencode('Image upload failed'));
-            exit();
-        }
-    } else {
-        // Handle case where no image was uploaded
-        header("Location: " . $u2 . urlencode('Please upload an image'));
-        exit();
-    }
+    move_uploaded_file($img1TmpName, $uploadPath . $img1FileName);
+
+    // if (!empty($img1FileName)) {
+    //     // Move the uploaded image to the specified directory
+    //     if (move_uploaded_file($img1TmpName, $uploadPath . $img1FileName)) {
+    //         // Image uploaded successfully
+    //     } else {
+    //         // Handle image upload error
+    //         header("Location: " . $u2 . urlencode('Image upload failed'));
+    //         exit();
+    //     }
+    // } else {
+    //     // Handle case where no image was uploaded
+    //     header("Location: " . $u2 . urlencode('Please upload an image'));
+    //     exit();
+    // }
 
     // Duplicate product name check
     $checkDuplicateQuery = "SELECT COUNT(*) FROM product WHERE name = :name";

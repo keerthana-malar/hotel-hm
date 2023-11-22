@@ -49,7 +49,9 @@
 <!-- Custom js for this page-->
 <script src="js/dashboard.js"></script>
 <!-- End custom js for this page-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" charset="utf8"
     src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
 <!-- DataTables Buttons JavaScript -->
@@ -60,12 +62,57 @@
     integrity="sha384-L6ziqmHr0DKKGovWfCGR6chGWm5IefSeDNXb8yF2t04eo2fOnVjLZKp7yltj3gdl" crossorigin="anonymous">
 
 
+<script>
+    // $(document).ready(() => {
+    //     var dateFields = $(".datepic");
+    //     $(function () {
+    //         dateFields.datepicker({
+    //             dateFormat: 'dd/mm/yy',
+    //             minDate: 0,
+    //             onSelect: function (dateText, inst) {
+    //                 $(this).prop("disabled", true);
+    //             }
+    //         });
+
+    //         dateFields.on("click", function() {
+    //   $(this).prop("disabled", false).datepicker("show");
+    // });
+
+    //     });
+
+        
+    // })
+
+    
+
+    $(document).ready(() => {
+    var dateFields = $(".datepic");
+
+    dateFields.datepicker({
+        dateFormat: 'dd/mm/yy',
+        minDate: 0,
+        onSelect: function (dateText, inst) {
+            $(this).prop("readonly", true);
+        }
+    });  
+});
+
+$(document).ready(() => {
+    var dateFields = $(".datepicc");
+
+    dateFields.datepicker({
+        dateFormat: 'dd/mm/yy'
+    });  
+});
+
+</script>
+
 <!-- DataTables sorting, string searching and pagination  -->
 <script>
-
     $(document).ready(function () {
         var table = $('.table').DataTable({
             ordering: false, // Disable sorting
+            searching: false,
             buttons: [
                 'copy', // Copy to clipboard
                 'excel', // Export to Excel
@@ -90,11 +137,20 @@
 
 </script>
 
+
 <!-- Add btn and Product Data  -->
 
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
+
+        var delDate = document.querySelectorAll('.datepic');
+        delDate.forEach((e) => {
+            e.addEventListener('change', () => {
+                e.readOnly = true;
+            })
+        })
+
         function HandleProClone() {
             const product = document.querySelectorAll('[name="pro[]"]')
             product.forEach((item, index) => {
@@ -176,28 +232,26 @@
         // Set the current date for the "Order Date" field
         const orderDateInput = document.querySelector('[name="orderDate"]');
         const currentDate = new Date();
-        const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        const formattedCurrentDate = `${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`;
         orderDateInput.value = formattedCurrentDate;
-        // CAT 
+
+
+        // var deliveryDateInput = document.getElementById('deliveryDateinput');
+
+        // var currentDated = formattedCurrentDate
+        // currentDated.setHours(0, 0, 0, 0);
+        // deliveryDateInput.addEventListener('change', function () {
+        //     var selectedDate = new Date(deliveryDateInput.value);
+
+        //     if (selectedDate < currentDated) {
+        //         alert('Please choose a delivery date that is today or later.');
+        //         deliveryDateInput.value = '';
+        //     }
+        // });
 
     });
 
-</script>
 
-<!-- Delivery date validation checked  -->
-<script>
-    var deliveryDateInput = document.getElementById('deliveryDateinput');
-
-    var currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    deliveryDateInput.addEventListener('change', function () {
-        var selectedDate = new Date(deliveryDateInput.value);
-
-        if (selectedDate < currentDate) {
-            alert('Please choose a delivery date that is today or later.');
-            deliveryDateInput.value = '';
-        }
-    });
 </script>
 
 <!-- Icons disable script  -->
@@ -219,12 +273,12 @@
     document.addEventListener('DOMContentLoaded', function () {
         let status = document.querySelector('[name="status"]').value;
         let plusBtn = document.querySelector('#addRow');
-        
-        function disBtn(){
+
+        function disBtn() {
 
             if (status != "Created") {
                 plusBtn.classList.add('d-none')
-            }else{
+            } else {
                 plusBtn.classList.remove('d-none')
             }
         }
