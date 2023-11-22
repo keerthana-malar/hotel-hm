@@ -63,47 +63,25 @@
 
 
 <script>
-    // $(document).ready(() => {
-    //     var dateFields = $(".datepic");
-    //     $(function () {
-    //         dateFields.datepicker({
-    //             dateFormat: 'dd/mm/yy',
-    //             minDate: 0,
-    //             onSelect: function (dateText, inst) {
-    //                 $(this).prop("disabled", true);
-    //             }
-    //         });
+    $(document).ready(() => {
+        var dateFields = $(".datepic");
 
-    //         dateFields.on("click", function() {
-    //   $(this).prop("disabled", false).datepicker("show");
-    // });
-
-    //     });
-
-        
-    // })
-
-    
+        dateFields.datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate: 0,
+            onSelect: function (dateText, inst) {
+                $(this).prop("readonly", true);
+            }
+        });
+    });
 
     $(document).ready(() => {
-    var dateFields = $(".datepic");
+        var dateFields = $(".datepicc");
 
-    dateFields.datepicker({
-        dateFormat: 'dd/mm/yy',
-        minDate: 0,
-        onSelect: function (dateText, inst) {
-            $(this).prop("readonly", true);
-        }
-    });  
-});
-
-$(document).ready(() => {
-    var dateFields = $(".datepicc");
-
-    dateFields.datepicker({
-        dateFormat: 'dd/mm/yy'
-    });  
-});
+        dateFields.datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+    });
 
 </script>
 
@@ -287,7 +265,7 @@ $(document).ready(() => {
 </script>
 
 <!-- Menu Active State  -->
-<script>
+<!-- <script>
     var url = window.location.pathname;
     var item = document.querySelectorAll('.sub');
     var parEle; // Declare parEle outside the if block
@@ -295,33 +273,24 @@ $(document).ready(() => {
 
     item.forEach((e) => {
         let pe = e.closest('.nav-item').closest('.nav').closest('.collapse').closest('.set')
+        let col = e.closest('.nav-item').closest('.nav').closest('.collapse')
         let value = e.innerText.replace(/\s/g, '').trim().toLowerCase();
         if (url.includes(value)) {
             e.classList.add('active');
             pe.classList.add('active');
+            col.classList.add('show')
             // alert("IRUKU");
             // console.log("value: " + value + " Path: " + url + " Par: " + pe);
         } else {
-            e.classList.remove('active');
-            pe.classList.remove('active');
+            // e.classList.remove('active');
+            // pe.classList.remove('active');
             // alert("ILLA");
             // console.log("value: " + value + " Path: " + url + " Par: " + pe);
         }
         console.log(pe);
     });
 
-    
-    console.log(item);
-    console.log(url);
-
-    // function findPar(ele, cls) {
-    //     while (ele && !ele.classList.contains(cls)) {
-    //         ele = ele.parentElement;
-    //     }
-    //     return ele;
-    // }
-</script>
-
+</script> -->
 
 
 </body>

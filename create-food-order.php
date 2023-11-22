@@ -1,9 +1,11 @@
 <?php
 include('header.php');
 include('menu.php');
-if($udata["role"]=="1"){
+
+if ($udata["role"] == "1") {
     $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
-}else{
+} else {
+
     $branchsql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
 }
 
@@ -24,6 +26,7 @@ $currentDate = date('d-m-Y');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
+
                     <input type="text" class="form-control" value=<?php echo $logName ?> name="orderName" id="orderName" readonly>
                 </div>
             </div>
@@ -151,7 +154,7 @@ $currentDate = date('d-m-Y');
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Unit</label>
                     <input type="text" class="form-control mb-2" name="unit[]" required readonly>
-                    
+
                 </div>
 
 
@@ -168,12 +171,12 @@ $currentDate = date('d-m-Y');
                         </select>
                     </div>
                 </div> -->
-              
+
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Qty</label>
                     <input type="number" class="form-control mb-2" name="qt[]" required>
                 </div>
-               
+
                 <!-- <div class="col-12 col-md-6 col-lg-2">
                 </div> -->
                 <input type="hidden" name="ty[]" value="1">
@@ -199,7 +202,6 @@ include('footer.php');
         const unitInput = selectElement.parentElement.parentElement.nextElementSibling.querySelector('input[name="unit[]"]');
         const selectedOption = selectElement.options[selectElement.selectedIndex];
         const unit = selectedOption.getAttribute('data-unit');
-        
         unitInput.value = unit;
     }
 </script>
