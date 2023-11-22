@@ -85,7 +85,11 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
     <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
     <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
     <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
+    <a href="excel/StockSatalog-Sample.xlsx" download="sample-Stock Catalog.xlsx" class="btn btn-info">Download Sample Excel</a>
+
+    
   </form>
+  
   <?php
 
   if ($productData) {

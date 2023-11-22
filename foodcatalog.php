@@ -7,6 +7,18 @@ $logUser = $_SESSION['user'];
 require 'vendor/autoload.php';
 
 require 'db.php';
+
+// // Check for the success message in the session
+// session_start(); // Make sure to start the session
+// if (isset($_SESSION['success_message'])) {
+//     echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+
+//     // Remove the session variable to avoid displaying the message again on page refresh
+//     unset($_SESSION['success_message']);
+// }
+
+
+
 // Check if the form is submitted and the "import_file" key is set in the $_FILES array
 if (isset($_POST['submit_import']) && isset($_FILES['import_file'])) {
   // Specify the absolute path to the upload directory
@@ -52,6 +64,15 @@ if ($rdata['view_fc'] == '0') {
 if ($rdata['delete_fc'] == '0') {
   $dslinkDelete = 'dis';
 }
+// Check for the success message in the URL
+// if (!empty($_GET['succ'])) {
+//     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+//             <strong>File has been uploaded and processed successfully.</strong>
+//             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+//                 <span aria-hidden="true">&times;</span>
+//             </button>
+//         </div>';
+// }
 ?>
 <style>
   .typcn {
@@ -70,27 +91,7 @@ if ($rdata['delete_fc'] == '0') {
 
   </div>
 
-  <?php if (!empty($_GET['succ'])): ?>
-
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>
-        <?php echo $_GET['succ'] ?>
-      </strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <?php endif ?>
-  <?php if (!empty($_GET['err'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>
-        <?php echo $_GET['err'] ?>
-      </strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <?php endif ?>
+  
     <?php if (!empty($_GET['succ'])) : ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>
@@ -116,7 +117,10 @@ if ($rdata['delete_fc'] == '0') {
     <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
     <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
     <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
+    <a href="excel/sample.xlsx" download="sample.xlsx" class="btn btn-info">Download Sample Excel</a>
+
 </form>
+ 
     <?php
     if ($productData) {
         echo "<div class='table-responsive'>";

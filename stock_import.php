@@ -60,8 +60,11 @@ function importProducts($file, $pdo)
         // Commit the transaction
         $pdo->commit();
         $reader->close();
-
-        return true;
+        $u1 = "stockcatalog.php?succ=";
+        $u2 = "stockcatalog.php?err=";
+                header("Location: " . $u1 . urlencode('File has been uploaded and processed successfully.'));
+                exit();
+        // return true;
     } catch (PDOException $e) {
         // Log the error
         error_log('SQL Error: ' . $e->getMessage());
