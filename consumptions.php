@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$consumptionSql = "SELECT * FROM `consumption` WHERE branchid = $logbranch";
+$consumptionSql = "SELECT * FROM `consumption` WHERE branchid = $logbranch ORDER BY date_created DESC";
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
 
