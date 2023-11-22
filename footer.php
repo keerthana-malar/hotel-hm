@@ -100,12 +100,9 @@
 });
 
 </script>
-<!-- <script>
-    var nDate = 
-</script> -->
+
 <!-- DataTables sorting, string searching and pagination  -->
 <script>
-
     $(document).ready(function () {
         var table = $('.table').DataTable({
             ordering: false, // Disable sorting
