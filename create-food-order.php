@@ -20,14 +20,15 @@ $currentDate = date('d-m-Y');
 <div class="main-box">
     <h2 class="mb-3">Create Food Orders</h2>
     <hr>
-    <form class="forms-sample" method="post" action="create-order-post.php">
+    <form class="forms-sample" method="post" action="create-order-post.php" onsubmit="return handleSubmit()">
         <!-- Branch, Order Date, Delivery Date, Priority, Status fields ... -->
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
 
-                    <input type="text" class="form-control" value=<?php echo $logName ?> name="orderName" id="orderName" readonly>
+                    <input type="text" class="form-control" value=<?php echo $logName ?> name="orderName" id="orderName"
+                        readonly>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
@@ -47,14 +48,14 @@ $currentDate = date('d-m-Y');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputDate">Order Date</label>
-                    <input type="text" class="form-control" name="orderDate" id="exampleInputDate"
-                         readonly>
+                    <input type="text" class="form-control" name="orderDate" id="exampleInputDate" readonly>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic"
+                        name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
 
@@ -128,7 +129,7 @@ $currentDate = date('d-m-Y');
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
-                        <select class="form-control mb-2" name="ca[]">
+                        <select class="form-control mb-2" name="ca[]" readonly>
                             <option value="0">Select</option>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
@@ -141,7 +142,7 @@ $currentDate = date('d-m-Y');
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
-                        <select class="form-control mb-2" name="cu[]">
+                        <select class="form-control mb-2" name="cu[]" readonly>
                             <option value="0">Select</option>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">

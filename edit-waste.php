@@ -121,7 +121,7 @@ if (isset($_GET['id'])) {
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
                                 <!-- <label for="exampleInputStatus">Category</label> -->
-                                <select class="form-control mb-2" name="ca[]">
+                                <select class="form-control mb-2" name="ca[]" readonly>
                                     <?php foreach ($categorydata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
                                               echo 'selected';
@@ -135,7 +135,7 @@ if (isset($_GET['id'])) {
                         <div class="col-12 col-md-6 col-lg-2">
                             <div class="form-group">
                                 <!-- <label for="exampleInputStatus">Cuisine</label> -->
-                                <select class="form-control mb-2" name="cu[]">
+                                <select class="form-control mb-2" name="cu[]" readonly>
                                     <?php foreach ($cuisinedata as $row): ?>
                                         <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
                                               echo 'selected';

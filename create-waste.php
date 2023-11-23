@@ -61,7 +61,6 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                         value="<?= date('d-m-Y') ?>" readonly>
                 </div>
             </div>
-
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputName1">Total Waste Amount <span>*</span></label>
@@ -101,7 +100,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
-                        <select class="form-control mb-2" name="ca[]">
+                        <select class="form-control mb-2" name="ca[]" readonly>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
@@ -113,7 +112,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
-                        <select class="form-control mb-2" name="cu[]">
+                        <select class="form-control mb-2" name="cu[]" readonly>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
