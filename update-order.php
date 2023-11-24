@@ -199,27 +199,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($status == 'Received') {
                         // Get Stock id 
-                        $sidSql = "SELECT id FROM `stock` WHERE branchid = :branchID";
-                        $sidStmt = $pdo->prepare($sidSql);
-                        $sidStmt->bindParam(':branchID', $branchID);
-                        $sidStmt->execute();
+                        $sidSql = "SELECT id FROM `stock` WHERE branchid = $branchID";
+                        $sidStmt = $pdo->query($sidSql);
                         $sidData = $sidStmt->fetch(PDO::FETCH_ASSOC);
                         $sid = $sidData["id"];
 
+                        // var_dump($sid);
+                        // exit();
+
                         // Get Current qty 
-                        $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = :sid AND product_id = :productID";
-                        $cqStmt = $pdo->prepare($cqSql);
-                        $cqStmt->bindParam(':sid', $sid);
-                        $cqStmt->bindParam(':productID', $productID);
-                        $cqStmt->execute();
+                        $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                        $cqStmt = $pdo->query($cqSql);
                         $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
                         $cq = $cqData["qty"];
 
-                        // Crnt Qty from Main Stock 
-                        $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
-                        $msStmt = $pdo->query($msSql);
-                        $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
-                        $stqty = $msData["qty"];
+                        // Get current quantity from main stock 
+                        // $msSql = "SELECT qty FROM `stockitem` WHERE stock_id = '1' AND product_id = $productID";
+                        // $msStmt = $pdo->query($msSql);
+                        // $msData = $msStmt->fetch(PDO::FETCH_ASSOC);
+                        // $stqty = $msData["qty"];
 
                         $updatedQty = 0;
                         $finalstqty = 0;
@@ -227,28 +225,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if ($oldRecQty <= $quantit) {
                             $updatedQty = $quantit - $oldRecQty;
                             $finalQty = $cq + $updatedQty;
-                            $finalstqty = $stqty - $updatedQty;
+                            // $finalstqty = $stqty - $updatedQty;
+
                         } else {
                             $updatedQty = $oldRecQty - $quantit;
                             $finalQty = $cq - $updatedQty;
-                            $finalstqty = $stqty + $updatedQty;
+                            // $finalstqty = $stqty + $updatedQty;
                         }
 
                         // Update Stock
                         $susql = "UPDATE `stockitem` SET qty = :quantity WHERE stock_id = :sid AND product_id = :productID";
                         $sustmt = $pdo->prepare($susql);
+
                         $sustmt->bindParam(':quantity', $finalQty, PDO::PARAM_INT);
                         $sustmt->bindParam(':sid', $sid, PDO::PARAM_INT);
                         $sustmt->bindParam(':productID', $productID, PDO::PARAM_INT);
+
                         $sustmt->execute();
 
                         // Update Main Stock 
-                        $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
-                        $mqstmt = $pdo->prepare($mqsql);
+                        // $mqsql = "UPDATE `stockitem` SET qty = :qqt WHERE stock_id = '1' AND product_id = :pidd";
+                        // $mqstmt = $pdo->prepare($mqsql);
 
-                        $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
-                        $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
-                        $mqstmt->execute();
+                        // $mqstmt->bindParam(':qqt', $finalstqty, PDO::PARAM_INT);
+                        // $mqstmt->bindParam(':pidd', $productID, PDO::PARAM_INT);
+
+                        // $mqstmt->execute();
                     }
 
                 }
