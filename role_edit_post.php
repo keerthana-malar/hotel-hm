@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $edit_b = isset($_POST['edit_b']) ? 1 : 0;
     $delete_b = isset($_POST['delete_b']) ? 1 : 0;
     $pc_access = $_POST['pc_access'];
+    $vsc_access = $_POST['vsc_access'];
 
 
     $sql = "UPDATE role
@@ -136,7 +137,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         view_b = :view_b,
         edit_b = :edit_b,
         delete_b = :delete_b,
-        pc_access = :pc_access
+        pc_access = :pc_access,
+        vsc_access = :vsc_access
 
     WHERE
         role_id = :role_id;
@@ -208,6 +210,7 @@ $stmt->bindParam(':view_b', $view_b);
 $stmt->bindParam(':edit_b', $edit_b);
 $stmt->bindParam(':delete_b', $delete_b);
 $stmt->bindParam(':pc_access', $pc_access);
+$stmt->bindParam(':vsc_access', $vsc_access);
 
 
 

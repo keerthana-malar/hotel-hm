@@ -141,6 +141,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><input type="checkbox" name="delete_b" <?php echo ($role['delete_b'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
+                    <td>View Stock</td>
+                    <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
+                    <option value="0" name="dis" <?php echo ($role['vsc_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb" <?php echo ($role['vsc_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                </tr>
+                <tr>
                     <td>Product Configuration</td>
                     <td><select class="form-control" name="p_access" onchange="handleAccessChange('p')">
                     <option value="0" name="dis" <?php echo ($role['p_access'] == 0) ? 'selected' : ''?>>Disable</option>
@@ -231,7 +237,7 @@ function handleAccessChange(e) {
         deleteCheckbox.disabled = false;
     }
 }
-let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d","role","p","b","pc"]
+let callAccess = ["fo","so","odo","fc","sc","cs","w","cc","user","r","d","role","p","b","pc","vsc"]
 callAccess.forEach((acc)=>{
     handleAccessChange(acc)
 })

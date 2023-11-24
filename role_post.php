@@ -74,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $d_access = $_POST['d_access'];
     $p_access = $_POST['p_access'];
     $pc_access = $_POST['pc_access'];
+    $vsc_access = $_POST['vsc_access'];
     // ... (all other form fields)
 
 
@@ -82,11 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $sql = "INSERT INTO role (role_name, fo_access, view_fo, edit_fo, create_fo, delete_fo, so_access, view_so, edit_so, create_so, delete_so, odo_access, view_odo, edit_odo, create_odo, delete_odo, 
      fc_access, view_fc, edit_fc, create_fc, delete_fc, sc_access, view_sc, edit_sc, create_sc, delete_sc, cs_access, view_cs, edit_cs, create_cs, delete_cs,
      w_access, create_waste, view_waste, edit_waste, delete_waste, cc_access, create_cc, view_cc, edit_cc, delete_cc, user_access,
-     create_user, view_user, edit_user, delete_user, r_access, d_access, role_access, create_role, view_role, edit_role, delete_role, p_access, b_access, create_b, view_b, edit_b, delete_b, pc_access)
+     create_user, view_user, edit_user, delete_user, r_access, d_access, role_access, create_role, view_role, edit_role, delete_role, p_access, b_access, create_b, view_b, edit_b, delete_b, pc_access, vsc_access)
      VALUES (:role_name, :fo_access, :view_fo, :edit_fo, :create_fo, :delete_fo, :so_access, :view_so, :edit_so, :create_so, :delete_so, :odo_access, :view_odo, :edit_odo, :create_odo, :delete_odo, 
      :fc_access, :view_fc, :edit_fc, :create_fc, :delete_fc, :sc_access, :view_sc, :edit_sc, :create_sc, :delete_sc, :cs_access, :view_cs, :edit_cs, :create_cs, :delete_cs,
      :w_access, :create_w, :view_w, :edit_w, :delete_w, :cc_access, :create_cc, :view_cc, :edit_cc, :delete_cc, :user_access,
-     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access, :role_access, :create_role, :view_role, :edit_role, :delete_role, :p_access, :b_access, :create_b, :view_b, :edit_b, :delete_b, :pc_access)";
+     :create_user, :view_user, :edit_user, :delete_user, :r_access, :d_access, :role_access, :create_role, :view_role, :edit_role, :delete_role, :p_access, :b_access, :create_b, :view_b, :edit_b, :delete_b, :pc_access, :vsc_access)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -152,6 +153,7 @@ $stmt->bindParam(':view_b', $view_b);
 $stmt->bindParam(':edit_b', $edit_b);
 $stmt->bindParam(':delete_b', $delete_b);
 $stmt->bindParam(':pc_access', $pc_access);
+$stmt->bindParam(':vsc_access', $vsc_access);
 
 
 

@@ -38,7 +38,7 @@ if($rdata['delete_sc'] == '0'){$dslinkDelete = 'dis';}
                     </button>
                   </div>  
                                         <?php endif ?>
-    <h2 class="mb-3">Stocks</h2>
+    <h2 class="mb-3">View Stocks</h2>
 
     <?php
 

@@ -146,6 +146,13 @@ include('menu.php');
                         <td><input type="checkbox" name="delete_b"></td>
                     </tr>
                     <tr>
+                        <td>View Stock</td>
+                        <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
+                                <option value="0" name="dis">Disable</option>
+                                <option value="1" name="enb">Enable</option>
+                            </select></td>
+                    </tr>
+                    <tr>
                         <td>Product Configuration</td>
                         <td><select class="form-control" name="p_access" onchange="handleAccessChange('p')">
                                 <option value="0" name="dis">Disable</option>
@@ -238,7 +245,7 @@ include('menu.php');
             deleteCheckbox.disabled = false;
         }
     }
-    let callAccess = ["fo", "so", "odo", "fc", "sc", "cs", "w", "cc", "user", "role", "b", "r", "d", "role", "pc"]
+    let callAccess = ["fo", "so", "odo", "fc", "sc", "cs", "w", "cc", "user", "role", "b", "r", "d", "role", "pc", "vsc"]
     callAccess.forEach((acc) => {
         handleAccessChange(acc)
     })

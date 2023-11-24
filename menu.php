@@ -192,7 +192,7 @@ $userBranch = $udata ["branch"];
                         <div class="collapse <?php if($type == 2){echo 'show';} menuShow1('inventory'); menuShow1('consumption'); ?>" id="use">
                             <ul class="nav flex-column sub-menu">
                                 <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php if($type == 2){echo 'active';} ?>" href="stockcatalog.php">Stock Catalog</a></li>
-                                <li <?php if($rdata["sc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('inventory'); ?>" href="inventory.php">View Stock</a></li>
+                                <li <?php if($rdata["vsc_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('inventory'); ?>" href="inventory.php">View Stock</a></li>
                                 <li <?php if($rdata["cs_access"]!=="1"){echo "hidden";} ?> class="nav-item"> <a class="nav-link sub <?php menuActive1('consumption'); ?>" href="consumptions.php">Closing stock</a></li>
                             </ul>
                         </div>
