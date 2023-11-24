@@ -67,6 +67,7 @@ $currentDate = date('d-m-Y');
                     <div class="form-group">
                         <label for="exampleInputStatus">Product <span>*</span></label>
                         <select class="form-control mb-2" name="pro[]" required>
+                            <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>

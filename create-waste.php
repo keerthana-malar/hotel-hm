@@ -77,6 +77,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                     <div class="form-group">
                         <label for="exampleInputStatus">Product <span>*</span></label>
                         <select class="form-control mb-2" name="pro[]" onchange="handleQty(this)" required>
+                        <option value="0">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
