@@ -109,7 +109,7 @@ $cuisinedata = $pdo->query($cuisinesql);
                     <label for="exampleInputStatus">Category <span>*</span></label>
                     <select class="form-control" name="category" id="exampleInputStatus" required>
 
-                        <option value=""></option>
+                        <!-- <option value=""></option> -->
 
                         <?php foreach ($categorydata as $row): ?>
                             <option value="<?= $row['id'] ?>">
@@ -126,7 +126,7 @@ $cuisinedata = $pdo->query($cuisinesql);
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine <span>*</span></label>
                         <select class="form-control" name="cuisine" id="exampleInputStatus" required>
-                            <option value=""></option>
+                            <!-- <option value=""></option> -->
 
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
