@@ -36,7 +36,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<li class='orderdetails'>Priority: " . $orderData['priority'] . "</li>";
         echo "<li class='orderdetails'>Status: " . $orderData['status'] . "</li>";
         echo "</ul>";
- 
+
         // Fetch and display the order items associated with the order
         echo "<h3>Ordered Products</h3>";
         echo "<table>";
@@ -48,7 +48,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $orderItemstmt->bindParam(':order_id', $orderId);
             $orderItemstmt->execute();
             $orderItemData = $orderItemstmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
             foreach ($orderItemData as $item) {
                 // Fetch category name
                 $categorySql = "SELECT name FROM `category` WHERE id = :categoryid";
@@ -56,28 +56,28 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $categoryStmt->bindParam(':categoryid', $item['categoryid']);
                 $categoryStmt->execute();
                 $categoryData = $categoryStmt->fetch(PDO::FETCH_ASSOC);
-        
+
                 // Fetch type name
                 $typeSql = "SELECT name FROM `type` WHERE id = :typeid";
                 $typeStmt = $pdo->prepare($typeSql);
                 $typeStmt->bindParam(':typeid', $item['typeid']);
                 $typeStmt->execute();
                 $typeData = $typeStmt->fetch(PDO::FETCH_ASSOC);
-        
+
                 // Fetch cuisine name
                 $cuisineSql = "SELECT name FROM `cuisine` WHERE id = :cuisineid";
                 $cuisineStmt = $pdo->prepare($cuisineSql);
                 $cuisineStmt->bindParam(':cuisineid', $item['cuisineid']);
                 $cuisineStmt->execute();
                 $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
-        
+
                 // Fetch product name
                 $productSql = "SELECT name FROM `product` WHERE id = :productid";
                 $productStmt = $pdo->prepare($productSql);
                 $productStmt->bindParam(':productid', $item['productid']);
                 $productStmt->execute();
                 $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
-        
+
                 echo "<tr>";
                 echo "<td><div>{$productData['name']}</div></td>";
                 echo "<td><div>{$categoryData['name']}</div></td>";
@@ -86,7 +86,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<td><div>{$item['order_qty']}</td>";
 
                 echo "</tr>";
-            } 
+            }
 
             echo "</table>";
 
@@ -105,43 +105,49 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 include('footer.php');
 ?>
 <script>
-// JavaScript code for printing
-document.getElementById("printButton").addEventListener("click", function() {
+    // JavaScript code for printing
+    document.getElementById("printButton").addEventListener("click", function () {
         // Open the PDF in a new tab for printing
         window.open('generateorder-pdf.php?id=<?php echo $orderId; ?>', '_blank');
     });</script>
 
 <style>
     table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-}
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+    }
 
-table th, table td {
-    padding: 10px;
-    text-align: left;
-}
+    table th,
+    table td {
+        padding: 10px;
+        text-align: left;
+    }
 
-table th {
-    background-color: #f2f2f2;
-}
+    table th {
+        background-color: #f2f2f2;
+    }
 
-/* Style for the Print button */
-#printButton {
-    margin-top: 20px;
-}
-    </style>
+    /* Style for the Print button */
+    #printButton {
+        margin-top: 20px;
+    }
+</style>
 <style media="print">
     /* Hide menu and other non-essential elements when printing */
-    header, nav, footer, .menu {
+    header,
+    nav,
+    footer,
+    .menu {
         display: none;
     }
+
     @media print {
+
         /* Increase font size for printed page */
         body {
-            font-size: 100px; /* Adjust the font size as needed */
+            font-size: 100px;
+            /* Adjust the font size as needed */
         }
     }
-    
 </style>

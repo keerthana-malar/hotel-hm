@@ -61,13 +61,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $productID = $_POST['pro'][$i];
         $cuisineID = $_POST['cu'][$i];
         $unit = $_POST['unit'][$i];
-
         $type = $_POST['ty'][$i];
         $categoryID = $_POST['ca'][$i];
         $quantity = $_POST['qt'][$i];
 
         // $priorityy = $_POST['pr'][$i];
 
+        // Check if the product already exists
+        $existingItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id AND productid = :productid";
+        $existingItemStmt = $pdo->prepare($existingItemSql);
+        $existingItemStmt->bindParam(':order_id', $orderID);
+        $existingItemStmt->bindParam(':productid', $productID);
+        $existingItemStmt->execute();
+
+        if ($existingItemRow = $existingItemStmt->fetch(PDO::FETCH_ASSOC)) {
+            // Product already exists, update the quantity
+            $updatedQuantity = $existingItemRow['order_qty'] + $quantity;
+
+            $updateItemSql = "UPDATE `orderitem` SET order_qty = :order_qty WHERE order_id = :order_id AND productid = :productid";
+            $updateItemStmt = $pdo->prepare($updateItemSql);
+            $updateItemStmt->bindParam(':order_qty', $updatedQuantity);
+            $updateItemStmt->bindParam(':order_id', $orderID);
+            $updateItemStmt->bindParam(':productid', $productID);
+            $updateItemStmt->execute();
+        } else {
 
         $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, unit, typeid, order_qty, categoryid) VALUES (:order_id, :productid, :cuisineid, :unit, :typeid, :order_qty, :categoryid)";
         $orderItemStmt = $pdo->prepare($orderItemSql);
@@ -84,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $orderItemStmt->execute();
     }
-
+    }
     header("Location: " . $u1 . urlencode('Order Successfully Created'));
     exit();
 }

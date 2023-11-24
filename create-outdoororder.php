@@ -125,7 +125,7 @@ $currentDate = date('Y-m-d');
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
-                        <select class="form-control mb-2" name="ca[]">
+                        <select class="form-control mb-2" name="ca[]" readonly>
                             <option value="0">Select</option>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
@@ -138,7 +138,7 @@ $currentDate = date('Y-m-d');
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
-                        <select class="form-control mb-2" name="cu[]">
+                        <select class="form-control mb-2" name="cu[]" readonly>
                             <option value="0">Select</option>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">

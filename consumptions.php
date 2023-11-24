@@ -16,7 +16,6 @@ if ($rdata['delete_cs'] == '0') {
   $dslinkDelete = 'dis';
 }
 
-
 ?>
 <style>
   .typcn {
@@ -90,10 +89,6 @@ if ($rdata['delete_cs'] == '0') {
             <a class='" . $dslinkEdit . $dslinkEditTdy ."' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
             <a href='delete-consumption.php?delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
-
-
-
-
       echo "</tr>";
     }
 

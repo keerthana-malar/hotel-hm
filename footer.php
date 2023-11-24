@@ -153,6 +153,52 @@
 
 </script>
 
+<!-- Readonly for automatically filled fields  -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function fieldRO() {
+            // let pro = document.querySelectorAll('[name="pro[]"]')
+            let cus = document.querySelectorAll('[name="cu[]"]')
+            let cat = document.querySelectorAll('[name="ca[]"]')
+
+            function mouseDown(elename) {
+                elename.forEach(function (checkbox) {
+                    checkbox.addEventListener('mousedown', function (e) {
+                        console.log('Clicked on checkbox with value:', checkbox.value);
+                        e.preventDefault();
+                    });
+                });
+            }
+            mouseDown(cat);
+            mouseDown(cus);
+
+            function keyDown(elename) {
+                document.addEventListener('keydown', function (e) {
+                    var focusedElement = document.activeElement;
+
+                    if (focusedElement && focusedElement.name === elename && e.key === 'Enter') {
+                        e.preventDefault();
+                        console.log('Enter key is disabled for the focused input field.');
+                    }
+                });
+            }
+
+            keyDown("cu[]");
+            keyDown("ca[]");
+        }
+
+        fieldRO();
+
+        let addBtn =document.querySelector('.add-btn');
+        addBtn.addEventListener("click", ()=>{
+            setTimeout(fieldRO, 1000)
+            
+        })
+
+    });
+
+</script>
+
 
 <!-- Add btn and Product Data  -->
 
@@ -368,7 +414,6 @@
     })
 
 </script>
-
 
 </body>
 

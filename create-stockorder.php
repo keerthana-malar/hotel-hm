@@ -129,7 +129,7 @@ $currentDate = date('Y-m-d');
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
-                        <select class="form-control mb-2" name="ca[]">
+                        <select class="form-control mb-2" name="ca[]" readonly>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>

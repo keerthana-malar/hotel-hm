@@ -71,6 +71,7 @@ if (isset($_GET['id'])) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <a href="waste-pdf.php?id=<?php echo $wasteID ?>" target="_blank"><button class="btn btn-primary">Print</button></a>
     <?php else: ?>
         <p>No waste items found.</p>
     <?php endif; ?>
@@ -80,3 +81,11 @@ if (isset($_GET['id'])) {
 <?php
 include('footer.php');
 ?>
+<script>
+    // JavaScript code for printing
+    document.getElementById("printButton").addEventListener("click", function () {
+        // Open the PDF in a new tab for printing
+        window.open('generateorder-pdf.php?id=<?php echo $wasteID; ?>', '_blank');
+    });</script>
+
+<style>

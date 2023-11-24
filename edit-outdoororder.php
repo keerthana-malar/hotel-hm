@@ -48,7 +48,6 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-
                 <div class="form-group">
                     <label for="branch">Branch</label>
                     <select class="form-control" name="branch" id="branch">
@@ -265,15 +264,13 @@ if (isset($_GET['id'])) {
             <option value="Urgent" <?php if ($od['priority'] === 'Urgent')
                 echo 'selected'; ?>>Urgent</option>
         </select>
-
-
         </div>
 
     </div> -->
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <!-- <label for="">Order_Qty</label> -->
                         <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
-                            readonly>
+                            >
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column">
                         <!-- <label for="">Delivery_Qty</label> -->
