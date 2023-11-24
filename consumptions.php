@@ -15,6 +15,7 @@ if ($rdata['view_cs'] == '0') {
 if ($rdata['delete_cs'] == '0') {
   $dslinkDelete = 'dis';
 }
+
 ?>
 <style>
   .typcn {
@@ -68,6 +69,15 @@ if ($rdata['delete_cs'] == '0') {
       $branchee = $pdo->query('SELECT name FROM `branch` WHERE id="' . $row["branchid"] . '"');
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
 
+      // Tdy Only edit Record viewable
+      $today = date("d-m-Y");
+
+      if ($row['date_created'] != $today) {
+        $dslinkEditTdy = 'dis';
+      }else{
+        $dslinkEditTdy = 'bb';
+      }
+
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['date_created'] . "</td>";
@@ -75,8 +85,8 @@ if ($rdata['delete_cs'] == '0') {
 
 
       echo "<td>
-            <a class='" . $dslinkView . "' href='view-consumption.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a> |
-            <a class='" . $dslinkEdit . "' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a class='" . $dslinkView ."' href='view-consumption.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a> |
+            <a class='" . $dslinkEdit . $dslinkEditTdy ."' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
             <a href='delete-consumption.php?delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
       echo "</tr>";

@@ -14,23 +14,23 @@ if (isset($_POST['submit_import']) && isset($_FILES['import_file'])) {
   $fileExtension = pathinfo($uploadFile, PATHINFO_EXTENSION);
   $allowedExtensions = array('xlsx');
   if (!in_array($fileExtension, $allowedExtensions)) {
-      echo 'Invalid file format. Only Excel files (xlsx) are allowed.';
-      exit;
+    echo 'Invalid file format. Only Excel files (xlsx) are allowed.';
+    exit;
   }
   // Create the upload directory if it doesn't exist
   if (!is_dir($uploadDir)) {
-      mkdir($uploadDir, 0777, true);
+    mkdir($uploadDir, 0777, true);
   }
   // Move the uploaded file to the specified directory
   if (move_uploaded_file($_FILES['import_file']['tmp_name'], $uploadFile)) {
-      // Call the importProducts function with the file path
-      if (importProducts($uploadFile, $pdo)) {
-          echo 'File has been uploaded and processed successfully.';
-      } else {
-          echo 'Error processing the file.';
-      }
+    // Call the importProducts function with the file path
+    if (importProducts($uploadFile, $pdo)) {
+      echo 'File has been uploaded and processed successfully.';
+    } else {
+      echo 'Error processing the file.';
+    }
   } else {
-      echo 'Error uploading the file.';
+    echo 'Error uploading the file.';
   }
 }
 
@@ -41,9 +41,15 @@ $logUser = $_SESSION['user'];
 
 
 // User access control 
-if($rdata['edit_fc'] == '0'){$dslinkEdit = 'dis';}
-if($rdata['view_fc'] == '0'){ $dslinkView = 'dis';}
-if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
+if ($rdata['edit_sc'] == '0') {
+  $dslinkEdit = 'dis';
+}
+if ($rdata['view_sc'] == '0') {
+  $dslinkView = 'dis';
+}
+if ($rdata['delete_sc'] == '0') {
+  $dslinkDelete = 'dis';
+}
 ?>
 <style>
   .typcn {
@@ -52,9 +58,11 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
-  <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
+    <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
     <a href="create-product.php?type=2">
-      <button class="btn btn-success" <?php if($rdata["create_fc"]=="0"){echo "disabled";} ?>>Create</button>
+      <button class="btn btn-success" <?php if ($rdata["create_fc"] == "0") {
+        echo "disabled";
+      } ?>>Create</button>
     </a>
   </div>
   <?php if (!empty($_GET['succ'])): ?>
@@ -79,15 +87,18 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
     </div>
   <?php endif ?>
   <h2 class="mb-3">Stock Catalog</h2>
-  <form id="importForm" action="stock_import.php" method="post" enctype="multipart/form-data"  style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
-    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
+  <form id="importForm" action="stock_import.php" method="post" enctype="multipart/form-data"
+    style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for
+      import:</label>
     <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
     <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
-    <a href="excel/StockSatalog-Sample.xlsx" download="sample-Stock Catalog.xlsx" class="btn btn-info">Download Sample Excel</a>
+    <a href="excel/StockSatalog-Sample.xlsx" download="sample-Stock Catalog.xlsx" class="btn btn-info">Download Sample
+      Excel</a>
 
-    
+
   </form>
-  
+
   <?php
 
   if ($productData) {
@@ -110,19 +121,36 @@ if($rdata['delete_fc'] == '0'){$dslinkDelete = 'dis';}
       $catee = $catee->fetch(PDO::FETCH_ASSOC);
       $cusiee = $pdo->query('SELECT name FROM `cuisine` WHERE id="' . $row["cuisineid"] . '"');
       $cusiee = $cusiee->fetch(PDO::FETCH_ASSOC);
+
+      // Prevent Delete
+      $valueToCheck = $row['id'];
+      // Prepare the SELECT query
+      $sqlDup = "SELECT * FROM `orderitem` WHERE productid = :valueToCheck";
+
+      // Prepare and execute the statement
+      $stmtDup = $pdo->prepare($sqlDup);
+      $stmtDup->bindParam(':valueToCheck', $valueToCheck);
+      $stmtDup->execute();
+
+      if ($stmtDup->rowCount() > 0) {
+        $dslinkEditTdy = 'dis';
+      } else {
+        $dslinkEditTdy = '';
+      }
+
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['name'] . "</td>";
       echo "<td>" . $row['unit'] . "</td>";
 
       echo "<td>" . $row['price'] . "</td>";
-    //   echo "<td>" . $typee['name'] . "</td>";
+      //   echo "<td>" . $typee['name'] . "</td>";
       echo "<td>" . $catee['name'] . "</td>";
-    //   echo "<td>" . $cusiee['name'] . "</td>";
+      //   echo "<td>" . $cusiee['name'] . "</td>";
       echo "<td>" . $row['status'] . "</td>";
       echo "<td><a class='" . $dslinkView . "' href='view-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-eye'></i></a> | ";
       echo "<a class='" . $dslinkEdit . "' href='edit-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-edit'></i></a> | ";
-      echo "<a href='delete-product.php?id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."'><i class='  typcn typcn-trash'></a></td>";
+      echo "<a href='delete-product.php?type=stock&id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . $dslinkEditTdy . "'><i class='  typcn typcn-trash'></a></td>";
       echo "</tr>";
     }
 

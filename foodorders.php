@@ -65,6 +65,15 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
     foreach ($orderData as $row) {
       $branchee = $pdo->query('SELECT name FROM `branch` WHERE id="' . $row["branchid"] . '"');
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
+
+      // Create Status Only
+      
+      if ($row['status'] != 'Created') {
+        $dslinkEditTdy = 'dis';
+      }else{
+        $dslinkEditTdy = '';
+      }
+
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['order_name'] . "</td>";
@@ -76,7 +85,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
 
       echo "<td>
             <a class='".$dslinkEdit."' href='edit-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-edit '></i></a> | 
-            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete."' onclick='return confirmDelete()'><i class='typcn typcn-trash'></i></a> |
+            <a href='delete-order.php?type=food&delete_id=" . $row['id'] . "' class='text-danger ".$dslinkDelete.$dslinkEditTdy."' onclick='return confirmDelete()'><i class='typcn typcn-trash'></i></a> |
             <a class='".$dslinkView."' href='view-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>

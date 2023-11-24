@@ -9,12 +9,18 @@ $logUser = $_SESSION['user'];
 // User access control 
 if ($rdata['edit_role'] == '0') {
     $dslinkEdit = 'dis';
+} else {
+    $dslinkDelete = '';
 }
 if ($rdata['view_role'] == '0') {
     $dslinkView = 'dis';
+} else {
+    $dslinkDelete = '';
 }
 if ($rdata['delete_role'] == '0') {
     $dslinkDelete = 'dis';
+} else {
+    $dslinkDelete = '';
 }
 ?>
 <style>
@@ -66,17 +72,33 @@ if ($rdata['delete_role'] == '0') {
             } else {
                 $admin = "";
             }
-            if($row["role_id"] == "2" || $row["role_id"] == "3" || $row["role_id"] == "4"){
+            if ($row["role_id"] == "2" || $row["role_id"] == "3" || $row["role_id"] == "4") {
                 $managers = "manage-role";
-            }else{
+            } else {
                 $managers = "";
             }
+            // Prevent Delete
+            $valueToCheck = $row['role_id'];
+            // Prepare the SELECT query
+            $sqlDup = "SELECT role FROM `user` WHERE role = :valueToCheck";
+
+            // Prepare and execute the statement
+            $stmtDup = $pdo->prepare($sqlDup);
+            $stmtDup->bindParam(':valueToCheck', $valueToCheck);
+            $stmtDup->execute();
+
+            if ($stmtDup->rowCount() > 0) {
+                $dslinkEditTdy = 'dis';
+            } else {
+                $dslinkEditTdy = '';
+            }
+
             echo "<tr>";
             echo "<td>" . $row['role_id'] . "</td>";
             echo "<td>" . $row['role_name'] . "</td>";
             echo "<td>
-            <a class='" . $dslinkEdit . "' id='" . $admin .$managers . "' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
-            <a id='" . $admin . "' href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a class='" . $dslinkEdit . "' id='" . $admin . $managers . "' href='role_edit.php?role_id=" . $row['role_id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
+            <a id='" . $admin . "' href='role_delete.php?delete_id=" . $row['role_id'] . "' class='text-danger " . $dslinkDelete .$dslinkEditTdy. "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";
         }

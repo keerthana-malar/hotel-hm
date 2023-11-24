@@ -52,14 +52,14 @@
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+<!-- <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script> -->
 <!-- DataTables Buttons JavaScript -->
-<script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>
+<!-- <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>  -->
 <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    integrity="sha384-L6ziqmHr0DKKGovWfCGR6chGWm5IefSeDNXb8yF2t04eo2fOnVjLZKp7yltj3gdl" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha384-L6ziqmHr0DKKGovWfCGR6chGWm5IefSeDNXb8yF2t04eo2fOnVjLZKp7yltj3gdl" crossorigin="anonymous"> -->
 
 
 <script>
@@ -83,6 +83,44 @@
         });
     });
 
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var select = document.querySelectorAll('[name="pro[]"]');
+        let proUpdate = ()=>{
+            select.forEach((e) => {
+            // Get the options excluding the first option
+            var options = Array.from(e.options).slice(1);
+
+            // Sort options alphabetically
+            options.sort(function (a, b) {
+                var textA = a.text.toUpperCase();
+                var textB = b.text.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+
+            // Clear the existing options (excluding the first one)
+            e.options.length = 1;
+
+            // Add the first option back to the select element
+            e.add(e.options[0]);
+
+            // Add the sorted options back to the select element
+            options.forEach(function (option) {
+                e.add(option);
+            });
+        })
+        }
+        proUpdate()
+        document.querySelector('.add-btn').addEventListener('click', ()=>{
+            let upt = ()=>{
+                select = document.querySelectorAll('[name="pro[]"]');
+                proUpdate()
+            }
+            setTimeout(upt, 500)
+        })
+    })
 </script>
 
 <!-- DataTables sorting, string searching and pagination  -->
@@ -219,7 +257,23 @@
         const inputContainer = document.querySelector('.pro-box');
         // Initial product data
         const productDataJSON = <?php echo json_encode($productdata); ?>;
+
+        // // Detect Select Option Row
+        // let proItems = document.querySelectorAll('name="pro[]"')
+        // let isSel = false;
+        // function checkSelect() {
+        //     proItems.forEach((pi) => {
+        //         if (pi.value == "") {
+        //             isSel = true
+        //         }
+        //     })
+        // }
+        // checkSelect()
+        // if (isSel) {
+        //     checkSelect()
+
         addInputButton.addEventListener('click', function () {
+
             const newRow = inputContainer.querySelector('.row').cloneNode(true);
             // Clear the product dropdown and quantity input in the cloned row
             newRow.querySelector('[name="pro[]"]').value = "";
@@ -231,7 +285,7 @@
             });
             // Populate the product dropdown in the cloned row
             const productSelect = newRow.querySelector('[name="pro[]"]');
-            productSelect.innerHTML = ''; // Clear existing options before populating
+            productSelect.innerHTML = '<option value="">Select</option>'; // Clear existing options before populating
             productDataJSON.forEach(function (product) {
                 const option = document.createElement('option');
                 option.value = product.id;
@@ -253,6 +307,7 @@
             // var productSelects = document.querySelectorAll('[name="pro[]"]');
             // console.log(productSelects)
         });
+        // }    
         // Set the current date for the "Order Date" field
         const orderDateInput = document.querySelector('[name="orderDate"]');
         const currentDate = new Date();
@@ -289,6 +344,17 @@
     icon.forEach((ee) => {
         ee.style.color = "grey";
     })
+
+    // For Today Only 
+    // var disTdy = document.querySelectorAll(".dis");
+    // disTdy.forEach((e) => {
+    //     e.removeAttribute("href");
+    //     e.removeAttribute('onclick');
+    // })
+    // var icons = document.querySelectorAll('.dis .typcn');
+    // icons.forEach((ee) => {
+    //     ee.style.color = "grey";
+    // })
 </script>
 
 <!-- Disbale + Button After Accepted Status  -->
@@ -310,33 +376,44 @@
     })
 </script>
 
-<!-- Menu Active State  -->
-<!-- <script>
-    var url = window.location.pathname;
-    var item = document.querySelectorAll('.sub');
-    var parEle; // Declare parEle outside the if block
-    var parEleLi; // Declare parEle outside the if block
+<script>
+    let addBtn = document.querySelector('.add-btn')
+    let proInput = document.querySelectorAll(".uniquePro");
+    let proVal = [];
 
-    item.forEach((e) => {
-        let pe = e.closest('.nav-item').closest('.nav').closest('.collapse').closest('.set')
-        let col = e.closest('.nav-item').closest('.nav').closest('.collapse')
-        let value = e.innerText.replace(/\s/g, '').trim().toLowerCase();
-        if (url.includes(value)) {
-            e.classList.add('active');
-            pe.classList.add('active');
-            col.classList.add('show')
-            // alert("IRUKU");
-            // console.log("value: " + value + " Path: " + url + " Par: " + pe);
-        } else {
-            // e.classList.remove('active');
-            // pe.classList.remove('active');
-            // alert("ILLA");
-            // console.log("value: " + value + " Path: " + url + " Par: " + pe);
-        }
-        console.log(pe);
-    });
+    function fetchVal() {
+        let proInputs = document.querySelectorAll(".uniquePro");
+        proInputs.forEach((fn) => {
+            proVal.push(fn.value)
+            console.log("Heloooooooooooooooooooooooooooooooooooo" + "       " + proVal)
+        })
+    }
 
-</script> -->
+    function duplicateCheck(pro) {
+        pro.forEach((e) => {
+            e.addEventListener('change', () => {
+                if (proVal.includes(e.value)) {
+                    alert('Product Already Selected')
+
+                    e.selectedIndex = 0
+                } else {
+                    console.log("elseeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + "       " + proVal)
+                }
+                fetchVal()
+            })
+        })
+    }
+    duplicateCheck(proInput)
+    function updatePro() {
+        proInput = document.querySelectorAll(".uniquePro");
+        duplicateCheck(proInput)
+    }
+    addBtn.addEventListener('click', () => {
+        setTimeout(updatePro, 500)
+        // proVal.length = 0
+    })
+
+</script>
 
 </body>
 

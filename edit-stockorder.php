@@ -27,7 +27,6 @@ if (isset($_GET['id'])) {
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $currentDate = date('Y-m-d');
-
 }
 
 ?>
@@ -276,11 +275,11 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column"  >
                         <!-- <label for="">Delivery_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php echo $od['delivery_qty']; ?>">
+                        <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php if($orderData['status']=='Delivered'){echo $od['delivery_qty'];}else{echo $od['order_qty'];} ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenRec receivedQtyColumn">
                         <!-- <label for="">Received_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php echo $od['received_qty']; ?>">
+                        <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php if($orderData['status']=='Received'){echo $od['received_qty'];}else{echo $od['delivery_qty'];} ?>">
                     </div>
                     <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {
                         echo $od['received_qty'];

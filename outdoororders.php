@@ -74,6 +74,13 @@ if ($rdata['delete_odo'] == '0') {
     foreach ($orderData as $row) {
       $branchee = $pdo->query('SELECT name FROM `branch` WHERE id="' . $row["branchid"] . '"');
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
+
+      if ($row['status'] != 'Created') {
+        $dslinkEditTdy = 'dis';
+      }else{
+        $dslinkEditTdy = '';
+      }
+      
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['order_name'] . "</td>";
@@ -84,8 +91,8 @@ if ($rdata['delete_odo'] == '0') {
       echo "<td>" . $row['status'] . "</td>";
 
       echo "<td>
-            <a class='" . $dslinkEdit . "' href='edit-outdoororder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-order.php?delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
+            <a class='" . $dslinkEdit ."' href='edit-outdoororder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a href='delete-order.php?type=outdoor&delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . $dslinkEditTdy."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
             <a class='" . $dslinkView . "' href='view-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>
