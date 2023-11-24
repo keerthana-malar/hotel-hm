@@ -54,21 +54,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = $_POST['qt'][$i];
         $unit = $_POST['unit'][$i];
 
-        // $priorityy = $_POST['pr'][$i];
-        $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, unit, order_qty, categoryid) VALUES (:order_id, :productid, :cuisineid, :typeid, :unit, :order_qty, :categoryid)";
-        $orderItemStmt = $pdo->prepare($orderItemSql);
-        $orderItemStmt->bindParam(':order_id', $orderID);
-        $orderItemStmt->bindParam(':productid', $productID);
-        $orderItemStmt->bindParam(':cuisineid', $cuisineID);
-        $orderItemStmt->bindParam(':typeid', $type);
-        $orderItemStmt->bindParam(':categoryid', $categoryID);
-        $orderItemStmt->bindParam(':order_qty', $quantity);
-        $orderItemStmt->bindParam(':unit', $unit);
-        // $orderItemStmt->bindParam(':priority', $priorityy);
+        if (intval($quantity) > 0) {
 
-        $orderItemStmt->execute();
+            // Check if the product already exists
+            $existingItemSql = "SELECT * FROM `orderitem` WHERE order_id = :order_id AND productid = :productid";
+            $existingItemStmt = $pdo->prepare($existingItemSql);
+            $existingItemStmt->bindParam(':order_id', $orderID);
+            $existingItemStmt->bindParam(':productid', $productID);
+            $existingItemStmt->execute();
+
+            if ($existingItemRow = $existingItemStmt->fetch(PDO::FETCH_ASSOC)) {
+                // Product already exists, update the quantity
+                $updatedQuantity = $existingItemRow['order_qty'] + $quantity;
+
+                $updateItemSql = "UPDATE `orderitem` SET order_qty = :order_qty WHERE order_id = :order_id AND productid = :productid";
+                $updateItemStmt = $pdo->prepare($updateItemSql);
+                $updateItemStmt->bindParam(':order_qty', $updatedQuantity);
+                $updateItemStmt->bindParam(':order_id', $orderID);
+                $updateItemStmt->bindParam(':productid', $productID);
+                $updateItemStmt->execute();
+            } else {
+                // Product does not exist, insert a new row
+                $orderItemSql = "INSERT INTO `orderitem` (order_id, productid, cuisineid, typeid, unit, order_qty, categoryid) VALUES (:order_id, :productid, :cuisineid, :typeid, :unit, :order_qty, :categoryid)";
+                $orderItemStmt = $pdo->prepare($orderItemSql);
+                $orderItemStmt->bindParam(':order_id', $orderID);
+                $orderItemStmt->bindParam(':productid', $productID);
+                $orderItemStmt->bindParam(':cuisineid', $cuisineID);
+                $orderItemStmt->bindParam(':typeid', $type);
+                $orderItemStmt->bindParam(':categoryid', $categoryID);
+                $orderItemStmt->bindParam(':order_qty', $quantity);
+                $orderItemStmt->bindParam(':unit', $unit);
+
+                $orderItemStmt->execute();
+            }
+        }
     }
-
     header("Location: " . $u1 . urlencode('Order Successfully Created'));
     exit();
 }

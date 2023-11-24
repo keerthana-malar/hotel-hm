@@ -60,6 +60,7 @@ $logUser = $_SESSION['user'];
             $catee = $catee->fetch(PDO::FETCH_ASSOC);
             $cusiee = $pdo->query('SELECT name FROM `cuisine` WHERE id="'.$row["cuisineid"].'"');
             $cusiee = $cusiee->fetch(PDO::FETCH_ASSOC);
+
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['name'] . "</td>";

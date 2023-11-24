@@ -8,6 +8,15 @@ require('db.php');
 
 if (isset($_GET['id'])) {
     $productID = $_GET['id'];
+    $type = $_GET['type'];
+
+    if($type == 'food'){
+        $u1 = "foodcatalog.php?succ=";
+        $u2 = "foodcatalog.php?err=";
+    }else{
+        $u1 = "stockcatalog.php?succ=";
+        $u2 = "stockcatalog.php?err=";
+    }
 
     // Delete the product from the database
     $deleteSql = "DELETE FROM product WHERE id = :id";
@@ -20,13 +29,15 @@ if (isset($_GET['id'])) {
         $stmtp = $pdo->prepare($delSql);
         $stmtp->bindParam(':pid', $productID);
         if ($stmtp->execute()) {
-        header("Location: products.php?succ=" . urlencode('Product Successfully Deleted'));
+        header("Location:" .$u1. urlencode('Product Successfully Deleted'));
+        exit();
         }
     } else {
-        header("Location: products.php?err=" . urlencode('Something went wrong. Please try again later'));
+        header("Location:" .$u2. urlencode('Something went wrong. Please try again later'));
+        exit();
     }
 } else {
-    header("Location: products.php");
+    header("Location:" .$u2. urlencode('Something went wrong. Please try again later'));
     exit();
 }
 ?>

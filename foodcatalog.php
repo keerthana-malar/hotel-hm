@@ -80,7 +80,7 @@ if ($rdata['delete_fc'] == '0') {
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
-  <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
+    <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
 
     <a href="create-product.php?type=1">
       <button class="btn btn-success" <?php if ($rdata["create_fc"] == "0") {
@@ -91,40 +91,42 @@ if ($rdata['delete_fc'] == '0') {
   </div>
 
 
-    <?php if (!empty($_GET['succ'])) : ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>
-                <?php echo $_GET['succ'] ?>
-            </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <?php endif ?>
-    <?php if (!empty($_GET['err'])) : ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>
-                <?php echo $_GET['err'] ?>
-            </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <?php endif ?>
-    <h2 class="mb-3">Food Catalog</h2>
-    <form id="importForm" action="import.php" method="post" enctype="multipart/form-data"  style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
-    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for import:</label>
+  <?php if (!empty($_GET['succ'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>
+        <?php echo $_GET['succ'] ?>
+      </strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <?php endif ?>
+  <?php if (!empty($_GET['err'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>
+        <?php echo $_GET['err'] ?>
+      </strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <?php endif ?>
+  <h2 class="mb-3">Food Catalog</h2>
+  <form id="importForm" action="import.php" method="post" enctype="multipart/form-data"
+    style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+    <label for="import_file" style="font-size: 16px; margin-bottom: 10px; display: block;">Choose Excel file for
+      import:</label>
     <input type="file" name="import_file" id="import_file" accept=".xlsx" style="margin-bottom: 10px;">
     <input type="submit" name="submit_import" value="Import" class="btn btn-primary">
     <a href="excel/sample.xlsx" download="sample.xlsx" class="btn btn-info">Download Sample Excel</a>
 
-</form>
- 
-    <?php
-    if ($productData) {
-        echo "<div class='table-responsive'>";
-        echo "<table class='table table-hover'>";
-        echo "<thead> <tr>
+  </form>
+
+  <?php
+  if ($productData) {
+    echo "<div class='table-responsive'>";
+    echo "<table class='table table-hover'>";
+    echo "<thead> <tr>
                 <th> ID</th>
                 <th>product </th>
                 <th>Unit</th>
@@ -141,6 +143,23 @@ if ($rdata['delete_fc'] == '0') {
       $catee = $catee->fetch(PDO::FETCH_ASSOC);
       $cusiee = $pdo->query('SELECT name FROM `cuisine` WHERE id="' . $row["cuisineid"] . '"');
       $cusiee = $cusiee->fetch(PDO::FETCH_ASSOC);
+
+      // Prevent Delete
+      $valueToCheck = $row['id'];
+      // Prepare the SELECT query
+      $sqlDup = "SELECT * FROM `orderitem` WHERE productid = :valueToCheck";
+
+      // Prepare and execute the statement
+      $stmtDup = $pdo->prepare($sqlDup);
+      $stmtDup->bindParam(':valueToCheck', $valueToCheck);
+      $stmtDup->execute();
+
+      if ($stmtDup->rowCount() > 0) {
+          $dslinkEditTdy = 'dis';
+      } else {
+          $dslinkEditTdy = '';
+      }
+
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['name'] . "</td>";
@@ -151,7 +170,7 @@ if ($rdata['delete_fc'] == '0') {
       echo "<td>" . $row['status'] . "</td>";
       echo "<td><a class='" . $dslinkView . "' href='view-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-eye'></i></a> | ";
       echo "<a class='" . $dslinkEdit . "' href='edit-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-edit'></i></a> | ";
-      echo "<a href='delete-product.php?id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . "'><i class='  typcn typcn-trash'></a></td>";
+      echo "<a href='delete-product.php?type=food&id=" . $row['id'] . "' class='text-danger " . $dslinkDelete .$dslinkEditTdy."'><i class='  typcn typcn-trash'></a></td>";
       echo "</tr>";
     }
     echo "</table>";
