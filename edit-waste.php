@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input type="date" class="form-control" id="date" name="date"
+                    <input type="text" class="form-control" id="date" name="date"
                         value="<?php echo $wasteData['date']; ?>">
                 </div>
             </div>

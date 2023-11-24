@@ -64,7 +64,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $cuisineData = $cuisineStmt->fetch(PDO::FETCH_ASSOC);
         
                 // Fetch product name
-                $productSql = "SELECT name FROM `product` WHERE id = :product_id";
+                $productSql = "SELECT name, unit  FROM `product` WHERE id = :product_id";
                 $productStmt = $pdo->prepare($productSql);
                 $productStmt->bindParam(':product_id', $item['product_id']);
                 $productStmt->execute();
@@ -74,7 +74,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 echo "<tr>";
                 echo "<td><div>{$productData['name']}</div></td>";
               
-                echo "<td><div>{$item['unit']}</td>";
+                echo "<td><div>{$productData['unit']}</td>";
                 echo "<td><div>{$item['qty']}</div></td>";
                 echo "<td><div>{$item['used_qty']}</div></td>";
                 echo "</tr>";

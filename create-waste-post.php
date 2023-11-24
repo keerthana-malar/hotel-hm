@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sid = $sidData["id"];
 
         // Create Closing Stock
-        $dateNow = date("Y-m-d");
+        $dateNow = date("d-m-Y");
         $auto = 1;
 
         // Create Closing Stock Acc 
@@ -131,8 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $clsItemStmt->bindParam(':qi', $AvlQty);
                     $clsItemStmt->bindParam(':ui', $stQtyCur);
 
+                    
+
                     if ($clsItemStmt->execute()) {
-                        $upStQ = "UPDATE `stockitem` SET qty = '0' WHERE product_id = $productID";
+                        $upStQ = "UPDATE `stockitem` SET qty = $AvlQty WHERE product_id = $productID";
                         $upStQStmt = $pdo->prepare($upStQ);
                         $upStQStmt->execute();
                     }
