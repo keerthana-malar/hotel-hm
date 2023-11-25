@@ -90,7 +90,7 @@ include('footer.php');
 ?>
 <script>
 function confirmDelete() {
-    return confirm("Are you sure you want to delete this order?");
+    return confirm("Are you sure you want to delete this Branch?");
 }
 </script>
 

@@ -5,6 +5,27 @@ include('menu.php');
 <div class="main-box">
     <h2 class="mb-3">Create Cuisine</h2>
     <hr>
+    <?php if (!empty($_GET['succ'])): ?>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>
+    <?php echo $_GET['succ'] ?>
+  </strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php endif ?>
+<?php if (!empty($_GET['err'])): ?>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>
+    <?php echo $_GET['err'] ?>
+  </strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php endif ?>
     <form class="forms-sample" method="post" action="create-cuisine-post.php">
         <div class="row">
         <div class="col-12 col-md-6 col-lg-4">

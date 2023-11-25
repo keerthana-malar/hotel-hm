@@ -80,13 +80,13 @@ if ($rdata['delete_fc'] == '0') {
 </style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
-    <button class="btn btn-success " onclick="toggleImportForm()" style="margin-right: 10px;">Import</button>
 
     <a href="create-product.php?type=1">
       <button class="btn btn-success" <?php if ($rdata["create_fc"] == "0") {
         echo "disabled";
       } ?>>Create</button>
     </a>
+    <button class="btn btn-primary " onclick="toggleImportForm()" style="margin-left: 10px;">Import</button>
 
   </div>
 
@@ -170,7 +170,7 @@ if ($rdata['delete_fc'] == '0') {
       echo "<td>" . $row['status'] . "</td>";
       echo "<td><a class='" . $dslinkView . "' href='view-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-eye'></i></a> | ";
       echo "<a class='" . $dslinkEdit . "' href='edit-product.php?id=" . $row['id'] . "&type=" . $row['typeid'] . "'><i class='typcn typcn-edit'></i></a> | ";
-      echo "<a href='delete-product.php?type=food&id=" . $row['id'] . "' class='text-danger " . $dslinkDelete .$dslinkEditTdy."'><i class='  typcn typcn-trash'></a></td>";
+      echo "<a href='delete-product.php?type=food&id=" . $row['id'] . "' class='text-danger " . $dslinkDelete .$dslinkEditTdy."'onclick='return confirmDelete()'><i class='  typcn typcn-trash'></a></td>";
       echo "</tr>";
     }
     echo "</table>";
@@ -187,7 +187,7 @@ include('footer.php');
 ?>
 <script>
   function confirmDelete() {
-    return confirm("Are you sure you want to delete this order?");
+    return confirm("Are you sure you want to delete this product?");
   }
   function toggleImportForm() {
     var importForm = document.getElementById("importForm");

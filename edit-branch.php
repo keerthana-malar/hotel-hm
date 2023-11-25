@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
     <hr>
             <div class="row">
 
-    <form class="forms-sample" method="post" action="update-branch.php">
+    <form class="forms-sample" method="post" action="update-branch.php" onsubmit="return validateForm()">
     <div class="row">
 
     <div class="col-12 col-md-6 col-lg-3">
@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <label for="exampleInputPhone">Phone</label>
-            <input type="text" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]{10}" id="exampleInputPhone" value="<?php echo $branchData['phone']; ?>">
+            <input type="number" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]{10}" id="exampleInputPhone" value="<?php echo $branchData['phone']; ?>">
         </div>
         </div>     
         <div class="col-12 col-md-6 col-lg-3">
@@ -62,3 +62,19 @@ if (isset($_GET['id'])) {
 </div>
 
 <?php include('footer.php'); ?>
+<script>
+    function validateForm() {
+        var phoneInput = document.getElementById('exampleInputPhone');
+        var phoneValue = phoneInput.value.trim();
+
+        // Check if the phone number has exactly 10 digits
+        if (!/^\d{10}$/.test(phoneValue)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return false; // Prevent form submission
+        }
+
+        // Other validation logic can be added here
+
+        return true; // Allow form submission
+    }
+</script>

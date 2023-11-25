@@ -74,8 +74,8 @@ $cuisinedata = $pdo->query($cuisinesql);
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputName1">Price (Per Unit) <span>*</span></label>
-                    <input type="text" class="form-control" name="price" id="exampleInputName1" placeholder="price"
-                        required>
+                    <input type="number" class="form-control" name="price" id="exampleInputName1" placeholder="price"
+                    step="0.01" min="0" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3" hidden>

@@ -82,7 +82,7 @@ if($rdata['delete_cc'] == '0'){$dslinkDelete = 'dis';}
 
 <script>
 function confirmDelete() {
-    return confirm("Are you sure you want to delete this order?");
+    return confirm("Are you sure you want to delete this?");
 }
 </script>
 
