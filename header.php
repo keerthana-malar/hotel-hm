@@ -26,6 +26,10 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="shortcut icon" href="images/favicon.png" />
   <style>
+    #DataTables_Table_0_filter{
+      display: none;
+    }
+
     .main-box {
       background-color: #fff;
       padding: 20px;

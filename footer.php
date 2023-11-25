@@ -140,7 +140,7 @@
     $(document).ready(function () {
         var table = $('.table').DataTable({
             ordering: false, // Disable sorting
-            searching: false,
+            searching: true,
             buttons: [
                 'copy', // Copy to clipboard
                 'excel', // Export to Excel
