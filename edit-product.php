@@ -53,7 +53,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputPrice">Price (Per Unit)</label>
-                    <input type="text" class="form-control" name="price" id="exampleInputPrice" value="<?php echo $productData['price']; ?>">
+                    <input type="number" class="form-control" name="price" step="0.01" min="0"  id="exampleInputPrice" value="<?php echo $productData['price']; ?>">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3" hidden>

@@ -167,7 +167,7 @@ $currentDate = date('Y-m-d');
             </div> -->
                 <div class="col-12 col-md-6 col-lg-2">
                     <label for="">Qty <span>*</span></label>
-                    <input type="number" class="form-control mb-2" name="qt[]" required>
+                    <input type="number" class="form-control mb-2" name="qt[]"  step="0.01" min="0" required>
                 </div>
 
                 <input type="hidden" name="ty[]" value="2">

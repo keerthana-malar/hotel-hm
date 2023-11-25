@@ -18,7 +18,7 @@
         $duplicateCount = $checkStmt->fetchColumn();
     
         if ($duplicateCount > 0) {
-            header("Location: " . $u2 . urlencode('Branch already taken'));         
+            header("Location: " . $u2 . urlencode('Cuisine already exists'));         
             exit();
         }
     

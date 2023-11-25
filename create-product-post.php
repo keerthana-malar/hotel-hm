@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $duplicateCount = $checkStmt->fetchColumn();
 
     if ($duplicateCount > 0) {
-        header("Location: " . $u2 . urlencode('Product already taken'));
+        header("Location: " . $u2 . urlencode('Product already exists'));
         exit();
     }
 

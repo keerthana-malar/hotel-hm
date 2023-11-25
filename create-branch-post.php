@@ -19,7 +19,7 @@ if (isset($_POST)) {
     $checkStmt->execute();
     $duplicateCount = $checkStmt->fetchColumn();
     if ($duplicateCount > 0) {
-        header("Location: " . $u2 . urlencode('Branch already taken'));
+        header("Location: " . $u2 . urlencode('Branch already exists'));
         exit();
     }
 

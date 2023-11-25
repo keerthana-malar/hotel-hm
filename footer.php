@@ -1,5 +1,17 @@
 </div>
 <style>
+    /* Hide the spinner controls for number input */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+<style>
     .search-input {
         border: none;
         color: black !important;
@@ -234,7 +246,7 @@
                             var catSel = cat.options[cat.selectedIndex];
                             var cusSel = cus.options[cus.selectedIndex];
 
-                            if (window.location.href.includes('consumption') || window.location.href.includes('stock')) {
+                            if (window.location.href.includes('consumption') || window.location.href.includes('waste')) {
                                 var typSel = typ.options[typ.selectedIndex];
                                 var typName = typSel.text;
                                 typ.value = data.typid;
