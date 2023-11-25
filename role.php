@@ -78,6 +78,13 @@ include('menu.php');
                         <td><input type="checkbox" name="delete_sc"></td>
                     </tr>
                     <tr>
+                        <td>View Stock</td>
+                        <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
+                                <option value="0" name="dis">Disable</option>
+                                <option value="1" name="enb">Enable</option>
+                            </select></td>
+                    </tr>
+                    <tr>
                         <td>Closing Stock</td>
                         <td><select class="form-control" name="cs_access" onchange="handleAccessChange('cs')">
                                 <option value="0" name="dis">Disable</option>
@@ -144,13 +151,6 @@ include('menu.php');
                         <td><input type="checkbox" name="view_b"></td>
                         <td><input type="checkbox" name="edit_b"></td>
                         <td><input type="checkbox" name="delete_b"></td>
-                    </tr>
-                    <tr>
-                        <td>View Stock</td>
-                        <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
-                                <option value="0" name="dis">Disable</option>
-                                <option value="1" name="enb">Enable</option>
-                            </select></td>
                     </tr>
                     <tr>
                         <td>Product Configuration</td>

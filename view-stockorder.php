@@ -19,6 +19,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<ul>";
         echo "<li class='orderdetails'>ID: " . $orderData['id'] . "</li>";
         echo "<li class='orderdetails'>Order Name: " . $orderData['order_name'] . "</li>";
+        echo "<li class='orderdetails'>Status: " . $orderData['status'] . "</li>";
+        echo "<li class='orderdetails'>Description: " . $orderData['description'] . "</li>";
         // ... Display other order details ...
 
         // Fetch and display the order items associated with the order

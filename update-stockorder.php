@@ -8,7 +8,7 @@ require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "stockorders.php?succ=";
-    $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
+    $u2 = "edit-stockorder.php?id=" . $_POST['orderID'] . "&err=";
     $oid = $_POST['oid'];
     $orderID = $_POST['orderID'];
     $branchID = $_POST['branch']; // Updated Branch ID

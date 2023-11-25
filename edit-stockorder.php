@@ -33,6 +33,29 @@ if (isset($_GET['id'])) {
 
 <div class="main-box">
     <h2>Edit Stock Order</h2>
+
+    <?php if (!empty($_GET['succ'])): ?>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <hr>
     <form class="forms-sample" method="post" action="update-stockorder.php" onsubmit="return handleSubmit()">
         <div class="row">
@@ -66,11 +89,17 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-            <div class="form-group">
+                <div class="form-group">
                     <label for="deliverydate">Delivery Date</label>
-                    <input type="text" autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?>" name="deliverydate" id="deliverydate"
-                    <?php if ($orderData['status'] != 'Created') { echo 'readonly';}else{echo '';}?>
-                        value="<?php echo $orderData['deliverydate']; ?>">
+                    <input type="text" autocomplete="off"
+                        class="form-control <?php if ($orderData['status'] == 'Created') {
+                            echo 'datepic';
+                        } ?>"
+                        name="deliverydate" id="deliverydate" <?php if ($orderData['status'] != 'Created') {
+                            echo 'readonly';
+                        } else {
+                            echo '';
+                        } ?> value="<?php echo $orderData['deliverydate']; ?>">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
@@ -102,31 +131,31 @@ if (isset($_GET['id'])) {
                                 echo 'selected'; ?>>Created
                             </option>
                             <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
-                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
-                                echo 'selected'; ?>>
-                                Accepted</option>
+                                <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                    echo 'selected'; ?>>
+                                    Accepted</option>
+                            <?php } ?>
                         <?php } ?>
-                        <?php } ?>
-                        
+
                         <?php if ($orderData['status'] === 'Accepted') { ?>
                             <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
-                            <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
-                                echo 'selected'; ?>>
-                                Accepted</option>
-                        <?php } ?>
-                                <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
-                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
-                                echo 'selected'; ?>>
-                                Delivered</option>
-                                <?php } ?>
+                                <option value="Accepted" <?php if ($orderData['status'] === 'Accepted')
+                                    echo 'selected'; ?>>
+                                    Accepted</option>
+                            <?php } ?>
+                            <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
+                                <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                    echo 'selected'; ?>>
+                                    Delivered</option>
+                            <?php } ?>
                         <?php } ?>
 
                         <?php if ($orderData['status'] === 'Delivered') { ?>
                             <?php if ($rdata['role_id'] == '3' || $rdata['role_id'] == '4' || $rdata['role_id'] == '1') { ?>
-                            <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
-                                echo 'selected'; ?>>
-                                Delivered</option>
-                                <?php } ?>
+                                <option value="Delivered" <?php if ($orderData['status'] === 'Delivered')
+                                    echo 'selected'; ?>>
+                                    Delivered</option>
+                            <?php } ?>
                             <option value="Received" <?php if ($orderData['status'] === 'Received')
                                 echo 'selected'; ?>>
                                 Received</option>
@@ -156,28 +185,28 @@ if (isset($_GET['id'])) {
         </div>
 
         <div class="row">
-                
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Product</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Category</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hc">
+
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Product</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Category</label>
+            </div>
+            <!-- <div class="col-12 col-md-6 col-lg-2 hc">
                 <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-1">
+                </div> -->
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Unit</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Order Qty</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hiddenDel">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 hiddenDel">
                 <label for="">Delivered Qty</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2 hiddenRec">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2 hiddenRec">
                 <label for="">Received Qty</label>
-                </div>
+            </div>
         </div>
         <!-- Additional product details rows -->
         <div class="pro-box">
@@ -215,7 +244,7 @@ if (isset($_GET['id'])) {
 
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus" hidden>Category</label> -->
+
                             <select class="form-control mb-2" name="ca[]" readonly>
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['categoryid']) {
@@ -228,7 +257,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-2 hc">
+                    <div class="col-12 col-md-6 col-lg-2 hc d-none" hidden>
 
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus" hidden>Cuisine</label> -->
@@ -243,7 +272,7 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-1">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <!-- <label for="">Unit <span>*</span></label> -->
                         <input type="text" class="form-control sz mb-2" name="unit[]" value="<?php echo $od['unit']; ?>"
                             required readonly>
@@ -270,16 +299,25 @@ if (isset($_GET['id'])) {
                     </div> -->
                     <div class="col-12 col-md-6 col-lg-2 orderQtyColumn">
                         <!-- <label for="" hidden>Order_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>"
-                            >
+                        <input type="number" class="form-control mb-2" name="qt[]" value="<?php echo $od['order_qty']; ?>">
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column"  >
+                    <div class="col-12 col-md-6 col-lg-2 hiddenDel delivery-column">
                         <!-- <label for="">Delivery_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="deliveryqt[]" value="<?php if($orderData['status']=='Delivered'){echo $od['delivery_qty'];}else{echo $od['order_qty'];} ?>">
+                        <input type="number" class="form-control mb-2" name="deliveryqt[]"
+                            value="<?php if ($orderData['status'] == 'Delivered') {
+                                echo $od['delivery_qty'];
+                            } else {
+                                echo $od['order_qty'];
+                            } ?>">
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 hiddenRec receivedQtyColumn">
                         <!-- <label for="">Received_Qty</label> -->
-                        <input type="number" class="form-control mb-2" name="receivedqt[]" value="<?php if($orderData['status']=='Received'){echo $od['received_qty'];}else{echo $od['delivery_qty'];} ?>">
+                        <input type="number" class="form-control mb-2" name="receivedqt[]"
+                            value="<?php if ($orderData['status'] == 'Received') {
+                                echo $od['received_qty'];
+                            } else {
+                                echo $od['delivery_qty'];
+                            } ?>">
                     </div>
                     <input type="number" class="form-control mb-2" value="<?php if ($orderData['status'] === 'Received') {
                         echo $od['received_qty'];
@@ -397,13 +435,13 @@ if (isset($_GET['id'])) {
                 p.disabled = true
             })
         }
-        if (e.value == "Delivered" || e.value == "Received" ) {
-            cb.forEach((f)=>{
+        if (e.value == "Delivered" || e.value == "Received") {
+            cb.forEach((f) => {
                 f.hidden = true
             })
         }
-        else{
-            cb.forEach((f)=>{
+        else {
+            cb.forEach((f) => {
                 f.hidden = false
             })
         }

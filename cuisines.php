@@ -57,9 +57,24 @@ $logUser = $_SESSION['user'];
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['name'] . "</td>";
             echo "<td>" . $row['status'] . "</td>";
+            // Prevent Delete
+            $valueToCheck = $row['id'];
+            // Prepare the SELECT query
+            $sqlDup = "SELECT cuisineid FROM `product` WHERE cuisineid = :valueToCheck";
+
+            // Prepare and execute the statement
+            $stmtDup = $pdo->prepare($sqlDup);
+            $stmtDup->bindParam(':valueToCheck', $valueToCheck);
+            $stmtDup->execute();
+
+            if ($stmtDup->rowCount() > 0) {
+                $dslinkEditTdy = 'dis';
+            } else {
+                $dslinkEditTdy = '';
+            }
             echo "<td>
             <a href='edit-cuisine.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></i></a> |
-            <a href='delete-cuisine.php?delete_id=" . $row['id'] . "' class='text-danger' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
+            <a href='delete-cuisine.php?delete_id=" . $row['id'] . "' class='text-danger ".$dslinkEditTdy."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
             echo "</tr>";
         }

@@ -35,6 +35,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         echo "<li class='orderdetails'>Delivery Date: " . $orderData['deliverydate'] . "</li>";
         echo "<li class='orderdetails'>Priority: " . $orderData['priority'] . "</li>";
         echo "<li class='orderdetails'>Status: " . $orderData['status'] . "</li>";
+        echo "<li class='orderdetails'>Description: " . $orderData['description'] . "</li>";
         echo "</ul>";
 
         // Fetch and display the order items associated with the order

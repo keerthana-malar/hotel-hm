@@ -2,12 +2,16 @@
 include('header.php');
 include('menu.php');
 
-$branchsql = "SELECT * FROM `branch`WHERE status = 'Active' AND id = {$udata['branch']}";
+if($udata['role'] != 1){
+    $branchsql = "SELECT * FROM `branch`WHERE status = 'Active' AND id = {$udata['branch']}";
+}else{
+    $branchsql = "SELECT * FROM `branch`WHERE status = 'Active'";
+}
 $branchdata = $pdo->query($branchsql);
 $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
 $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-$productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
+$productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
 $currentDate = date('d-m-Y');
 ?>
 <div class="main-box">

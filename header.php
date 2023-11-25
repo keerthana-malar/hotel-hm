@@ -67,6 +67,9 @@ if (!isset($_SESSION['user'])) {
     .sz{
         padding: 10px;
     }
+    .orderdetails{
+      text-align: left;
+    }
   </style>
 
 </head>

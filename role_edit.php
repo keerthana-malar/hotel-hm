@@ -81,6 +81,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><input type="checkbox" name="delete_sc" <?php echo ($role['delete_sc'] == 1) ? 'checked' : ''; ?>></td>
                 </tr>
                 <tr>
+                    <td>View Stock</td>
+                    <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
+                    <option value="0" name="dis" <?php echo ($role['vsc_access'] == 0) ? 'selected' : ''?>>Disable</option>
+                    <option value="1" name="enb" <?php echo ($role['vsc_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
+                </tr>
+                <tr>
                     <td>Closing Stock</td>
                     <td><select class="form-control" name="cs_access" onchange="handleAccessChange('cs')">
                     <option value="0" name="dis" <?php echo ($role['cs_access'] == 0) ? 'selected' : ''?>>Disable</option>
@@ -139,12 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
                     <td><input type="checkbox" name="view_b" <?php echo ($role['view_b'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="edit_b" <?php echo ($role['edit_b'] == 1) ? 'checked' : ''; ?>></td>
                     <td><input type="checkbox" name="delete_b" <?php echo ($role['delete_b'] == 1) ? 'checked' : ''; ?>></td>
-                </tr>
-                <tr>
-                    <td>View Stock</td>
-                    <td><select class="form-control" name="vsc_access" onchange="handleAccessChange('vsc')">
-                    <option value="0" name="dis" <?php echo ($role['vsc_access'] == 0) ? 'selected' : ''?>>Disable</option>
-                    <option value="1" name="enb" <?php echo ($role['vsc_access'] == 1) ? 'selected' : ''?>>Enable</option></select></td>
                 </tr>
                 <tr>
                     <td>Product Configuration</td>
