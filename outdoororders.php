@@ -93,7 +93,7 @@ if ($rdata['delete_odo'] == '0') {
       echo "<td>
             <a class='" . $dslinkEdit ."' href='edit-outdoororder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
             <a href='delete-order.php?type=outdoor&delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . $dslinkEditTdy."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
-            <a class='" . $dslinkView . "' href='view-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
+            <a class='" . $dslinkView . "' href='view-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>
                 <a href='print-order.php?id=" . $row['id'] . "' target='_blank'><i class='typcn typcn-print'></i></a>

@@ -1,11 +1,12 @@
 <?php
 include('header.php');
 include('menu.php');
-if($udata["role"]=="1"){
+
+if ($udata["role"] == "1") {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active'";
-}else{
+} else {
     $branchSql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
-} 
+}
 
 if (isset($_GET['id'])) {
     $wasteID = $_GET['id'];
@@ -68,106 +69,110 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </div>
-            <!-- Additional product details rows -->
-            <div class="row">
-                
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Product</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
-                    <label for="exampleInputStatus">Type</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+        <!-- Additional product details rows -->
+        <div class="row">
+
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Product</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="exampleInputStatus">Type</label>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Cuisine</label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Category <span>*</span></label>
-                </div>
-                <div class="col-12 col-md-6 col-lg-2">
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Waste_Qty</label>
-                </div>
+            </div>
         </div>
-            <div class="pro-box">
-                <?php foreach ($wasteItem as $od) { ?>
-                    <div class="row mb-4">
-                        <div class="col-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <!-- <label for="exampleInputStatus">Product</label> -->
-                                <select class="form-control mb-2 uniquePro" name="pro[]" onchange="handleQty(this)">
-                                    <?php foreach ($productdata as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
-                                              echo 'selected';
-                                          } ?>>
-                                            <?= $row['name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+        <div class="pro-box">
+            <?php foreach ($wasteItem as $od) { ?>
+                <div class="row mb-4">
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <div class="form-group">
+                            <!-- <label for="exampleInputStatus">Product</label> -->
+                            <select class="form-control mb-2 uniquePro" name="pro[]" onchange="handleQty(this)">
+                                <?php foreach ($productdata as $row): ?>
+                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
+                                          echo 'selected';
+                                      } ?>>
+                                        <?= $row['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <!-- <label for="exampleInputStatus">Type</label> -->
-                                <select class="form-control mb-2" name="ty[]">
-                                    <?php foreach ($typedata as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['type_id']) {
-                                              echo 'selected';
-                                          } ?>>
-                                            <?= $row['name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <!-- <label for="exampleInputStatus">Category</label> -->
-                                <select class="form-control mb-2" name="ca[]" readonly>
-                                    <?php foreach ($categorydata as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
-                                              echo 'selected';
-                                          } ?>>
-                                            <?= $row['name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <!-- <label for="exampleInputStatus">Cuisine</label> -->
-                                <select class="form-control mb-2" name="cu[]" readonly>
-                                    <?php foreach ($cuisinedata as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
-                                              echo 'selected';
-                                          } ?>>
-                                            <?= $row['name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 col-md-6 col-lg-2">
-                            <!-- <label for="">Waste Qty</label> -->
-                            <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)" value="<?php echo $od['qty']; ?>">
-                        </div>
-
-                        <input class="form-control mb-2" type="number"  name="cost[]" value="<?php echo $od['cost']; ?>" readonly hidden>
-                        <input class="form-control mb-2" type="number"  name="oldWasteQty[]" value="<?php echo $od['cost']; ?>" readonly hidden>
                     </div>
-                <?php } ?>
-            </div>
-            <!-- End of additional product details rows -->
-            <div class="col-12">
-                <a class="btn add-btn btn-success" id="addRow">+</a>
-            </div><br><br><br>
-            <input type="hidden" name="oid" value="<?php echo $wasteID ?>">
-            <br><br><br>
-            <!-- Submit Button -->
-            <div>
-                <button type="submit" class="btn btn-primary">Update waste</button>
-            </div>
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <div class="form-group">
+                            <!-- <label for="exampleInputStatus">Type</label> -->
+                            <select class="form-control mb-2" name="ty[]">
+                                <?php foreach ($typedata as $row): ?>
+                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['type_id']) {
+                                          echo 'selected';
+                                      } ?>>
+                                        <?= $row['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <div class="form-group">
+                            <!-- <label for="exampleInputStatus">Category</label> -->
+                            <select class="form-control mb-2" name="ca[]" readonly>
+                                <?php foreach ($categorydata as $row): ?>
+                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
+                                          echo 'selected';
+                                      } ?>>
+                                        <?= $row['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <div class="form-group">
+                            <!-- <label for="exampleInputStatus">Cuisine</label> -->
+                            <select class="form-control mb-2" name="cu[]" readonly>
+                                <?php foreach ($cuisinedata as $row): ?>
+                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
+                                          echo 'selected';
+                                      } ?>>
+                                        <?= $row['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <!-- <label for="">Waste Qty</label> -->
+                        <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)"
+                            value="<?php echo $od['qty']; ?>">
+                        <input name="old_wq[]" type="text" value="<?php echo $od['qty']; ?>">
+                    </div>
+
+                    <input class="form-control mb-2" type="number" name="cost[]" value="<?php echo $od['cost']; ?>" readonly
+                        hidden>
+                    <input class="form-control mb-2" type="number" name="oldWasteQty[]" value="<?php echo $od['cost']; ?>"
+                        readonly hidden>
+                </div>
+            <?php } ?>
+        </div>
+        <!-- End of additional product details rows -->
+        <div class="col-12">
+            <a class="btn add-btn btn-success" id="addRow">+</a>
+        </div><br><br><br>
+        <input type="hidden" name="oid" value="<?php echo $wasteID ?>">
+        <br><br><br>
+        <!-- Submit Button -->
+        <div>
+            <button type="submit" class="btn btn-primary">Update waste</button>
+        </div>
     </form>
 </div>
 <script>
