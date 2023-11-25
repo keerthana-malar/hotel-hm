@@ -309,7 +309,7 @@ if (isset($_GET['id'])) {
                         echo $od['received_qty'];
                     } else {
                         echo 0;
-                    } ?>" name="oldRecQty[]" >
+                    } ?>" name="oldRecQty[]" hidden>
 
                     <input type="hidden" name="ty[]" value="1">
 
