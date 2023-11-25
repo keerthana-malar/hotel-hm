@@ -51,6 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
             $eqty = $exrow['qty'];
 
+            // GEt Pro Data 
+            $proquery = "SELECT name FROM `product` WHERE id = $productID";
+            $prostmt = $pdo->query($proquery);
+            $prorow = $prostmt->fetch(PDO::FETCH_ASSOC);
+            $proname = $prorow['id'];
+
             // Condition check for qty 
             if ($quantity >= $eqty) {
                 // delete consumption
@@ -58,25 +64,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $delQstmt = $pdo->query($delQ);
                 if ($delQstmt->execute()) {
-                    header("Location: " . $u2 . urlencode('Not valid qty'));
+                    header("Location: " . $u2 . urlencode('Not valid qty for'. $proname));
                     exit();
                 }
             }
+        }
+
+        for ($i = 0; $i < count($_POST['pro']); $i++) {
+            $productID = $_POST['pro'][$i];
+            $cuisineID = $_POST['cu'][$i];
+            $typeID = $_POST['ty'][$i];
+            $categoryID = $_POST['ca'][$i];
+            $quantity = $_POST['qt'][$i];
+            $units = $_POST['unit'][$i];
+
+            // Find stock id 
+            $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
+            $sqstmt = $pdo->query($stockquery);
+            $sqrow = $sqstmt->fetch(PDO::FETCH_ASSOC);
+            $sid = $sqrow['id'];
+
+
+            // Get existing quantity 
+            $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+            $exstmt = $pdo->query($exquery);
+            $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
+            $eqty = $exrow['qty'];
 
             // Find used quantity 
             $uqty = $eqty - $quantity;
-
-
 
             // Update quantity in stock 
             $suq = "UPDATE stockitem SET qty = $quantity WHERE product_id = $productID AND stock_id = $sid";
             $sus = $pdo->query($suq);
             $sus->execute();
-
-            // var_dump($uqty);
-            //     exit();
             
-            $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, cuisine_id, type_id, category_id, unit, qty, used_qty) VALUES (:consumption_id, :product_id, :cuisine_id, :type_id, :category_id, :unit, :qty, :uqty)";
+            $consumptionItemSql = "INSERT INTO `consumptionitem` (consumption_id, product_id, cuisine_id, type_id, category_id, unit, qty, old_qty, used_qty) VALUES (:consumption_id, :product_id, :cuisine_id, :type_id, :category_id, :unit, :qty, :old_qty, :uqty)";
             $consumptionItemStmt = $pdo->prepare($consumptionItemSql);
             $consumptionItemStmt->bindParam(':consumption_id', $consumptionID);
             $consumptionItemStmt->bindParam(':product_id', $productID);
@@ -84,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consumptionItemStmt->bindParam(':type_id', $typeID);
             $consumptionItemStmt->bindParam(':category_id', $categoryID);
             $consumptionItemStmt->bindParam(':qty', $quantity);
+            $consumptionItemStmt->bindParam(':old_qty', $eqty);
             $consumptionItemStmt->bindParam(':unit', $units);
             $consumptionItemStmt->bindParam(':uqty', $uqty);
 

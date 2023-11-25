@@ -23,12 +23,6 @@ if (isset($_POST)) {
         exit();
     }
 
-    // Validation
-    // if (empty($branch) || empty($address) || empty($phone)) {
-    //     header("Location: " . $u2 . urlencode('All fields must be filled'));
-    //     exit();
-    // }
-
     $sql = "INSERT INTO branch (name, address, phone, status) VALUES ( :name, :address, :phone, :status)";
     $stmt = $pdo->prepare($sql);
 
@@ -59,20 +53,6 @@ if (isset($_POST)) {
 
             if ($cloneStmt->execute()) {
                 header("Location: " . $u1 . urlencode('Branch Successfully Created'));
-                exit();
-            } else {
-                // Delete Branch and Stock
-                $bdelSql = "DELETE FROM `branch` WHERE id = :branchid";
-                $bdelstmt = $pdo->prepare($bdelSql);
-                $bdelstmt->bindParam(":branchid", $branchid);
-                $bdelstmt->execute();
-
-                $sdelSql = "DELETE FROM `stock` WHERE id = :stockid";
-                $sdelstmt = $pdo->prepare($sdelSql);
-                $sdelstmt->bindParam(":stockid", $stockid);
-                $sdelstmt->execute();
-
-                header('' . $u2 . urlencode('Something Went Wrong'));
                 exit();
             }
         }
