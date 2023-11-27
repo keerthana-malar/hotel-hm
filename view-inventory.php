@@ -66,7 +66,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
             if ($stockItemData) {
                 echo "<table class='table'>";
-                echo "<thead><tr><th>Product</th><th>Unit</th><th>Type</th><th>Available Qty</th></tr></thead>";
+                echo "<thead><tr><th>Product</th><th>Type</th><th>Unit</th><th>Available Qty</th></tr></thead>";
                 echo "<tbody>";
 
                 foreach ($stockItemData as $item) {
@@ -104,8 +104,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                     echo "<tr>";
                     echo "<td>{$productData['name']}</td>";
-                    echo "<td>{$item['unit']}</td>";
                     echo "<td>{$typeData['name']}</td>";
+                    echo "<td>{$item['unit']}</td>";
                     echo "<td>{$item['qty']}</td>";
                     echo "</tr>";
                 }

@@ -249,7 +249,7 @@ $userBranch = $udata ["branch"];
                     } ?>>
                         <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="">
                             <i class="  typcn typcn-upload menu-icon"></i>
-                            <span class="menu-title">products Configuration</span>
+                            <span class="menu-title">Products Configuration</span>
                             <i class="typcn typcn-chevron-right menu-arrow"></i>
                         </a>
                         <div class="collapse <?php menuShow1('category'); menuShow1('cuisine'); ?>" id="user">

@@ -159,7 +159,7 @@ if (isset($_GET['id'])) {
                     <input class="form-control mb-2" type="number" name="cost[]" value="<?php echo $od['cost']; ?>" readonly
                         hidden>
                     <input class="form-control mb-2" type="number" name="oldWasteQty[]" value="<?php echo $od['cost']; ?>"
-                        readonly hidden>
+                        readonly hidden>  
                 </div>
             <?php } ?>
         </div>
