@@ -89,7 +89,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                 <div class="col-12 col-md-6 col-lg-2">
                     <div class="form-group">
                         <label for="exampleInputStatus">Type</label>
-                        <select class="form-control mb-2" name="ty[]">
+                        <select class="form-control mb-2" name="ty[]" readonly>
                             <?php foreach ($typedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
@@ -99,6 +99,12 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
+                    <div class="form-group">
+                        <label for="exampleInputStatus">Unit</label>
+                        <input class="form-control mb-2" type="text" name="unit[]" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2" hidden>
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
                         <select class="form-control mb-2" name="ca[]" readonly>
@@ -110,7 +116,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-2" hidden>
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
                         <select class="form-control mb-2" name="cu[]" readonly>

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($stmt->execute()) {
-        // The execution was successful, handle it accordingly
+
     } else {
         // Execution failed, handle the error
         header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cq = $cqData["qty"];
 
             // Find Available Qty 
-            
+
             if ($old_wq <= $quantit) {
                 $updatedQty = $quantity - $old_wq;
                 $finalQty = $cq - $updatedQty;
@@ -107,25 +107,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // $consumption Item Add 
             // if ($ciIstmt->execute()) {
 
-                // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
-                // $clsItemStmt = $pdo->prepare($clsItemSql);
-                // $clsItemStmt->bindParam(':ci', $cid);
-                // $clsItemStmt->bindParam(':ti', $typeID);
-                // $clsItemStmt->bindParam(':cui', $cuisineID);
-                // $clsItemStmt->bindParam(':cai', $categoryID);
-                // $clsItemStmt->bindParam(':pri', $productID);
-                // $clsItemStmt->bindParam(':qi', $quantity);
-                // $clsItemStmt->bindParam(':ui', $usedQty);
+            // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+            // $clsItemStmt = $pdo->prepare($clsItemSql);
+            // $clsItemStmt->bindParam(':ci', $cid);
+            // $clsItemStmt->bindParam(':ti', $typeID);
+            // $clsItemStmt->bindParam(':cui', $cuisineID);
+            // $clsItemStmt->bindParam(':cai', $categoryID);
+            // $clsItemStmt->bindParam(':pri', $productID);
+            // $clsItemStmt->bindParam(':qi', $quantity);
+            // $clsItemStmt->bindParam(':ui', $usedQty);
 
-                // if ($clsItemStmt->execute()) {
-                    $upStQ = "UPDATE `stockitem` SET qty = $finalQty WHERE product_id = $productID AND stock_id = $sid";
-                    $upStQStmt = $pdo->prepare($upStQ);
-                    $upStQStmt->execute();
-                // }
+            // if ($clsItemStmt->execute()) {
+            $upStQ = "UPDATE `stockitem` SET qty = $finalQty WHERE product_id = $productID AND stock_id = $sid";
+            $upStQStmt = $pdo->prepare($upStQ);
+            $upStQStmt->execute();
+            // }
             // }
         }
     }
-    header("Location: " . $u1 . urlencode('Waste Successfully Updated'));
+    header("Location: " . $u1 . urlencode('Wastage Successfully Updated'));
     exit();
 }
 ?>

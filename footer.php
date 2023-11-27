@@ -100,33 +100,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var select = document.querySelectorAll('[name="pro[]"]');
-        let proUpdate = ()=>{
+        let proUpdate = () => {
             select.forEach((e) => {
-            // Get the options excluding the first option
-            var options = Array.from(e.options).slice(1);
+                // Get the options excluding the first option
+                var options = Array.from(e.options).slice(1);
 
-            // Sort options alphabetically
-            options.sort(function (a, b) {
-                var textA = a.text.toUpperCase();
-                var textB = b.text.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
+                // Sort options alphabetically
+                options.sort(function (a, b) {
+                    var textA = a.text.toUpperCase();
+                    var textB = b.text.toUpperCase();
+                    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                });
 
-            // Clear the existing options (excluding the first one)
-            e.options.length = 1;
+                // Clear the existing options (excluding the first one)
+                e.options.length = 1;
 
-            // Add the first option back to the select element
-            e.add(e.options[0]);
+                // Add the first option back to the select element
+                e.add(e.options[0]);
 
-            // Add the sorted options back to the select element
-            options.forEach(function (option) {
-                e.add(option);
-            });
-        })
+                // Add the sorted options back to the select element
+                options.forEach(function (option) {
+                    e.add(option);
+                });
+            })
         }
         proUpdate()
-        document.querySelector('.add-btn').addEventListener('click', ()=>{
-            let upt = ()=>{
+        document.querySelector('.add-btn').addEventListener('click', () => {
+            let upt = () => {
                 select = document.querySelectorAll('[name="pro[]"]');
                 proUpdate()
             }
@@ -170,8 +170,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         function fieldRO() {
             // let pro = document.querySelectorAll('[name="pro[]"]')
+
             let cus = document.querySelectorAll('[name="cu[]"]')
             let cat = document.querySelectorAll('[name="ca[]"]')
+            let type = document.querySelectorAll('[name="ty[]"]')
 
             function mouseDown(elename) {
                 elename.forEach(function (checkbox) {
@@ -183,6 +185,7 @@
             }
             mouseDown(cat);
             mouseDown(cus);
+            mouseDown(type);
 
             function keyDown(elename) {
                 document.addEventListener('keydown', function (e) {
@@ -197,14 +200,15 @@
 
             keyDown("cu[]");
             keyDown("ca[]");
+            keyDown("ty[]");
         }
 
         fieldRO();
 
-        let addBtn =document.querySelector('.add-btn');
-        addBtn.addEventListener("click", ()=>{
+        let addBtn = document.querySelector('.add-btn');
+        addBtn.addEventListener("click", () => {
             setTimeout(fieldRO, 1000)
-            
+
         })
 
     });
@@ -284,12 +288,40 @@
         // if (isSel) {
         //     checkSelect()
 
+
+        // Function to check if the last cloned row has a selected product
+        function isLastRowProductSelected() {
+            const lastRow = inputContainer.lastElementChild;
+            const lastProductSelect = lastRow.querySelector('[name="pro[]"]');
+            return lastProductSelect.value !== "";
+        }
+
+        var currentPageName = window.location.pathname.split('/').pop();
+        
+
         addInputButton.addEventListener('click', function () {
+
+            // Check if the last row has a selected product
+            if (!isLastRowProductSelected()) {
+                alert("Please select a product");
+                return;
+            }
+
+            
 
             const newRow = inputContainer.querySelector('.row').cloneNode(true);
             // Clear the product dropdown and quantity input in the cloned row
             newRow.querySelector('[name="pro[]"]').value = "";
             newRow.querySelector('[name="qt[]"]').value = "";
+            if(currentPageName == "edit-consumption.php"){
+                newRow.querySelector('[name="old_qty[]"]').value = "";
+            }
+            if(currentPageName == "edit-waste.php"){
+                newRow.querySelector('[name="old_wq[]"]').value = "";
+            }
+            // newRow.querySelector('[name="cu[]"]').value = "";
+            // newRow.querySelector('[name="ca[]"]').value = "";
+            // newRow.querySelector('[name="ty[]"]').value = "";
             // Hide labels in the cloned row
             const labels = newRow.querySelectorAll('label');
             labels.forEach(function (label) {
@@ -319,6 +351,8 @@
             // var productSelects = document.querySelectorAll('[name="pro[]"]');
             // console.log(productSelects)
         });
+
+
         // }    
         // Set the current date for the "Order Date" field
         const orderDateInput = document.querySelector('[name="orderDate"]');
@@ -390,20 +424,27 @@
 
 <script>
     let addBtn = document.querySelector('.add-btn')
+    let rmBtn = document.querySelectorAll('.remove-row')
     let proInput = document.querySelectorAll(".uniquePro");
     let proVal = [];
 
-    function fetchVal() {
+    function fetchVal(index) {
         let proInputs = document.querySelectorAll(".uniquePro");
-        proInputs.forEach((fn) => {
-            proVal.push(fn.value)
+        proInputs.forEach((fn, key) => {
+            if (index != key) {
+                
+                proVal.push(fn.value);
+                // alert(key)
+            }
+            // proVal.push(fn.value)
             console.log("Heloooooooooooooooooooooooooooooooooooo" + "       " + proVal)
         })
     }
 
     function duplicateCheck(pro) {
-        pro.forEach((e) => {
+        pro.forEach((e, key) => {
             e.addEventListener('change', () => {
+                fetchVal(key)
                 if (proVal.includes(e.value)) {
                     alert('Product Already Selected')
 
@@ -411,21 +452,147 @@
                 } else {
                     console.log("elseeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + "       " + proVal)
                 }
-                fetchVal()
             })
         })
     }
-    duplicateCheck(proInput)
+
     function updatePro() {
+        rmBtn = document.querySelectorAll('.remove-row')
         proInput = document.querySelectorAll(".uniquePro");
         duplicateCheck(proInput)
+        console.log("Before", proVal)
+        proVal.length = 0
+        console.log("After", proVal)
+        console.log(proInput)
+        console.log("VALLLLLLLLLLLL" + proVal)
+        console.log('Panitaaaaaaa')
+        console.log(rmBtn)
+        rmBtn.forEach((r) => {
+            r.addEventListener('click', () => {
+                console.log('varandaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                setTimeout(updatePro, 500)
+                // proVal.length = 0
+            })
+        })
     }
+
+    duplicateCheck(proInput)
+
     addBtn.addEventListener('click', () => {
         setTimeout(updatePro, 500)
         // proVal.length = 0
     })
 
+
 </script>
+
+<!-- <script>
+
+    var selectedProducts = [];
+    let addBtn = document.querySelector('.add-btn')
+    let productSelects = document.querySelectorAll('.uniquePro');
+
+    function handleProductSelection(event) {
+        var selectedProductId = event.target.value;
+
+        if (selectedProducts.includes(selectedProductId)) {
+            alert('Product already selected!');
+
+            // Reset the select field to the previous value or take appropriate action
+            event.target.value = selectedProducts[selectedProducts.length - 1];
+        } else {
+            // Clear the array and add the new selection
+            selectedProducts = [selectedProductId];
+        }
+    }
+
+    // Assuming product select fields have class 'product-select'
+
+
+    function updatePro() {
+        productSelects = document.querySelectorAll('.uniquePro');
+        alert("pannita")
+        productSelects.forEach(function (select) {
+            select.addEventListener('change', handleProductSelection);
+        });
+    }
+
+    addBtn.addEventListener('click', () => {
+        setTimeout(updatePro, 500)
+        // proVal.length = 0
+    })
+
+
+</script> -->
+
+<!-- <script>
+    // Pure JavaScript example
+
+    let addBtn = document.querySelector('.add-btn')
+    var selectedProducts = [];
+    let proBox = document.querySelectorAll('.uniquePro')
+    let rmBtn = document.querySelectorAll('.remove-row')
+
+
+    function rr() {
+        var selectedProductId = this.value;
+
+        // Check if the product was previously selected
+        var index = selectedProducts.indexOf(selectedProductId);
+
+        if (index !== -1) {
+            alert('Product already selected. Please choose a different one.');
+            // Reset the selection or handle it according to your UI/UX
+        } else {
+            // Remove the previous selection, if any
+            if (selectedProducts.length > 0) {
+                // Assuming only one product selection is allowed; modify as needed
+                var previousSelection = selectedProducts.pop();
+                // Handle or log the removal of the previous selection
+            }
+
+            // Add the new selection to the array
+            selectedProducts.push(selectedProductId);
+        }
+    }
+
+    function updatePro() {
+        proBox = document.querySelectorAll('.uniquePro');
+
+        proBox.forEach(function (select) {
+            select.addEventListener('change', rr);
+        });
+
+        rmBtn = document.querySelectorAll('.remove-row')
+        aa()
+    }
+
+    proBox.forEach(function (select) {
+        select.addEventListener('change', rr);
+    });
+
+
+
+    function aa() {
+        rmBtn.forEach((r) => {
+            r.addEventListener('click', () => {
+                console.log('varandaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                setTimeout(updatePro, 500)
+                // proVal.length = 0
+            })
+        })
+    }
+
+
+
+
+
+    addBtn.addEventListener('click', () => {
+        setTimeout(updatePro, 500)
+        // proVal.length = 0
+    })
+
+</script> -->
 
 </body>
 
