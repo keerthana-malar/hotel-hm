@@ -16,6 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branchPhone = $_POST['phone']; // Updated Phone Number
     $branchStatus = $_POST['status']; // Updated Status
 
+    // Duplicate branch name check
+    $checkDuplicateQuery = "SELECT COUNT(*) FROM branch WHERE name = :name AND id != :id";
+    $checkStmt = $pdo->prepare($checkDuplicateQuery);
+    $checkStmt->bindParam(':name', $branchName);
+    $checkStmt->bindParam(':id', $branchID);
+    $checkStmt->execute();
+    $duplicateCount = $checkStmt->fetchColumn();
+    if ($duplicateCount > 0) {
+        header("Location: " . $u2 . urlencode('Branch name already exists'));
+        exit();
+    }
+
     // Update data in branch table
     $updateSql = "UPDATE branch SET name = :name, address = :address, phone = :phone, status = :status WHERE id = :id";
     $stmt = $pdo->prepare($updateSql);

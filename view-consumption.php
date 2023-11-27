@@ -97,10 +97,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 include('footer.php');
 ?>
 <script>
-// JavaScript code for printing
-document.getElementById("printButton").addEventListener("click", function() {
-    window.print();
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("printButton").addEventListener("click", function() {
+        // Open the PDF in a new tab for printing
+        window.open('generate-consumption-pdf.php?id=<?php echo $consumptionID; ?>', '_blank');
+    });
 });
+
 </script>
 <style>
 table {

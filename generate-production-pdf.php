@@ -52,7 +52,7 @@ $pdf->writeHTML('<div style="display: flex; justify-content: space-between;">');
 
 
         // Fetch and display the order items associated with the order
-        $chartItemSql = "SELECT pci.qty, p.name AS product_name, c.name AS category_name, cu.name AS cuisine_name
+        $chartItemSql = "SELECT pci.qty, p.name AS product_name, p.unit, c.name AS category_name, cu.name AS cuisine_name
                         FROM `pro_chart_item` pci
                         JOIN `product` p ON pci.product_id = p.id
                         JOIN `category` c ON pci.category_id = c.id
@@ -88,12 +88,13 @@ $pdf->writeHTML('<h2 style="color: #336699;">Production Chart</h2>');
 $pdf->writeHTML('<p style="font-size: 14px; font-weight: bold; color: #555;">Date: ' . $chartData['date'] . '</p>');
                 $html = '<h3>' . $cuisineName . ' </h3>';
                 $html .= '<table border="1" cellpadding="4" cellspacing="0">';
-                $html .= '<tr bgcolor="#CCCCCC"><th>Product</th><th>Category</th><th>Qty</th></tr>';
+                $html .= '<tr bgcolor="#CCCCCC"><th>Product</th><th>Category</th><th>Unit</th><th>Qty</th></tr>';
 
                 foreach ($cuisineItems as $item) {
                     $html .= '<tr>';
                     $html .= '<td>' . $item['product_name'] . '</td>';
                     $html .= '<td>' . $item['category_name'] . '</td>';
+                    $html .= '<td>' . $item['unit'] . '</td>'; 
                     $html .= '<td>' . $item['qty'] . '</td>';
                     $html .= '</tr>';
                 }

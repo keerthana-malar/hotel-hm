@@ -13,6 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
 
 <div class="container">
     <h3>Edit Roles & Permission</h3><br>
+    <?php if (!empty($_GET['succ'])): ?>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>
+    <?php echo $_GET['succ'] ?>
+  </strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php endif ?>
+<?php if (!empty($_GET['err'])): ?>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>
+    <?php echo $_GET['err'] ?>
+  </strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php endif ?>
     <div class="main-box">
         <table class="table table-bordered table-responsive-lg table-striped">
             <form action="role_edit_post.php" method="POST">

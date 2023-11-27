@@ -18,6 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Default product type to "food"
 //   $productType = "food";
 
+   // Duplicate order name check
+   $checkDuplicateQuery = "SELECT COUNT(*) FROM `order` WHERE order_name = :order_name";
+   $checkStmt = $pdo->prepare($checkDuplicateQuery);
+   $checkStmt->bindParam(':order_name', $orderName);
+   $checkStmt->execute();
+   $duplicateCount = $checkStmt->fetchColumn();
+
+   if ($duplicateCount > 0) {
+    header("Location: " . $u2 . urlencode('OrderName already exists'));         
+    exit();
+   }
+
+
     // Validation
     if (empty($branch) || empty($orderdate) || empty($priority) || empty($status)) {
         echo "Error: All fields are required.";

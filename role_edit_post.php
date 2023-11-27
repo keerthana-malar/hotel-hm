@@ -8,9 +8,22 @@ if (!isset($_SESSION['user'])) {
 require('db.php'); 
 
 $u1 = "role_view.php?succ=";
-$u2 = "role_view.php?err=";
+$u2 = "role.php?err=";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+     // Duplicate username check
+     $checkDuplicateQuery = "SELECT COUNT(*) FROM role WHERE role_name = :role_name AND role_id != :role_id";
+     $checkStmt = $pdo->prepare($checkDuplicateQuery);
+     $checkStmt->bindParam(':role_name', $_POST['role_name']);
+     $checkStmt->bindParam(':role_id', $_POST['role_id']);
+     $checkStmt->execute();
+     $duplicateCount = $checkStmt->fetchColumn();
+ 
+     if ($duplicateCount > 0) {
+         header("Location: " . $u2 . urlencode('Role already exists'));
+         exit();
+     }
+ 
     // Retrieve data from the form
     $role_id = $_POST['role_id'];
     $role_name = $_POST['role_name'];

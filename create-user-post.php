@@ -20,7 +20,7 @@
         $duplicateCount = $checkStmt->fetchColumn();
     
         if ($duplicateCount > 0) {
-            header("Location: " . $u2 . urlencode('Username already taken'));         
+            header("Location: " . $u2 . urlencode('Username already exists'));         
             exit();
         }
     

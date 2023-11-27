@@ -7,9 +7,29 @@ if (!isset($_SESSION['user'])) {
 require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $u1 = "categories.php?succ=";
+    $u2 = "edit-category.php?id=" . $_POST['categoryID'] . "&err=";
+
     $categoryId = $_POST['categoryId'];
     $categoryName = $_POST['category'];
     $status = $_POST['status'];
+
+    
+   
+    // Duplicate category name check
+    $checkDuplicateQuery = "SELECT COUNT(*) FROM category WHERE name = :name AND id != :id";
+    $checkStmt = $pdo->prepare($checkDuplicateQuery);
+    $checkStmt->bindParam(':name', $categoryName); // Corrected variable name
+    $checkStmt->bindParam(':id', $categoryId);
+
+    $checkStmt->execute();
+    $duplicateCount = $checkStmt->fetchColumn();
+
+    if ($duplicateCount > 0) {
+        header("Location: " . $u2 . urlencode('Category already exists'));
+        exit();
+    }
+
 
     // Update data in the category table
     $updateSql = "UPDATE category SET name = :name, status = :status WHERE id = :id";

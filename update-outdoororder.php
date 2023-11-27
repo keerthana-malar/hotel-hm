@@ -8,7 +8,7 @@ require('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "outdoororders.php?succ=";
-    $u2 = "edit-order.php?id=" . $_POST['orderID'] . "&err=";
+    $u2 = "edit-outdoororder.php?id=" . $_POST['orderID'] . "&err=";
     $oid = $_POST['oid'];
     $orderID = $_POST['orderID'];
     $branchID = $_POST['branch']; // Updated Branch ID
@@ -18,6 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status']; // Updated Status
     $des = $_POST['des'];
     $orderName = $_POST['orderName'];
+
+     // Duplicate order name check
+     $checkDuplicateQuery = "SELECT COUNT(*) FROM `order` WHERE order_name = :order_name AND id != :id";
+     $checkStmt = $pdo->prepare($checkDuplicateQuery);
+     $checkStmt->bindParam(':order_name', $orderName);
+     $checkStmt->bindParam(':id', $oid);
+ 
+     $checkStmt->execute();
+     $duplicateCount = $checkStmt->fetchColumn();
+ 
+     if ($duplicateCount > 0) {
+         header("Location: " . $u2. urlencode('OrderName already exists'));
+         exit();
+     }
 
     $orderOldDataSql = "SELECT status FROM `order` WHERE id = :id";
     $oodStmt = $pdo->prepare($orderOldDataSql);
