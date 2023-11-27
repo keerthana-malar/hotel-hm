@@ -71,9 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $categoryID = $_POST['ca'][$i];
             $quantity = $_POST['qt'][$i];
             $cost = $_POST['cost'][$i];
+            $unit = $_POST['unit'][$i];
             $stQtyCur = "0";
 
-            $wasteItemSql = "INSERT INTO `wasteitem` (waste_id, product_id, cuisine_id, type_id, category_id, qty, cost) VALUES (:waste_id, :product_id, :cuisine_id, :type_id, :category_id, :qty, :cost)";
+            $wasteItemSql = "INSERT INTO `wasteitem` (waste_id, product_id, cuisine_id, type_id, category_id, qty, cost, unit) VALUES (:waste_id, :product_id, :cuisine_id, :type_id, :category_id, :qty, :cost, :unit)";
             $wasteItemStmt = $pdo->prepare($wasteItemSql);
             $wasteItemStmt->bindParam(':waste_id', $wasteID);
             $wasteItemStmt->bindParam(':product_id', $productID);
@@ -81,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $wasteItemStmt->bindParam(':type_id', $typeID);
             $wasteItemStmt->bindParam(':category_id', $categoryID);
             $wasteItemStmt->bindParam(':qty', $quantity);
+            $wasteItemStmt->bindParam(':unit', $unit);
             $wasteItemStmt->bindParam(':cost', $cost);
 
             if ($wasteItemStmt->execute()) {

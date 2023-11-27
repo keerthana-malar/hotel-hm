@@ -64,6 +64,9 @@ if (!isset($_SESSION['user'])) {
       background: none;
       color: red;
     }
+    label{
+      font-weight: bold;
+    }
 
     label>span {
       color: red;

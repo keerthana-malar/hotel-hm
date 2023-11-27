@@ -78,11 +78,14 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Type</label>
             </div>
-            <div class="col-12 col-md-6 col-lg-2">
+            <!-- <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Cuisine</label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Category <span>*</span></label>
+            </div> -->
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="">Unit</label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="">Waste_Qty</label>
@@ -119,9 +122,9 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2" hidden>
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus">Category</label> -->
+                            <label for="exampleInputStatus">Category</label>
                             <select class="form-control mb-2" name="ca[]" readonly>
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
@@ -133,9 +136,9 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2" hidden>
                         <div class="form-group">
-                            <!-- <label for="exampleInputStatus">Cuisine</label> -->
+                            <label for="exampleInputStatus">Cuisine</label>
                             <select class="form-control mb-2" name="cu[]" readonly>
                                 <?php foreach ($cuisinedata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['cuisine_id']) {
@@ -150,16 +153,20 @@ if (isset($_GET['id'])) {
 
 
                     <div class="col-12 col-md-6 col-lg-2">
+                        <input class="form-control mb-2" name="unit[]" value="<?= $od['unit'] ?>" type="text" readonly>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-2">
                         <!-- <label for="">Waste Qty</label> -->
                         <input class="form-control mb-2" name="qt[]" oninput="handleCost(this)"
                             value="<?php echo $od['qty']; ?>">
-                        <input name="old_wq[]" type="text" value="<?php echo $od['qty']; ?>">
+                        <input name="old_wq[]" type="text" value="<?php echo $od['qty']; ?>" hidden>
                     </div>
 
                     <input class="form-control mb-2" type="number" name="cost[]" value="<?php echo $od['cost']; ?>" readonly
                         hidden>
                     <input class="form-control mb-2" type="number" name="oldWasteQty[]" value="<?php echo $od['cost']; ?>"
-                        readonly hidden>
+                        readonly hidden>  
                 </div>
             <?php } ?>
         </div>

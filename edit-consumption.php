@@ -130,8 +130,9 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2">
                         <!-- <label for="">Available Qty <span>*</span></label> -->
                         <input class="form-control mb-2" name="qt[]" value="<?php echo $od['qty']; ?>" required>
-                        <input type="text" name="old_qty[]" value="<?php echo $od['old_qty']; ?>">
+
                     </div>
+                    <input type="text" name="old_qty[]" value="<?php echo $od['old_qty']; ?>" hidden>
 
                 </div>
             <?php } ?>
