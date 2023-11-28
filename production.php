@@ -7,7 +7,8 @@ include('menu.php');
 // if($rdata['delete_role'] == '0'){$dslinkDelete = 'dis';}
 
 // Get production chart data from db 
-$pcSql = "SELECT * FROM pro_chart";
+
+$pcSql = "SELECT * FROM pro_chart ORDER BY date ASC";
 $pcData = $pdo->query($pcSql);
 $logUser = $_SESSION['user'];
 
