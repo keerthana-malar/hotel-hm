@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productID = $_POST['productID'];
     $productName = $_POST['product'];
     $unit = $_POST['unit']; // Updated Unit
-    $stockQty = $_POST['stock_qty']; // Updated Stock Quantity
+    // $stockQty = $_POST['stock_qty']; // Updated Stock Quantity
     $price = $_POST['price']; // Updated Price
     $typeID = $_POST['type']; // Updated Type ID
     $categoryID = $_POST['category']; // Updated Category ID
@@ -37,15 +37,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: " . $u2 . urlencode('Image upload failed'));
             exit();
         }
+    } 
+    // Check if the new name already exists
+    $checkNameSql = "SELECT id FROM product WHERE name = :name AND id != :id";
+    $checkNameStmt = $pdo->prepare($checkNameSql);
+    $checkNameStmt->bindParam(':name', $productName);
+    $checkNameStmt->bindParam(':id', $productID);
+    $checkNameStmt->execute();
+
+    if ($checkNameStmt->rowCount() > 0) {
+        $u2 = "edit-product.php?id={$productID}&type={$typeID}&err=";
+        header("Location: " . $u2 . urlencode('Product name already exists. Choose a different name.'));
+        exit();
     }
 
     // Update data in product table
-    $updateSql = "UPDATE product SET name = :name, unit = :unit, stock_qty = :stock_qty, price = :price, typeid = :typeid, categoryid = :categoryid, cuisineid = :cuisineid, status = :status, img = :img WHERE id = :id";
+    $updateSql = "UPDATE product SET name = :name, unit = :unit, price = :price, typeid = :typeid, categoryid = :categoryid, cuisineid = :cuisineid, status = :status, img = :img WHERE id = :id";
     $stmt = $pdo->prepare($updateSql);
     $stmt->bindParam(':id', $productID);
     $stmt->bindParam(':name', $productName);
     $stmt->bindParam(':unit', $unit);
-    $stmt->bindParam(':stock_qty', $stockQty);
+    // $stmt->bindParam(':stock_qty', $stockQty);
     $stmt->bindParam(':price', $price);
     $stmt->bindParam(':typeid', $typeID);
     $stmt->bindParam(':categoryid', $categoryID);
@@ -55,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         if ($typeid == 1) {
-            header("Location: " . $u3 . urlencode('Product Successfully Created'));
+            header("Location: " . $u1 . urlencode('Product Successfully Created'));
             exit();
         } else {
             header("Location: " . $u1 . urlencode('Product Successfully Created'));

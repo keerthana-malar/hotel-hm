@@ -37,7 +37,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $consumptionInfo = $consumptionInfoStmt->fetch(PDO::FETCH_ASSOC);
 
         // Output consumption information
-        $htmlConsumptionInfo = '<h2>Consumption Information</h2>';
+        $htmlConsumptionInfo = '<h2>Closing Stock Information</h2>';
         // $htmlConsumptionInfo .= '<p>Consumption ID: ' . $consumptionId . '</p>';
         $htmlConsumptionInfo .= '<p>Date: ' . $consumptionInfo['date_created'] . '</p>';
         $htmlConsumptionInfo .= '<p>Branch Name: ' . getBranchName($consumptionInfo['branchid']) . '</p>';

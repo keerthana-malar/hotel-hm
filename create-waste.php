@@ -65,7 +65,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                 <div class="form-group">
                     <label for="exampleInputName1">Total Waste Amount <span>*</span></label>
                     <input type="number" class="form-control" name="amount" id="exampleInputName1"
-                        placeholder="Enter amount" readonly>
+                        placeholder="" readonly>
                 </div>
             </div>
         </div>

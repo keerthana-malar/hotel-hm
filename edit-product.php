@@ -26,6 +26,27 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="main-box">
+       <?php if (!empty($_GET['succ'])): ?>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <h2>Edit Product</h2>
     <hr>
     <form class="forms-sample" method="post" action="update-product.php" enctype="multipart/form-data">
@@ -114,7 +135,5 @@ if (isset($_GET['id'])) {
 </div>
 
 <?php include('footer.php'); ?>
-
-
 
 
