@@ -59,7 +59,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
     <br>
 
     <form class="counter-form" method="post" action="counter_edit_post.php">
-        <input type="text" value="<?php echo $counterId ?>" name="counterId">
+        <input type="text" value="<?php echo $counterId ?>" name="counterId" hidden>
         <div class="row">
 
             <div class="col-12 col-md-6">
