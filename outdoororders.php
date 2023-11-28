@@ -65,7 +65,7 @@ if ($rdata['delete_odo'] == '0') {
             <th class='col-filter'>Branch</th>
             <th>Order Date</th>
             <th>Delivery Date</th>
-            <th>priority</th>
+            <th>Priority</th>
             <th>Status</th>
             <th class='action-column'></th>
             <th></th>

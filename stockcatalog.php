@@ -109,7 +109,7 @@ if ($rdata['delete_sc'] == '0') {
             <th> ID</th>
             <th>product </th>
             <th>Unit</th>
-            <th>Price (per Unit)</th>
+            <th>Price (per unit)</th>
             <th>Category</th>
             <th>Status</th>
             <th class='action-column'></th>
