@@ -18,13 +18,13 @@ $categorydata = $pdo->query("SELECT * FROM `category`")->fetchAll(PDO::FETCH_ASS
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="inputStartDate">Start Date</label>
-                    <input type="date" class="form-control" name="startDate" id="inputStartDate">
+                    <input type="text" autocomplete="off" placeholder="Choose From Date" class="form-control datepicc" name="startDate" id="inputStartDate">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="inputEndDate">End Date</label>
-                    <input type="date" class="form-control" name="endDate" id="inputEndDate">
+                    <input type="text" autocomplete="off" placeholder="Choose To Date" class="form-control datepicc" name="endDate" id="inputEndDate">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">

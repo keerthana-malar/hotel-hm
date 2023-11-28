@@ -256,7 +256,7 @@ $userBranch = $udata ["branch"];
                             <ul class="nav flex-column sub-menu">
                             <!-- <li class="nav-item"> <a class="nav-link sub" href="products.php">products</a></li> -->
                                 <!-- <li class="nav-item"> <a class="nav-link sub" href="types.php">Food Type</a></li> -->
-                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('category'); ?> " href="categories.php">Food Category</a></li>
+                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('category'); ?> " href="categories.php">Category</a></li>
                                 <li class="nav-item"> <a class="nav-link sub <?php menuActive1('cuisine'); ?> " href="cuisines.php">Cuisine</a></li>
                             </ul>
                         </div>

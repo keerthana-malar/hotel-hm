@@ -13,7 +13,20 @@ if (isset($_GET['delete_id'])) {
         header("Location: branchs.php?err=" . urlencode('You cannot delete Main branch.'));
         exit();
     }
-    // Delete the branch from the database
+
+    // Prepare the SELECT query
+    $sqlDup = "SELECT * FROM `branch` WHERE id = :valueToCheck";
+
+    // Prepare and execute the statement
+    $stmtDup = $pdo->prepare($sqlDup);
+    $stmtDup->bindParam(':valueToCheck', $branchID);
+    $stmtDup->execute();
+
+    if ($stmtDup->rowCount() > 0) {
+        header("Location: branchs.php?err=" . urlencode('This Branch already in use'));
+        exit();
+    } else {
+      // Delete the branch from the database
     $deleteSql = "DELETE FROM branch WHERE id = :id";
     $stmt = $pdo->prepare($deleteSql);
     $stmt->bindParam(':id', $branchID);
@@ -40,6 +53,7 @@ if (isset($_GET['delete_id'])) {
     } else {
         header("Location: branchs.php?err=" . urlencode('Something went wrong. Please try again later'));
     }
+    }   
 } else {
     header("Location: branchs.php");
     exit();

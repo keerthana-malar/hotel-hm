@@ -71,7 +71,7 @@ $b_data = $pdo->query($b_sql);
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="text" name="date" class="form-control datepicc" placeholder="Choose Date">
+                    <input type="text" name="date" autocomplete="off" class="form-control datepicc" placeholder="Choose Date">
                 </div>
             </div>
         </div>
