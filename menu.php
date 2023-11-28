@@ -3,7 +3,6 @@ $logUser = $_SESSION['user'];
 $logName = $logUser['name'];
 $logid = $logUser['id'];
 $logbranch = $logUser['branch'];
-
 // $logbranch = 1;
 // $logid = 1;
 // $logName = "Admin";
@@ -97,7 +96,7 @@ $userBranch = $udata ["branch"];
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="" href="index.html"><img src="images/Magizham Logo.png" alt="logo" height="30"/></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/Magizham_Logo.svg" alt="logo" /></a>
+                <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/Magizham_Logo.svg" alt="logo" /></a> -->
                 <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
                     <span class="typcn typcn-th-menu"></span>
                 </button>
@@ -256,7 +255,7 @@ $userBranch = $udata ["branch"];
                             <ul class="nav flex-column sub-menu">
                             <!-- <li class="nav-item"> <a class="nav-link sub" href="products.php">products</a></li> -->
                                 <!-- <li class="nav-item"> <a class="nav-link sub" href="types.php">Food Type</a></li> -->
-                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('category'); ?> " href="categories.php">Food Category</a></li>
+                                <li class="nav-item"> <a class="nav-link sub <?php menuActive1('category'); ?> " href="categories.php">Category</a></li>
                                 <li class="nav-item"> <a class="nav-link sub <?php menuActive1('cuisine'); ?> " href="cuisines.php">Cuisine</a></li>
                             </ul>
                         </div>

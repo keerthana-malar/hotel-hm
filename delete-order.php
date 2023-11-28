@@ -22,24 +22,40 @@ if (isset($_GET['delete_id'])) {
         $u2 = "outdoororders.php?err=";
     }
 
-    // Delete the order from the database
-    $deleteSql = "DELETE FROM `order` WHERE id = :id";
-    $stmt = $pdo->prepare($deleteSql);
-    $stmt->bindParam(':id', $orderID);
 
-    $deleteSql1 = "DELETE FROM `orderitem` WHERE order_id = :id";
-    $stmt1 = $pdo->prepare($deleteSql1);
-    $stmt1->bindParam(':id', $orderID);
+    // Prepare the SELECT query
+    $sqlDup = "SELECT status FROM `order` WHERE id = :valueToCheck";
 
-    if ($stmt->execute()) {
-        if ($stmt1->execute()) {
-            header("Location:" . $u1 . urlencode('Order Successfully Deleted'));
+    // Prepare and execute the statement
+    $stmtDup = $pdo->prepare($sqlDup);
+    $stmtDup->bindParam(':valueToCheck', $orderID);
+    $stmtDup->execute();
+    $data = $stmtDup->fetch(PDO::FETCH_ASSOC);
+
+    if ($data['status'] != 'Created') {
+        header("Location:" . $u2 . urlencode("Can't Delete Accepted Order"));
+        exit();
+    } else {
+        // Delete the order from the database
+        $deleteSql = "DELETE FROM `order` WHERE id = :id";
+        $stmt = $pdo->prepare($deleteSql);
+        $stmt->bindParam(':id', $orderID);
+
+        $deleteSql1 = "DELETE FROM `orderitem` WHERE order_id = :id";
+        $stmt1 = $pdo->prepare($deleteSql1);
+        $stmt1->bindParam(':id', $orderID);
+
+        if ($stmt->execute()) {
+            if ($stmt1->execute()) {
+                header("Location:" . $u1 . urlencode('Order Successfully Deleted'));
+                exit();
+            }
+        } else {
+            header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
             exit();
         }
-    } else {
-        header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
-        exit();
     }
+
 } else {
     header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
     exit();

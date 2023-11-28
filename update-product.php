@@ -37,6 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: " . $u2 . urlencode('Image upload failed'));
             exit();
         }
+    } 
+    // Check if the new name already exists
+    $checkNameSql = "SELECT id FROM product WHERE name = :name AND id != :id";
+    $checkNameStmt = $pdo->prepare($checkNameSql);
+    $checkNameStmt->bindParam(':name', $productName);
+    $checkNameStmt->bindParam(':id', $productID);
+    $checkNameStmt->execute();
+
+    if ($checkNameStmt->rowCount() > 0) {
+        $u2 = "edit-product.php?id={$productID}&type={$typeID}&err=";
+        header("Location: " . $u2 . urlencode('Product name already exists. Choose a different name.'));
+        exit();
     }
 
     // Update data in product table
@@ -55,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         if ($typeid == 1) {
-            header("Location: " . $u3 . urlencode('Product Successfully Created'));
+            header("Location: " . $u1 . urlencode('Product Successfully Created'));
             exit();
         } else {
             header("Location: " . $u1 . urlencode('Product Successfully Created'));

@@ -1,3 +1,16 @@
+<style>
+
+.row-labels {
+    display: block;
+}
+
+
+@media (width<= 767px) {
+    .row-labels {
+        display: none !important; 
+    }
+}
+</style>
 <?php
 include('header.php');
 include('menu.php');
@@ -186,7 +199,7 @@ if (isset($_GET['id'])) {
 
 
         <!-- Additional product details rows -->
-            <div class="row">
+            <div class="row row-labels">
                 
                     <div class="col-12 col-md-6 col-lg-2">
                         <label for="exampleInputStatus">Product</label>
@@ -468,6 +481,15 @@ if (isset($_GET['id'])) {
         })
         return true;
     }
+    let rowLabels = document.querySelectorAll('.row-labels');
+
+        // Check if the screen width is less than or equal to 767 pixels
+        if (window.innerWidth <= 767) {
+            rowLabels.forEach((label) => {
+                label.style.display = e.value !== 'Created' ? 'none' : 'block';
+            });
+        }
+    
 </script>
 
 <?php include('footer.php'); ?>

@@ -130,7 +130,7 @@ if ($rdata['delete_fc'] == '0') {
                 <th> ID</th>
                 <th>product </th>
                 <th>Unit</th>
-                <th>Price (per Unit)</th>
+                <th>Price (per unit)</th>
                 <th>Category</th>
                 <th>Cuisine</th>
                 <th>Status</th>

@@ -64,7 +64,7 @@ if ($rdata['delete_so'] == '0') {
             <th>Branch</th>
             <th>Order Date</th>
             <th>Delivery Date</th>
-            <th>priority</th>
+            <th>Priority</th>
             <th>Status</th>
             <th class='action-column'></th>
             <th></th>

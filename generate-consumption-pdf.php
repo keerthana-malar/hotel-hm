@@ -23,39 +23,34 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     // Set font
     $pdf->SetFont('helvetica', '', 12);
 
-    // Add company details with enhanced styling
-    $companyDetails = '
-    <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-            <td style="background-color: yellow; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
-        </tr>
-    </table>';
+    // Output the company name as the heading
+    $htmlHeading = '<h1 style="text-align: center; color: #336699;">Magizham</h1>';
+    $pdf->writeHTML($htmlHeading, true, false, true, false, '');
 
-    // Apply CSS styles to the whole table
-    $companyDetails .= '<style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #E0E0E0; font-family: helvetica; font-size: 12px; }
-        th { background-color: #CCCCCC; }
-    </style>';
-    $pdf->writeHTML($companyDetails);
+    // Fetch consumption information from the consumption table
+    $consumptionInfoSql = "SELECT date_created, branchid FROM `consumption` WHERE id = :consumption_id";
+    $consumptionInfoStmt = $pdo->prepare($consumptionInfoSql);
 
-    // Fetch consumption details
-    $consumptionSql = "SELECT * FROM `consumption` WHERE id = :id";
-    $consumptionStmt = $pdo->prepare($consumptionSql);
-    $consumptionStmt->bindParam(':id', $consumptionId);
-    $consumptionStmt->execute();
-    $consumptionData = $consumptionStmt->fetch(PDO::FETCH_ASSOC);
+    if ($consumptionInfoStmt) {
+        $consumptionInfoStmt->bindParam(':consumption_id', $consumptionId);
+        $consumptionInfoStmt->execute();
+        $consumptionInfo = $consumptionInfoStmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($consumptionData) {
-        // Output the HTML content to the PDF
-        $pdf->writeHTML('<div style="display: flex; justify-content: space-between;">');
+        // Output consumption information
+        $htmlConsumptionInfo = '<h2>Closing Stock Information</h2>';
+        // $htmlConsumptionInfo .= '<p>Consumption ID: ' . $consumptionId . '</p>';
+        $htmlConsumptionInfo .= '<p>Date: ' . $consumptionInfo['date_created'] . '</p>';
+        $htmlConsumptionInfo .= '<p>Branch Name: ' . getBranchName($consumptionInfo['branchid']) . '</p>';
+        $pdf->writeHTML($htmlConsumptionInfo, true, false, true, false, '');
 
-        // Fetch and display the consumption item details associated with the consumption
-        $consumptionItemSql = "SELECT pci.qty, p.name AS product_name, p.unit, c.name AS category_name, cu.name AS cuisine_name
+        // Set padding for the last cell in the "Branch Information" section
+$pdf->SetCellPaddings(0, 0, 0, 10);
+        // Fetch and display the consumption items associated with the consumption
+        $consumptionItemSql = "SELECT pci.qty, pci.used_qty, p.name AS product_name, c.name AS category_name, t.name AS type_name, p.unit 
                     FROM `consumptionitem` pci
                     JOIN `product` p ON pci.product_id = p.id
                     JOIN `category` c ON pci.category_id = c.id
-                    JOIN `cuisine` cu ON pci.cuisine_id = cu.id
+                    JOIN `type` t ON pci.type_id = t.id
                     WHERE pci.consumption_id = :consumption_id";
 
         $consumptionItemStmt = $pdo->prepare($consumptionItemSql);
@@ -64,69 +59,79 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $consumptionItemStmt->bindParam(':consumption_id', $consumptionId);
             $consumptionItemStmt->execute();
             $consumptionItemData = $consumptionItemStmt->fetchAll(PDO::FETCH_ASSOC);
-// Debugging: Output consumption details
-var_dump($consumptionItemData);
-            $cuisineTables = [];
 
-            // Group items by cuisine
+            // Group items by type
+            $typeTables = [];
+
             foreach ($consumptionItemData as $item) {
-                $cuisineName = $item['cuisine_name'];
+                $typeName = $item['type_name'];
 
-                if (!isset($cuisineTables[$cuisineName])) {
-                    $cuisineTables[$cuisineName] = [];
+                if (!isset($typeTables[$typeName])) {
+                    $typeTables[$typeName] = [];
                 }
 
-                $cuisineTables[$cuisineName][] = $item;
+                $typeTables[$typeName][] = $item;
             }
 
-            // Generate a table for each cuisine
-            foreach ($cuisineTables as $cuisineName => $cuisineItems) {
-                // Consumption Chart Column
-                $pdf->writeHTML('<div style="width: 48%;">');
-                $pdf->writeHTML('<h2 style="color: #336699;">Consumption Chart</h2>');
+            // Generate a table for each type
+            foreach ($typeTables as $typeName => $typeItems) {
+                // Output the HTML content to the PDF
+                $pdf->writeHTML('<h2>' . $typeName . ' Stock</h2>');
 
-                // Include the date in the PDF
-                $pdf->writeHTML('<p style="font-size: 14px; font-weight: bold; color: #555;">Date: ' . $consumptionData['date'] . '</p>');
+                $html = '<table border="1" cellpadding="4" cellspacing="0">';
+                $html .= '<tr bgcolor="#ECECEC"><th>Product</th><th>Category</th><th>Unit</th><th>Qty</th><th>Used Qty</th></tr>';
 
-                $html = '<h3>' . $cuisineName . ' </h3>';
-                $html .= '<table border="1" cellpadding="4" cellspacing="0">';
-                $html .= '<tr><th>Product</th><th>Category</th><th>Unit</th><th>Qty</th></tr>';
-
-                foreach ($cuisineItems as $item) {
+                foreach ($typeItems as $item) {
                     $html .= '<tr>';
                     $html .= '<td>' . $item['product_name'] . '</td>';
                     $html .= '<td>' . $item['category_name'] . '</td>';
                     $html .= '<td>' . $item['unit'] . '</td>';
                     $html .= '<td>' . $item['qty'] . '</td>';
+                    $html .= '<td>' . $item['used_qty'] . '</td>';
                     $html .= '</tr>';
                 }
 
                 $html .= '</table>';
                 $pdf->writeHTML($html, true, false, true, false, '');
-
-                // Close the div for this cuisine
-                $pdf->writeHTML('</div>');
             }
+
+            // Close the PDF document
+            $pdfContent = $pdf->Output('', 'S');
+
+            // End output buffering
+            ob_end_clean();
+
+            // Send the PDF content to the browser
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="consumption_details.pdf"');
+            echo $pdfContent;
+
+            // Exit to prevent additional content from being appended
+            exit;
+        } else {
+            echo "Failed to prepare the consumption item query.";
         }
-
-        // Close the main flex div
-        $pdf->writeHTML('</div>');
+    } else {
+        echo "Failed to prepare the consumption information query.";
     }
-
-    // Close the PDF document
-    $pdfContent = $pdf->Output('', 'S'); // Capture the PDF content
-
-    // End output buffering
-    ob_end_clean();
-
-    // Send the PDF content to the browser
-    header('Content-Type: application/pdf');
-    header('Content-Disposition: inline; filename="consumption_details.pdf"');
-    echo $pdfContent;
-
-    // Exit to prevent additional content from being appended
-    exit;
 } else {
     echo "Invalid consumption ID.";
+}
+
+// Function to get branch name based on branch ID
+function getBranchName($branchId) {
+    global $pdo; // Add this line to access the global $pdo variable
+
+    $branchInfoSql = "SELECT name FROM `branch` WHERE id = :branch_id";
+    $branchInfoStmt = $pdo->prepare($branchInfoSql);
+    $branchInfoStmt->bindParam(':branch_id', $branchId);
+    $branchInfoStmt->execute();
+    $branchInfo = $branchInfoStmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($branchInfo) {
+        return $branchInfo['name'];
+    }
+
+    return "Unknown Branch"; // Replace this with your default branch name
 }
 ?>

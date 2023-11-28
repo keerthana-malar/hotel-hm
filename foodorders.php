@@ -56,7 +56,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
             <th class='col-filter'>Branch</th>
             <th class='col-filter'>Order Date</th>
             <th>Delivery Date</th>
-            <th>priority</th>
+            <th>Priority</th>
             <th>Status</th>
             <th class='action-column'></th>
             <th></th>
