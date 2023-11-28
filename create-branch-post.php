@@ -46,15 +46,15 @@ if (isset($_POST)) {
         if ($stStmt->execute()) {
             $stockid = $pdo->lastInsertId();
 
-            $cloneSql = "INSERT INTO `stockitem` (stock_id, type_id, cuisine_id, category_id, product_id, unit)
-            SELECT :stock_id, typeid, cuisineid, categoryid, id, unit FROM `product`";
-            $cloneStmt = $pdo->prepare($cloneSql);
-            $cloneStmt->bindParam(':stock_id', $stockid);
+            // $cloneSql = "INSERT INTO `stockitem` (stock_id, type_id, cuisine_id, category_id, product_id, unit)
+            // SELECT :stock_id, typeid, cuisineid, categoryid, id, unit FROM `product`";
+            // $cloneStmt = $pdo->prepare($cloneSql);
+            // $cloneStmt->bindParam(':stock_id', $stockid);
 
-            if ($cloneStmt->execute()) {
-                header("Location: " . $u1 . urlencode('Branch Successfully Created'));
-                exit();
-            }
+            // if ($cloneStmt->execute()) {
+            header("Location: " . $u1 . urlencode('Branch Successfully Created'));
+            exit();
+            // }
         }
     }
 }
