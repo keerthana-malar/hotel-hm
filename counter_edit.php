@@ -67,7 +67,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
                     <label>Branch</label>
                     <select name="branch" id="" class="form-control">
                         <?php foreach ($b_data as $row): ?>
-                            <option <?php if($counterData['branch'] == $row['id']){echo 'selected';} ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
+                            <option<?php if($counterData['branch'] == $row['id']){echo 'selected';} ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -76,7 +76,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
             <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" value="<?php echo $counterData['date'] ?>" name="date" class="form-control">
+                    <input type="text" value="<?php echo $counterData['date'] ?>" name="date" class="form-control datepicc">
                 </div>
             </div>
 

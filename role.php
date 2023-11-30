@@ -22,6 +22,7 @@ include('menu.php');
     <strong>
         <?php echo $_GET['err'] ?>
     </strong>
+    
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -30,8 +31,8 @@ include('menu.php');
     <div class="main-box">
         <table class="table table-bordered table-responsive-lg table-striped ">
             <form action="role_post.php" method="POST">
-                <label for="role_id">Role Name</label>
-                <input type="text" id="role_id" class="form-control" name="role_name" require><br>
+                <label for="role_id">Role Name <span>*</span></label>
+                <input type="text" id="role_id" class="form-control" placeholder="Role Name" name="role_name" required pattern="[A-Za-z]+"><br>
                 <thead>
                     <tr>
                         <th>Role</th>

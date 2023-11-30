@@ -222,7 +222,7 @@ if($rdata['d_access'] == '1'){ ?>
                     </div>
                     <div>
                         <span class="icon">
-                            <a href="orders.php">
+                            <a href="foodorders.php">
                                 <i class="fas fa-shopping-cart"></i>
                             </a>
                         </span>
@@ -282,7 +282,7 @@ if($rdata['d_access'] == '1'){ ?>
                     </div>
                     <div>
                         <span class="icon">
-                            <a href="orders.php">
+                            <a href="foodorders.php">
                                 <i class="fas fa-shopping-cart"></i>
                             </a>
                         </span>
@@ -301,7 +301,7 @@ if($rdata['d_access'] == '1'){ ?>
                     </div>
                     <div>
                         <span class="icon">
-                            <a href="orders.php">
+                            <a href="foodorders.php">
                                 <i class="fa-solid fa-calendar-check"></i> </a>
                         </span>
                     </div>
@@ -319,7 +319,7 @@ if($rdata['d_access'] == '1'){ ?>
                     </div>
                     <div>
                         <span class="icon">
-                            <a href="orders.php">
+                            <a href="foodorders.php">
                                 <i class="fa-solid fa-file-excel"></i> </a>
                         </span>
                     </div>

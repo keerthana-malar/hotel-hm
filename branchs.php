@@ -16,11 +16,6 @@ if ($rdata['delete_b'] == '0') {
   $dslinkDelete = 'dis';
 }
 ?>
-<style>
-  .typcn {
-    font-size: 22px;
-  }
-</style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-branch.php">

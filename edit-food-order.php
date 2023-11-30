@@ -3,8 +3,6 @@
 .row-labels {
     display: block;
 }
-
-
 @media (width<= 767px) {
     .row-labels {
         display: none !important; 

@@ -6,11 +6,6 @@ $categoryData = $pdo->query($categorySql);
 
 $logUser = $_SESSION['user'];
 ?>
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="create-category.php">

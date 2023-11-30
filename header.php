@@ -77,6 +77,9 @@ if (!isset($_SESSION['user'])) {
     .orderdetails{
       text-align: left;
     }
+    .typcn {
+    font-size: 22px; 
+    }
   </style>
 
 </head>
