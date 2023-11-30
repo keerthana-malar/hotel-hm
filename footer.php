@@ -174,6 +174,7 @@
             let cus = document.querySelectorAll('[name="cu[]"]')
             let cat = document.querySelectorAll('[name="ca[]"]')
             let type = document.querySelectorAll('[name="ty[]"]')
+            let dis = document.querySelectorAll('.disbox')
 
             function mouseDown(elename) {
                 elename.forEach(function (checkbox) {
@@ -186,6 +187,7 @@
             mouseDown(cat);
             mouseDown(cus);
             mouseDown(type);
+            mouseDown(dis);
 
             function keyDown(elename) {
                 document.addEventListener('keydown', function (e) {

@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
-                    <input type="text" class="form-control" name="orderName" id="orderName"
+                    <input disabled type="text" class="form-control" name="orderName" id="orderName"
                         value="<?php echo $orderData['order_name']; ?>" pattern="[A-Za-z]+">
                 </div>
             </div>

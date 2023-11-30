@@ -8,7 +8,7 @@ include('menu.php');
 
 // Get production chart data from db 
 
-$pcSql = "SELECT * FROM pro_chart ORDER BY date ASC";
+$pcSql = "SELECT * FROM pro_chart ORDER BY date DESC";
 $pcData = $pdo->query($pcSql);
 $logUser = $_SESSION['user'];
 
