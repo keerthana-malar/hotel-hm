@@ -32,7 +32,7 @@ include('menu.php');
         <table class="table table-bordered table-responsive-lg table-striped ">
             <form action="role_post.php" method="POST">
                 <label for="role_id">Role Name <span>*</span></label>
-                <input type="text" id="role_id" class="form-control" placeholder="Role Name" name="role_name" required pattern="[A-Za-z]+"><br>
+                <input type="text" id="role_id" class="form-control" placeholder="Role Name" name="role_name" required pattern="[A-Za-z ]+"><br>
                 <thead>
                     <tr>
                         <th>Role</th>

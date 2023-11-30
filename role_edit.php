@@ -38,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['role_id'])) {
         <table class="table table-bordered table-responsive-lg table-striped">
             <form action="role_edit_post.php" method="POST">
                 <input type="hidden" name="role_id" value="<?php echo $role_id ?>">
-                <label for="role_id">Role Name</label>
-                <input type="text" id="role_id" class="form-control" name="role_name" value="<?php echo $role['role_name']; ?>" require pattern="[A-Za-z]+"><br>
+                <label for="role_id">Role Name <span>*</span></label>
+                <input type="text" id="role_id" class="form-control" name="role_name" value="<?php echo $role['role_name']; ?>" require pattern="[A-Za-z ]+"><br>
             <thead>
             <tr>
                 <th>Role</th>

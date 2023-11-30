@@ -1,9 +1,9 @@
 <?php
 include('header.php');
 include('menu.php');
-if($udata["role"]=="1"){
+if ($udata["role"] == "1") {
     $branchsql = "SELECT * FROM `branch` WHERE status = 'Active'";
-}else{
+} else {
     $branchsql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
 }
 // $branchsql = "SELECT * FROM `branch` WHERE status = 'Active' AND id = $userBranch";
@@ -20,39 +20,40 @@ $currentDate = date('Y-m-d');
     <hr>
     <?php if (!empty($_GET['succ'])): ?>
 
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>
-    <?php echo $_GET['succ'] ?>
-  </strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php endif ?>
-<?php if (!empty($_GET['err'])): ?>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>
-    <?php echo $_GET['err'] ?>
-  </strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php endif ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <form class="forms-sample" method="post" action="create-outdoororder-post.php">
         <!-- Branch, Order Date, Delivery Date, Priority, Status fields ... -->
         <div class="row">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name <span>*</span></label>
-                    <input type="text" class="form-control" name="orderName" id="orderName" placeholder="Enter Order Name" required pattern="[A-Za-z]+">
+                    <input type="text" class="form-control" name="orderName" id="orderName"
+                        placeholder="Enter Order Name" required pattern="[A-Za-z]+">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Branch <span>*</span></label>
                     <select class="form-control" name="branch" id="exampleInputStatus" required>
-                    <option value="">Select</option>
+                        <option value="">Select</option>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
@@ -73,19 +74,18 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="text" placeholder="Choose Date" autocomplete="off" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" placeholder="Choose Date" autocomplete="off" class="form-control datepic"
+                        name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Priority <span>*</span></label>
+                    <label for="exampleInputStatus">Priority</label>
                     <select class="form-control" name="priority" id="exampleInputStatus" required>
-                    <option value="">Select</option>
-
-                        <option value="High">High</option>
-                        <option value="Low">Low</option>
                         <option value="Normal">Normal</option>
+                        <option value="Low">Low</option>
+                        <option value="High">High</option>
                         <option value="Urgent">Urgent</option>
 
                     </select>
@@ -173,7 +173,7 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Unit <span>*</span></label>
+                    <label for="">Unit</label>
                     <input type="text" class="form-control mb-2" name="unit[]" required readonly>
                 </div>
                 <!-- <div class="col-12 col-md-6 col-lg-2">
@@ -188,8 +188,8 @@ $currentDate = date('Y-m-d');
                     </div>
                 </div> -->
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty <span>*</span></label>
-                    <input type="number" class="form-control mb-2" name="qt[]"  step="0.01" min="0" required>
+                    <label for="">Qty</label>
+                    <input type="number" class="form-control mb-2" name="qt[]" step="0.01" min="0" required>
                 </div>
 
                 <input type="hidden" name="ty[]" value="1">

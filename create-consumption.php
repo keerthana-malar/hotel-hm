@@ -126,7 +126,7 @@ $currentDate = date('d-m-Y');
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Available Qty <span>*</span></label>
+                    <label for="">Available Qty</label>
                     <input class="form-control mb-2" type="number" name="qt[]" required>
                 </div>
                 <input class="form-control mb-2" type="number" name="uqt[]" readonly hidden>

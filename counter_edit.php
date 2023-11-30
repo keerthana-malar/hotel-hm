@@ -64,7 +64,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="col-12 col-md-6">
                 <div class="form-group">
-                    <label>Branch</label>
+                    <label>Branch <span>*</span></label>
                     <select name="branch" id="" class="form-control">
                         <?php foreach ($b_data as $row): ?>
                             <option<?php if($counterData['branch'] == $row['id']){echo 'selected';} ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
@@ -75,7 +75,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="col-12 col-md-6">
                 <div class="form-group">
-                    <label>Date</label>
+                    <label>Date <span>*</span></label>
                     <input type="text" value="<?php echo $counterData['date'] ?>" name="date" class="form-control datepicc">
                 </div>
             </div>
@@ -163,7 +163,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
 
     <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Petty Cash</label>
+            <label for="exampleInputPassword4">Petty Cash <span>*</span></label>
             <input type="number" class="form-control" name="petty_cash" value="<?php echo $counterData['petty_cash'] ?>">
         </div>
     </div>
@@ -189,7 +189,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
 
     <div class="col-12  col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Total Sales</label>
+            <label for="exampleInputPassword4">Total Sales <span>*</span></label>
             <input type="number" class="form-control" name="total_sales" value="<?php echo $counterData['total_sales'] ?>">
         </div>
     </div>
@@ -213,7 +213,7 @@ $counterData = $editStmt->fetch(PDO::FETCH_ASSOC);
     </div>
     <div class="col-12  col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Next Day Petty Cash</label>
+            <label for="exampleInputPassword4">Next Day Petty Cash <span>*</span></label>
             <input type="number" class="form-control" name="nd_petty_cash" value="<?php echo $counterData['nd_petty_cash'] ?>">
         </div>
     </div>

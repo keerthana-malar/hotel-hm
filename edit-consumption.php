@@ -62,7 +62,7 @@ if (isset($_GET['id'])) {
         <div class="row">
 
             <div class="col-12 col-md-6 col-lg-3">
-                <label for="exampleInputStatus">Product</label>
+                <label for="exampleInputStatus">Product <span>*</span></label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Type</label>

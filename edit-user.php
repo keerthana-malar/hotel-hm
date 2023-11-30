@@ -56,20 +56,20 @@ $branchdata = $pdo->query($branchsql);
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputName">Name</label>
-                    <input type="text" class="form-control" name="name" id="exampleInputName"
+                    <input type="text" class="form-control" name="name" id="exampleInputName" pattern="[A-Za-z ]+"
                         value="<?php echo $userData['name']; ?>">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputUsername">Username</label>
+                    <label for="exampleInputUsername">Username <span>*</span></label>
                     <input type="text" class="form-control" name="username" id="exampleInputUsername"
                         value="<?php echo $userData['username']; ?>">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleSelectGender">Branch</label>
+                    <label for="exampleSelectGender">Branch <span>*</span></label>
                     <select class="form-control" id="exampleSelectGender" name="branch"
                         value="<?php echo $userData['name']; ?>">
 
@@ -83,7 +83,7 @@ $branchdata = $pdo->query($branchsql);
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputRole">Role</label>
+                    <label for="exampleInputRole">Role <span>*</span></label>
                     <select class="form-control" name="role" id="exampleInputRole">
                         <?php foreach ($roleData as $r) { ?>
                             <option value="<?php echo $r['role_id'] ?>" <?php echo ($r['role_name'] === $userData['role_name']) ? 'selected' : ''; ?>>

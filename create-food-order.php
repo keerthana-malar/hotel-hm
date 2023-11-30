@@ -63,12 +63,11 @@ $currentDate = date('d-m-Y');
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Priority <span>*</span></label>
+                    <label for="exampleInputStatus">Priority</label>
                     <select class="form-control" name="priority" id="exampleInputStatus" required>
-                    <option value="">Select</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Low">Low</option>
                         <option value="High">High</option>
-                        <option value="Low">Low</option>
-                        <option value="Normal">Normal</option>
                         <option value="Urgent">Urgent</option>
                     </select>
                 </div>

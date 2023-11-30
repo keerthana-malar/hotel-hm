@@ -31,7 +31,7 @@ include('menu.php');
         <div class="col-12 col-md-6 col-lg-4">
          <div class="form-group">
          <label for="exampleInputName1">Name <span>*</span></label>
-        <input type="text" class="form-control" name="cuisinename" id="exampleInputName1" placeholder="Enter cuisine Name" required pattern="[A-Za-z]+">
+        <input type="text" class="form-control" name="cuisinename" id="exampleInputName1" placeholder="Enter cuisine Name" required pattern="[A-Za-z ]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">

@@ -48,13 +48,13 @@ $typedata = $pdo->query($typesql);
     <div class="col-12 col-md-6 col-lg-3"> 
         <div class="form-group">
             <input type="hidden" name="categoryId" value="<?php echo $categoryData['id']; ?>">
-            <label for="exampleInputName1">Category Name</label>
-            <input type="text" class="form-control" name="category" id="exampleInputName1" value="<?php echo $categoryData['name']; ?>" pattern="[A-Za-z]+">
+            <label for="exampleInputName1">Category Name <span>*</span></label>
+            <input type="text" class="form-control" name="category" id="exampleInputName1" value="<?php echo $categoryData['name']; ?>" pattern="[A-Za-z ]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputType">Type</label>
+                    <label for="exampleInputType">Type <span>*</span></label>
                     <select class="form-control" name="type" id="exampleInputType">
                         <?php foreach ($typedata as $row): ?>
                             <option value="<?= $row['id'] ?>" <?php if ($categoryData['typeid'] === $row['id']) echo 'selected'; ?>><?= $row['name'] ?></option>
@@ -64,7 +64,7 @@ $typedata = $pdo->query($typesql);
             </div>
         <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Status</label>
+                    <label for="exampleInputStatus">Status </label>
                     <select class="form-control" name="status" id="exampleInputStatus">
                         <option value="Active" <?php if ($categoryData['status'] === 'Active') echo 'selected'; ?>>Active</option>
                         <option value="Inactive" <?php if ($categoryData['status'] === 'Inactive') echo 'selected'; ?>>Inactive</option>

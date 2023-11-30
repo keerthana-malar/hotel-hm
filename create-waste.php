@@ -131,7 +131,7 @@ $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active'")->fe
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Waste Qty <span>*</span></label>
+                    <label for="">Waste Qty</label>
                     <input class="form-control mb-2" type="number" name="qt[]" oninput="handleCost(this)"  step="0.01" min="0" required>
                 </div>
                 
