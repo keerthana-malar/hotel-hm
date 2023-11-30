@@ -64,14 +64,15 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
-                    <input type="text" class="form-control" name="orderName" id="orderName"
+                    <input type="text" class="form-control <?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"<?php if($orderData['status'] == 'Accepted'){echo 'readonly';} ?> name="orderName" id="orderName"
                         value="<?php echo $orderData['order_name']; ?>" pattern="[A-Za-z]+">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="branch">Branch <span>*</span></label>
-                    <select class="form-control" name="branch" id="branch">
+                    <select class="form-control <?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"<?php if($orderData['status'] == 'Accepted'){echo 'readonly';} ?> name="branch" id="branch" required>
+
                         <?php foreach ($branchData as $branch): ?>
                             <option value="<?php echo $branch['id']; ?>" <?php if ($orderData['branchid'] === $branch['id'])
                                    echo 'selected'; ?>>
@@ -90,8 +91,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-12 col-md-6 col-lg-3">
             <div class="form-group">
-                    <label for="deliverydate">Delivery Date <span>*</span></label>
-                    <input type="text" autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?>" name="deliverydate" id="deliverydate"
+                    <label for="deliverydate">Delivery Date <span>*</span</label>
+                    <input type="text" required autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?><?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>" name="deliverydate" id="deliverydate">
                     <?php if ($orderData['status'] != 'Created') { echo 'readonly';}else{echo '';}?>
                         value="<?php echo $orderData['deliverydate']; ?>">
                 </div>

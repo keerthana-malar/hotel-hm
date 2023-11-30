@@ -64,14 +64,14 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
-                    <input type="text" class="form-control" name="orderName" id="orderName"
+                    <input type="text" class="form-control" name="orderName" id="orderName" readonly
                         value="<?php echo $orderData['order_name']; ?>">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="branch">Branch <span>*</span></label>
-                    <select class="form-control" name="branch" id="branch">
+                    <select required class="form-control <?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"<?php if($orderData['status'] == 'Accepted'){echo 'readonly';} ?> name="branch" id="branch">
                         <?php foreach ($branchData as $branch): ?>
                             <option value="<?php echo $branch['id']; ?>" <?php if ($orderData['branchid'] === $branch['id'])
                                    echo 'selected'; ?>>
@@ -94,7 +94,7 @@ if (isset($_GET['id'])) {
                     <input type="text" autocomplete="off"
                         class="form-control <?php if ($orderData['status'] == 'Created') {
                             echo 'datepic';
-                        } ?>"
+                        } ?><?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"
                         name="deliverydate" id="deliverydate" <?php if ($orderData['status'] != 'Created') {
                             echo 'readonly';
                         } else {
