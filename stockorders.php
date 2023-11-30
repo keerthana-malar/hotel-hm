@@ -7,13 +7,13 @@ $logUser = $_SESSION['user'];
 
 // User access control 
 if ($rdata['edit_so'] == '0') {
-  $dslinkEdit = 'dis';
+  $dslinkEdit = ' dis ';
 }
 if ($rdata['view_so'] == '0') {
-  $dslinkView = 'dis';
+  $dslinkView = ' dis ';
 }
 if ($rdata['delete_so'] == '0') {
-  $dslinkDelete = 'dis';
+  $dslinkDelete = ' dis ';
 }
 
 ?>
@@ -70,7 +70,7 @@ if ($rdata['delete_so'] == '0') {
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
 
       if ($row['status'] != 'Created') {
-        $dslinkEditTdy = 'dis';
+        $dslinkEditTdy = ' dis ';
       } else {
         $dslinkEditTdy = '';
       }

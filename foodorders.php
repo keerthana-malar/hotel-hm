@@ -6,9 +6,9 @@ $orderData = $pdo->query($orderSql);
 $logUser = $_SESSION['user'];
 
 // User access control 
-if($rdata['edit_fo'] == '0'){$dslinkEdit = 'dis';}
-if($rdata['view_fo'] == '0'){ $dslinkView = 'dis';}
-if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
+if($rdata['edit_fo'] == '0'){$dslinkEdit = ' dis ';}
+if($rdata['view_fo'] == '0'){ $dslinkView = ' dis ';}
+if($rdata['delete_fo'] == '0'){$dslinkDelete = ' dis ';}
 ?>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
@@ -63,7 +63,7 @@ if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
       // Create Status Only
       
       if ($row['status'] != 'Created') {
-        $dslinkEditTdy = 'dis';
+        $dslinkEditTdy = ' dis ';
       }else{
         $dslinkEditTdy = '';
       }

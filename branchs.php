@@ -66,9 +66,9 @@ if ($rdata['delete_b'] == '0') {
     foreach ($branchData as $row) {
 
       if ($row["id"] == "1") {
-        $admin = "admin-role";
+        $admin = " admin-role";
       } else {
-        $admin = "";
+        $admin = " ";
       }
 
       // Prevent Delete
@@ -82,9 +82,9 @@ if ($rdata['delete_b'] == '0') {
       $stmtDup->execute();
 
       if ($stmtDup->rowCount() > 0) {
-        $dslinkEditTdy = 'dis';
+        $dslinkEditTdy = ' dis';
       } else {
-        $dslinkEditTdy = '';
+        $dslinkEditTdy = ' ';
       }
 
       echo "<tr>";

@@ -1,20 +1,20 @@
 <?php
 include('header.php');
 include('menu.php');
-$orderSql = "SELECT * FROM `order`  WHERE ordertype = '3' ".$logbranchQ." ORDER BY id DESC";
+$orderSql = "SELECT * FROM `order`  WHERE ordertype = '3' " . $logbranchQ . " ORDER BY id DESC";
 $orderData = $pdo->query($orderSql);
 
 $logUser = $_SESSION['user'];
 
 // User access control 
 if ($rdata['edit_odo'] == '0') {
-  $dslinkEdit = 'dis';
+  $dslinkEdit = ' dis ';
 }
 if ($rdata['view_odo'] == '0') {
-  $dslinkView = 'dis';
+  $dslinkView = ' dis ';
 }
 if ($rdata['delete_odo'] == '0') {
-  $dslinkDelete = 'dis';
+  $dslinkDelete = ' dis ';
 }
 
 ?>
@@ -71,11 +71,11 @@ if ($rdata['delete_odo'] == '0') {
       $branchee = $branchee->fetch(PDO::FETCH_ASSOC);
 
       if ($row['status'] != 'Created') {
-        $dslinkEditTdy = 'dis';
-      }else{
+        $dslinkEditTdy = ' dis ';
+      } else {
         $dslinkEditTdy = '';
       }
-      
+
       echo "<tr>";
       echo "<td>" . $row['id'] . "</td>";
       echo "<td>" . $row['order_name'] . "</td>";
@@ -86,8 +86,8 @@ if ($rdata['delete_odo'] == '0') {
       echo "<td>" . $row['status'] . "</td>";
 
       echo "<td>
-            <a class='" . $dslinkEdit ."' href='edit-outdoororder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
-            <a href='delete-order.php?type=outdoor&delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . $dslinkEditTdy."' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
+            <a class='" . $dslinkEdit . "' href='edit-outdoororder.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a href='delete-order.php?type=outdoor&delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . $dslinkEditTdy . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a> |
             <a class='" . $dslinkView . "' href='view-food-order.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a>
         </td>";
       echo "<td>

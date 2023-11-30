@@ -70,7 +70,7 @@ if ($rdata['delete_waste'] == '0') {
       $today = date("d-m-Y");
 
       if ($row['date'] != $today) {
-        $dslinkEditTdy = 'dis';
+        $dslinkEditTdy = ' dis';
       } else {
         $dslinkEditTdy = '';
       }

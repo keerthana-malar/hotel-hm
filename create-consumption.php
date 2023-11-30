@@ -44,9 +44,9 @@ $currentDate = date('d-m-Y');
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Branch <span>*</span></label>
-                    <select class="form-control" name="branch" id="exampleInputStatus" required>
-                    <option value="">Select</option>
+                    <label for="exampleInputStatus">Branch </label>
+                    <select class="form-control" name="branch" id="exampleInputStatus" >
+                   
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">

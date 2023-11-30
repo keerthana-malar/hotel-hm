@@ -67,9 +67,9 @@ if ($rdata['delete_cs'] == '0') {
       $today = date("d-m-Y");
 
       if ($row['date_created'] != $today) {
-        $dslinkEditTdy = 'dis';
+        $dslinkEditTdy = ' dis';
       }else{
-        $dslinkEditTdy = 'bb';
+        $dslinkEditTdy = ' ';
       }
 
       echo "<tr>";
