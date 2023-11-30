@@ -59,8 +59,11 @@ $roleData = $pdo->query($roleSql);
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <div class="form-group">
-                    <label for="exampleSelectGender">Role</label>
-                    <select class="form-control" id="exampleSelectGender" name="role">
+                    <label for="exampleSelectGender">Role <span>*</span></label>
+                    
+                    <select class="form-control" id="exampleSelectGender" name="role" required>
+                    <option value="">Select</option>
+
                         <?php foreach ($roleData as $r) { ?>
                             <option value="<?php echo $r['role_id'] ?>">
                                 <?php echo $r['role_name'] ?>
@@ -73,6 +76,7 @@ $roleData = $pdo->query($roleSql);
                 <div class="form-group">
                     <label for="exampleSelectGender">Branch <span>*</span></label>
                     <select class="form-control" id="exampleSelectGender" name="branch" required>
+                    <option value="">Select</option>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">

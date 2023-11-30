@@ -45,11 +45,11 @@ $typedata = $pdo->query($typesql);
 <?php endif ?>
     <form class="forms-sample" method="post" action="update-category.php">
     <div class="row">
-    <div class="col-12 col-md-6 col-lg-3">
+    <div class="col-12 col-md-6 col-lg-3"> 
         <div class="form-group">
             <input type="hidden" name="categoryId" value="<?php echo $categoryData['id']; ?>">
             <label for="exampleInputName1">Category Name</label>
-            <input type="text" class="form-control" name="category" id="exampleInputName1" value="<?php echo $categoryData['name']; ?>">
+            <input type="text" class="form-control" name="category" id="exampleInputName1" value="<?php echo $categoryData['name']; ?>" pattern="[A-Za-z]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">

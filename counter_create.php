@@ -60,8 +60,10 @@ $b_data = $pdo->query($b_sql);
         <div class="row">
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label>Branch</label>
-                    <select name="branch" id="" class="form-control">
+                    <label>Branch <span>*</span></label>
+                    <select name="branch" id="" class="form-control" required>
+                    <option value="">Select</option>
+
                         <?php foreach ($b_data as $row): ?>
                             <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                         <?php endforeach; ?>
@@ -70,8 +72,8 @@ $b_data = $pdo->query($b_sql);
             </div>
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" name="date" autocomplete="off" class="form-control datepicc" placeholder="Choose Date">
+                    <label>Date <span>*</span></label>
+                    <input type="text" name="date" autocomplete="off" class="form-control datepicc" placeholder="Choose Date" required>
                 </div>
             </div>
         </div>
@@ -147,8 +149,8 @@ $b_data = $pdo->query($b_sql);
     </div>
     <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Petty Cash</label>
-            <input type="number" class="form-control" name="petty_cash">
+            <label for="exampleInputPassword4">Petty Cash <span>*</span></label>
+            <input type="number" class="form-control" name="petty_cash" required>
         </div>
     </div>
     <div class="col-12 col-md-6 col-lg-4">
@@ -171,8 +173,8 @@ $b_data = $pdo->query($b_sql);
     </div>
     <div class="col-12  col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Total Sales</label>
-            <input type="number" class="form-control" name="total_sales">
+            <label for="exampleInputPassword4">Total Sales <span>*</span></label>
+            <input type="number" class="form-control" name="total_sales" required>
         </div>
     </div>
     <div class="col-12  col-md-6 col-lg-4">
@@ -195,8 +197,8 @@ $b_data = $pdo->query($b_sql);
     </div>
     <div class="col-12  col-md-6 col-lg-4">
         <div class="form-group">
-            <label for="exampleInputPassword4">Next Day Petty Cash</label>
-            <input type="number" class="form-control" name="nd_petty_cash">
+            <label for="exampleInputPassword4">Next Day Petty Cash <span>*</span></label>
+            <input type="number" class="form-control" name="nd_petty_cash" required>
         </div>
     </div>
     <div class="col-12  col-md-6 col-lg-4">

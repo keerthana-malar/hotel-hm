@@ -36,15 +36,17 @@ $typedata = $pdo->query($typesql);
 
          <div class="form-group">
          <label for="exampleInputName1">Name <span>*</span></label>
-        <input type="text" required class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name">
+        <input type="text" required class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name" pattern="[A-Za-z]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
                     <label for="exampleInputStatus">Type <span>*</span></label>
-                    <select class="form-control" required name="type" id="exampleInputStatus">
-       
+                    <select class="form-control"  name="type" id="exampleInputStatus" required>
+                    <option value="">Select</option>
+
                 <?php foreach ($typedata as $row): ?>
+                  
                     <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                     <?php endforeach; ?>
                  

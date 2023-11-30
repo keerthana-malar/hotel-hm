@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
         <div class="form-group">
             <input type="hidden" name="cuisineID" value="<?php echo $cuisineData['id']; ?>">
             <label for="cuisineName">Cuisine Name</label>
-            <input type="text" class="form-control" id="cuisineName" name="cuisine_name" value="<?php echo $cuisineData['name']; ?>">
+            <input type="text" class="form-control" id="cuisineName" name="cuisine_name" value="<?php echo $cuisineData['name']; ?>" pattern="[A-Za-z]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
