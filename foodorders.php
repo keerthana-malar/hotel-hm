@@ -10,12 +10,6 @@ if($rdata['edit_fo'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_fo'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_fo'] == '0'){$dslinkDelete = 'dis';}
 ?>
-<style>
-  .typcn {
-    font-size: 22px;
-  }
-  
-</style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     

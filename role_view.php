@@ -23,11 +23,6 @@ if ($rdata['delete_role'] == '0') {
     $dslinkDelete = '';
 }
 ?>
-<style>
-    .typcn {
-        font-size: 22px
-    }
-</style>
 <div class="main-box">
     <div class="d-flex justify-content-end mb-5">
         <a href="role.php">

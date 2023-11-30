@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$consumptionSql = "SELECT * FROM `consumption` WHERE branchid = $logbranch ORDER BY date_created DESC";
+$consumptionSql = "SELECT * FROM `consumption` ".$logbranchA." ORDER BY date_created DESC";
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
 
@@ -15,13 +15,7 @@ if ($rdata['view_cs'] == '0') {
 if ($rdata['delete_cs'] == '0') {
   $dslinkDelete = 'dis';
 }
-
 ?>
-<style>
-  .typcn {
-    font-size: 22px;
-  }
-</style>
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-consumption.php">

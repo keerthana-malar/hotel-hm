@@ -10,11 +10,7 @@ if($rdata['edit_sc'] == '0'){$dslinkEdit = 'dis';}
 if($rdata['view_sc'] == '0'){ $dslinkView = 'dis';}
 if($rdata['delete_sc'] == '0'){$dslinkDelete = 'dis';}
 ?>
-<style>
-  .typcn {
-    font-size: 22px; 
-  }
-</style>
+
 <div class="main-box">
     <!-- <div class="d-flex justify-content-end mb-5">
         <a href="create-stock.php">

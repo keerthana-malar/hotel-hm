@@ -17,11 +17,7 @@ if ($rdata['delete_so'] == '0') {
 }
 
 ?>
-<style>
-  .typcn {
-    font-size: 22px;
-  }
-</style>
+
 <div class="main-box">
   <div class="d-flex justify-content-end mb-5">
     <a href="create-stockorder.php">

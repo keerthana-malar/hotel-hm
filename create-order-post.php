@@ -5,8 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u1 = "foodorders.php?succ=";
     $u2 = "create-order.php?err=";
 
-
-
     // User Data 
     $branch = $_POST['branch'];
     $orderdate = $_POST['orderDate'];
