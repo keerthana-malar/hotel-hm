@@ -36,8 +36,8 @@ $roleData = $pdo->query($roleSql);
             <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="form-group">
-                    <label for="exampleInputName1">Name <span>*</span></label>
-                    <input type="text" class="form-control" name="name" id="exampleInputName1" placeholder="Name"
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" class="form-control" name="name" id="exampleInputName1" placeholder="Name" pattern="[A-Za-z ]+"
                         required>
                 </div>
             </div>

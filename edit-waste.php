@@ -41,7 +41,7 @@ if (isset($_GET['id'])) {
             <!-- Branch -->
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="branch">Branch</label>
+                    <label for="branch">Branch <span>*</span></label>
                     <select class="form-control" id="branch" name="branch">
                         <?php foreach ($branchData as $branch): ?>
                             <option value="<?php echo $branch['id']; ?>" <?php if ($wasteData['branchid'] == $branch['id'])
@@ -63,7 +63,7 @@ if (isset($_GET['id'])) {
             <!-- Waste Amount -->
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="waste_amount">Waste Amount</label>
+                    <label for="waste_amount">Waste Amount <span>*</span></label>
                     <input type="number" class="form-control" id="waste_amount" name="amount"
                         value="<?php echo $wasteData['waste_amount']; ?>" readonly>
                 </div>
@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
         <div class="row">
 
             <div class="col-12 col-md-6 col-lg-2">
-                <label for="exampleInputStatus">Product</label>
+                <label for="exampleInputStatus">Product <span>*</span></label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Type</label>

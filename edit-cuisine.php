@@ -46,13 +46,13 @@ if (isset($_GET['id'])) {
     <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
             <input type="hidden" name="cuisineID" value="<?php echo $cuisineData['id']; ?>">
-            <label for="cuisineName">Cuisine Name</label>
-            <input type="text" class="form-control" id="cuisineName" name="cuisine_name" value="<?php echo $cuisineData['name']; ?>" pattern="[A-Za-z]+">
+            <label for="cuisineName">Cuisine Name <span>*</span></label>
+            <input type="text" class="form-control" id="cuisineName" name="cuisine_name" value="<?php echo $cuisineData['name']; ?>" pattern="[A-Za-z ]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
-            <label for="status">Status</label>
+            <label for="status">Status <span>*</span></label>
             <select class="form-control" id="status" name="status">
                 <option value="Active" <?php if ($cuisineData['status'] === 'Active') echo 'selected'; ?>>Active</option>
                 <option value="Inactive" <?php if ($cuisineData['status'] === 'Inactive') echo 'selected'; ?>>Inactive</option>

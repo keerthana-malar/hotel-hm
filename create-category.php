@@ -36,7 +36,7 @@ $typedata = $pdo->query($typesql);
 
          <div class="form-group">
          <label for="exampleInputName1">Name <span>*</span></label>
-        <input type="text" required class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name" pattern="[A-Za-z]+">
+        <input type="text" required class="form-control" name="categoryname" id="exampleInputName1" placeholder="Enter category Name" pattern="[A-Za-z ]+">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">

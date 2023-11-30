@@ -24,14 +24,15 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="orderName">Order Name</label>
-                    <input type="text" class="form-control" value=<?php echo $logName ?> readonly name="orderName" id="orderName">
+                    <input type="text" class="form-control" value=<?php echo $logName ?> readonly name="orderName"
+                        id="orderName">
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="exampleInputStatus">Branch <span>*</span></label>
                     <select class="form-control" name="branch" id="exampleInputStatus" required>
-                    <option value="">Select</option>
+                        <option value="">Select</option>
 
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
@@ -52,18 +53,17 @@ $currentDate = date('Y-m-d');
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="deliveryDateinput">Delivery Date <span>*</span></label>
-                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic" name="deliveryDate" id="deliveryDateinput" required>
+                    <input type="text" autocomplete="off" placeholder="Choose Date" class="form-control datepic"
+                        name="deliveryDate" id="deliveryDateinput" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Priority <span>*</span></label>
+                    <label for="exampleInputStatus">Priority</label>
                     <select class="form-control" name="priority" id="exampleInputStatus" required>
-                    <option value="">Select</option>
-
-                        <option value="High">High</option>
-                        <option value="Low">Low</option>
                         <option value="Normal">Normal</option>
+                        <option value="Low">Low</option>
+                        <option value="High">High</option>
                         <option value="Urgent">Urgent</option>
 
                     </select>
@@ -118,7 +118,7 @@ $currentDate = date('Y-m-d');
 
                 <div class="col-12 col-md-6 col-lg-2" hidden>
                     <div class="form-group">
-                        <label for="exampleInputStatus" >Type</label>
+                        <label for="exampleInputStatus">Type</label>
                         <select class="form-control mb-2" name="ty[]">
                             <?php foreach ($typedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
@@ -150,7 +150,7 @@ $currentDate = date('Y-m-d');
                     <?php endforeach; ?>
                 </select>
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Unit <span>*</span></label>
+                    <label for="">Unit</label>
                     <input type="text" class="form-control mb-2" name="unit[]" readonly>
                 </div>
 
@@ -169,8 +169,8 @@ $currentDate = date('Y-m-d');
                 </div>
             </div> -->
                 <div class="col-12 col-md-6 col-lg-2">
-                    <label for="">Qty <span>*</span></label>
-                    <input type="number" class="form-control mb-2" name="qt[]"  step="0.01" min="0" required>
+                    <label for="">Qty</label>
+                    <input type="number" class="form-control mb-2" name="qt[]" step="0.01" min="0" required>
                 </div>
 
                 <input type="hidden" name="ty[]" value="2">

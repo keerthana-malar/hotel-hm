@@ -70,8 +70,9 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="branch">Branch</label>
-                    <select class="form-control <?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"<?php if($orderData['status'] == 'Accepted'){echo 'readonly';} ?> name="branch" id="branch">
+                    <label for="branch">Branch <span>*</span></label>
+                    <select class="form-control <?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>"<?php if($orderData['status'] == 'Accepted'){echo 'readonly';} ?> name="branch" id="branch" required>
+
                         <?php foreach ($branchData as $branch): ?>
                             <option value="<?php echo $branch['id']; ?>" <?php if ($orderData['branchid'] === $branch['id'])
                                    echo 'selected'; ?>>
@@ -90,8 +91,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-12 col-md-6 col-lg-3">
             <div class="form-group">
-                    <label for="deliverydate">Delivery Date</label>
-                    <input type="text" autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?><?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>" name="deliverydate" id="deliverydate"
+                    <label for="deliverydate">Delivery Date <span>*</span</label>
+                    <input type="text" required autocomplete="off" class="form-control <?php if($orderData['status'] == 'Created'){echo 'datepic';} ?><?php if($orderData['status'] == 'Accepted'){echo 'disbox';} ?>" name="deliverydate" id="deliverydate">
                     <?php if ($orderData['status'] != 'Created') { echo 'readonly';}else{echo '';}?>
                         value="<?php echo $orderData['deliverydate']; ?>">
                 </div>
@@ -100,14 +101,16 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label for="priority">Priority</label>
                     <select class="form-control" name="priority" id="status">
-                        <option value="High" <?php if ($orderData['priority'] === 'High')
-                            echo 'selected'; ?>>High
+                    <option value="Normal" <?php if ($orderData['priority'] === 'Normal')
+                            echo 'selected'; ?>>Normal
                         </option>
                         <option value="Low" <?php if ($orderData['priority'] === 'Low')
                             echo 'selected'; ?>>Low</option>
-                        <option value="Normal" <?php if ($orderData['priority'] === 'Normal')
-                            echo 'selected'; ?>>Normal
+                        <option value="High" <?php if ($orderData['priority'] === 'High')
+                            echo 'selected'; ?>>High
                         </option>
+                      
+                     
                         <option value="Urgent" <?php if ($orderData['priority'] === 'Urgent')
                             echo 'selected'; ?>>Urgent
                         </option>
@@ -117,7 +120,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status">Status <span>*</span></label>
                     <select class="form-control" name="status" id="status" onchange="handleQty()">
 
                         <?php if ($orderData['status'] === 'Created') { ?>
@@ -187,7 +190,7 @@ if (isset($_GET['id'])) {
         <div class="row">
 
             <div class="col-12 col-md-6 col-lg-2">
-                <label for="exampleInputStatus">Product</label>
+                <label for="exampleInputStatus">Product <span>*</span></label>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <label for="exampleInputStatus">Category</label>

@@ -54,7 +54,7 @@ $cuisinedata = $pdo->query($cuisinesql);
 
                 <div class="form-group">
                     <label for="exampleInputName1">Product Name <span>*</span></label>
-                    <input type="text" class="form-control" name="product" id="exampleInputName1" placeholder="Name"
+                    <input type="text" class="form-control" name="product" id="exampleInputName1" placeholder="Name" pattern="[A-Za-z ]+"
                         required>
                 </div>
             </div>

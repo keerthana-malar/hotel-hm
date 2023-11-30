@@ -50,19 +50,19 @@ if (isset($_GET['id'])) {
 
         <div class="form-group">
             <input type="hidden" name="branchID" value="<?php echo $branchData['id']; ?>">
-            <label for="exampleInputName">Branch Name</label>
+            <label for="exampleInputName">Branch Name <span>*</span></label>
             <input type="text" class="form-control" name="name" id="exampleInputName" value="<?php echo $branchData['name']; ?>">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
-            <label for="exampleInputAddress">Address</label>
+            <label for="exampleInputAddress">Address <span>*</span></label>
             <input type="text" class="form-control" name="address" id="exampleInputAddress" value="<?php echo $branchData['address']; ?>">
         </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
         <div class="form-group">
-            <label for="exampleInputPhone">Phone</label>
+            <label for="exampleInputPhone">Phone <span>*</span></label>
             <input type="number" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]{10}" id="exampleInputPhone" value="<?php echo $branchData['phone']; ?>">
         </div>
         </div>     
