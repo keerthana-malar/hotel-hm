@@ -35,6 +35,8 @@ $currentDate = date('d-m-Y');
                 <div class="form-group">
                     <label for="exampleInputStatus">Branch <span>*</span></label>
                     <select class="form-control" name="branch" id="exampleInputStatus" required>
+                    <option value="">Select</option>
+
                         <?php foreach ($branchdata as $row): ?>
                             <option value="<?= $row['id'] ?>">
                                 <?= $row['name'] ?>
@@ -61,8 +63,9 @@ $currentDate = date('d-m-Y');
 
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
-                    <label for="exampleInputStatus">Priority</label>
-                    <select class="form-control" name="priority" id="exampleInputStatus">
+                    <label for="exampleInputStatus">Priority <span>*</span></label>
+                    <select class="form-control" name="priority" id="exampleInputStatus" required>
+                    <option value="">Select</option>
                         <option value="High">High</option>
                         <option value="Low">Low</option>
                         <option value="Normal">Normal</option>
@@ -106,7 +109,7 @@ $currentDate = date('d-m-Y');
                     <div class="form-group">
                         <label for="exampleInputStatus">Product <span>*</span></label>
                         <select class="form-control mb-2" name="pro[]" required>
-                            <option value="0">Select</option>
+                            <option value="">Select</option>
                             <?php foreach ($productdata as $row): ?>
                                 <option value="<?= $row['id'] ?>" data-unit="<?= $row['unit'] ?>">
                                     <?= $row['name'] ?>
@@ -130,7 +133,7 @@ $currentDate = date('d-m-Y');
                     <div class="form-group">
                         <label for="exampleInputStatus">Category</label>
                         <select class="form-control mb-2" name="ca[]" readonly>
-                            <option value="0">Select</option>
+                            <option value="">Select</option>
                             <?php foreach ($categorydata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
@@ -143,7 +146,7 @@ $currentDate = date('d-m-Y');
                     <div class="form-group">
                         <label for="exampleInputStatus">Cuisine</label>
                         <select class="form-control mb-2" name="cu[]" readonly>
-                            <option value="0">Select</option>
+                            <option value="">Select</option>
                             <?php foreach ($cuisinedata as $row): ?>
                                 <option value="<?= $row['id'] ?>">
                                     <?= $row['name'] ?>
