@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('menu.php');
-$consumptionSql = "SELECT * FROM `consumption` ".$logbranchA." ORDER BY date_created DESC";
+$consumptionSql = "SELECT * FROM `consumption` " . $logbranchA . " ORDER BY date_created ASC";
 $consumptionData = $pdo->query($consumptionSql);
 $logUser = $_SESSION['user'];
 
@@ -68,7 +68,7 @@ if ($rdata['delete_cs'] == '0') {
 
       if ($row['date_created'] != $today) {
         $dslinkEditTdy = ' dis';
-      }else{
+      } else {
         $dslinkEditTdy = ' ';
       }
 
@@ -79,8 +79,8 @@ if ($rdata['delete_cs'] == '0') {
 
 
       echo "<td>
-            <a class='" . $dslinkView ."' href='view-consumption.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a> |
-            <a class='" . $dslinkEdit . $dslinkEditTdy ."' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
+            <a class='" . $dslinkView . "' href='view-consumption.php?id=" . $row['id'] . "'><i class='typcn typcn-eye'></i></a> |
+            <a class='" . $dslinkEdit . $dslinkEditTdy . "' href='edit-consumption.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> | 
             <a href='delete-consumption.php?delete_id=" . $row['id'] . "' class='text-danger " . $dslinkDelete . "' onclick='return confirmDelete()'><i class='  typcn typcn-trash'></i></a>
         </td>";
       echo "</tr>";

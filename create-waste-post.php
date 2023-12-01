@@ -40,6 +40,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $wasteID = $pdo->lastInsertId();
+
+            for ($i = 0; $i < count($_POST['pro']); $i++) {
+                $productID = $_POST['pro'][$i];
+                $cuisineID = $_POST['cu'][$i];
+                $typeID = $_POST['ty'][$i];
+                $categoryID = $_POST['ca'][$i];
+                $quantity = $_POST['qt'][$i];
+                $units = $_POST['unit'][$i];
+
+                // Find stock id 
+                $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
+                $sqstmt = $pdo->query($stockquery);
+                $sqrow = $sqstmt->fetch(PDO::FETCH_ASSOC);
+                $sid = $sqrow['id'];
+
+
+                // Get existing quantity
+                $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                $exstmt = $pdo->query($exquery);
+                $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
+                $eqty = $exrow['qty'];
+
+                // GEt Pro Data 
+                $proquery = "SELECT name FROM `product` WHERE id = $productID";
+                $prostmt = $pdo->query($proquery);
+                $prorow = $prostmt->fetch(PDO::FETCH_ASSOC);
+                $proname = $prorow['name'];
+
+                // Condition check for qty 
+                if ($quantity >= $eqty) {
+                    // delete consumption
+                    $delQ = "DELETE FROM `waste` WHERE id = $wasteID";
+
+                    $delQstmt = $pdo->query($delQ);
+                    if ($delQstmt->execute()) {
+                        header("Location: " . $u2 . urlencode('Not valid qty for ' . $proname));
+                        exit();
+                    }
+                }
+            }
         }
 
         // GEt Stock id
@@ -86,61 +126,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $wasteItemStmt->bindParam(':cost', $cost);
 
             if ($wasteItemStmt->execute()) {
-                
-                    // GEt Stock Qty
-                    $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
-                    $cqStmt = $pdo->query($cqSql);
-                    $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
-                    $cq = $cqData["qty"];
 
-                    // Find Used Qty 
-                    $AvlQty = $cq - $quantity;
+                // GEt Stock Qty
+                $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                $cqStmt = $pdo->query($cqSql);
+                $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+                $cq = $cqData["qty"];
 
-                    // // $consumption Item Add 
-                    // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
-                    // $clsItemStmt = $pdo->prepare($clsItemSql);
-                    // $clsItemStmt->bindParam(':ci', $clsId);
-                    // $clsItemStmt->bindParam(':ti', $typeID);
-                    // $clsItemStmt->bindParam(':cui', $cuisineID);
-                    // $clsItemStmt->bindParam(':cai', $categoryID);
-                    // $clsItemStmt->bindParam(':pri', $productID);
-                    // $clsItemStmt->bindParam(':qi', $stQtyCur);
-                    // $clsItemStmt->bindParam(':ui', $usedQty);
+                // Find Used Qty 
+                $AvlQty = $cq - $quantity;
 
-                    // if ($clsItemStmt->execute()) {
-                        $upStQ = "UPDATE `stockitem` SET qty = $AvlQty WHERE product_id = $productID";
-                        $upStQStmt = $pdo->prepare($upStQ);
-                        $upStQStmt->execute();
-                    // }
-                
-                    // // GEt Stock Qty
-                    // $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
-                    // $cqStmt = $pdo->query($cqSql);
-                    // $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
-                    // $cq = $cqData["qty"];
+                // $consumption Item Add 
+                $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+                $clsItemStmt = $pdo->prepare($clsItemSql);
+                $clsItemStmt->bindParam(':ci', $clsId);
+                $clsItemStmt->bindParam(':ti', $typeID);
+                $clsItemStmt->bindParam(':cui', $cuisineID);
+                $clsItemStmt->bindParam(':cai', $categoryID);
+                $clsItemStmt->bindParam(':pri', $productID);
+                $clsItemStmt->bindParam(':qi', $stQtyCur);
+                $clsItemStmt->bindParam(':ui', $usedQty);
 
-                    // // Find Used Qty 
-                    // $AvlQty = $cq - $quantity;
+                if ($clsItemStmt->execute()) {
+                    $upStQ = "UPDATE `stockitem` SET qty = $AvlQty WHERE product_id = $productID";
+                    $upStQStmt = $pdo->prepare($upStQ);
+                    $upStQStmt->execute();
+                }
 
-                    // // $consumption Item Add 
-                    // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
-                    // $clsItemStmt = $pdo->prepare($clsItemSql);
-                    // $clsItemStmt->bindParam(':ci', $clsId);
-                    // $clsItemStmt->bindParam(':ti', $typeID);
-                    // $clsItemStmt->bindParam(':cui', $cuisineID);
-                    // $clsItemStmt->bindParam(':cai', $categoryID);
-                    // $clsItemStmt->bindParam(':pri', $productID);
-                    // $clsItemStmt->bindParam(':qi', $AvlQty);
-                    // $clsItemStmt->bindParam(':ui', $stQtyCur);
+                // // GEt Stock Qty
+                // $cqSql = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+                // $cqStmt = $pdo->query($cqSql);
+                // $cqData = $cqStmt->fetch(PDO::FETCH_ASSOC);
+                // $cq = $cqData["qty"];
 
-                    
+                // // Find Used Qty 
+                // $AvlQty = $cq - $quantity;
 
-                    // if ($clsItemStmt->execute()) {
-                    //     $upStQ = "UPDATE `stockitem` SET qty = $AvlQty WHERE product_id = $productID";
-                    //     $upStQStmt = $pdo->prepare($upStQ);
-                    //     $upStQStmt->execute();
-                    // }
-                
+                // // $consumption Item Add 
+                // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+                // $clsItemStmt = $pdo->prepare($clsItemSql);
+                // $clsItemStmt->bindParam(':ci', $clsId);
+                // $clsItemStmt->bindParam(':ti', $typeID);
+                // $clsItemStmt->bindParam(':cui', $cuisineID);
+                // $clsItemStmt->bindParam(':cai', $categoryID);
+                // $clsItemStmt->bindParam(':pri', $productID);
+                // $clsItemStmt->bindParam(':qi', $AvlQty);
+                // $clsItemStmt->bindParam(':ui', $stQtyCur);
+
+
+
+                // if ($clsItemStmt->execute()) {
+                //     $upStQ = "UPDATE `stockitem` SET qty = $AvlQty WHERE product_id = $productID";
+                //     $upStQStmt = $pdo->prepare($upStQ);
+                //     $upStQStmt->execute();
+                // }
+
             }
 
         }

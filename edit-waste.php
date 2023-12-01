@@ -35,6 +35,27 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Waste</h2>
     <hr>
+    <?php if (!empty($_GET['succ'])): ?>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <form class="forms-sample" method="post" action="update-waste.php" onsubmit="handleSubmit(this)">
         <div class="row">
             <input type="hidden" name="id" value="<?php echo $wasteData['id']; ?>">
@@ -97,7 +118,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Product</label> -->
-                            <select class="form-control mb-2 uniquePro" name="pro[]" onchange="handleQty(this)">
+                            <select class="form-control mb-2 uniquePro disbox" readonly name="pro[]" onchange="handleQty(this)">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
                                           echo 'selected';
@@ -111,9 +132,9 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Type</label> -->
-                            <select class="form-control mb-2" name="ty[]">
+                            <select class="form-control mb-2" name="ty[]" readonly>
                                 <?php foreach ($typedata as $row): ?>
-                                    <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['type_id']) {
+                                    <option readonly value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['type_id']) {
                                           echo 'selected';
                                       } ?>>
                                         <?= $row['name'] ?>
@@ -125,7 +146,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-2" hidden>
                         <div class="form-group">
                             <label for="exampleInputStatus">Category</label>
-                            <select class="form-control mb-2" name="ca[]" readonly>
+                            <select class="form-control mb-2" name="ca[]">
                                 <?php foreach ($categorydata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['category_id']) {
                                           echo 'selected';
@@ -166,7 +187,7 @@ if (isset($_GET['id'])) {
                     <input class="form-control mb-2" type="number" name="cost[]" value="<?php echo $od['cost']; ?>" readonly
                         hidden>
                     <input class="form-control mb-2" type="number" name="oldWasteQty[]" value="<?php echo $od['cost']; ?>"
-                        readonly hidden>  
+                        readonly hidden>
                 </div>
             <?php } ?>
         </div>

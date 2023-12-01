@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sid = $sqrow['id'];
 
 
-            // Get existing quantity 
+            // Get existing quantity
             $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
             $exstmt = $pdo->query($exquery);
             $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $proquery = "SELECT name FROM `product` WHERE id = $productID";
             $prostmt = $pdo->query($proquery);
             $prorow = $prostmt->fetch(PDO::FETCH_ASSOC);
-            $proname = $prorow['id'];
+            $proname = $prorow['name'];
 
             // Condition check for qty 
             if ($quantity >= $eqty) {
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $delQstmt = $pdo->query($delQ);
                 if ($delQstmt->execute()) {
-                    header("Location: " . $u2 . urlencode('Not valid qty for'. $proname));
+                    header("Location: " . $u2 . urlencode('Not valid qty for '. $proname));
                     exit();
                 }
             }

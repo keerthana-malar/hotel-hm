@@ -30,6 +30,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
 
+
+        for ($i = 0; $i < count($_POST['pro']); $i++) {
+            $productID = $_POST['pro'][$i];
+            // $cuisineID = $_POST['cu'][$i];
+            $typeID = $_POST['ty'][$i];
+            $categoryID = $_POST['ca'][$i];
+            $quantity = $_POST['qt'][$i];
+            $cost = $_POST['cost'][$i];
+            $old_wq = $_POST['old_wq'][$i];
+
+            // Find stock id 
+            $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
+            $sqstmt = $pdo->query($stockquery);
+            $sqrow = $sqstmt->fetch(PDO::FETCH_ASSOC);
+            $sid = $sqrow['id'];
+
+            // Get existing quantity 
+            $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+            $exstmt = $pdo->query($exquery);
+            $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
+            $eqty = $exrow['qty'];
+
+            // GEt Pro Data 
+            $proquery = "SELECT name FROM `product` WHERE id = $productID";
+            $prostmt = $pdo->query($proquery);
+            $prorow = $prostmt->fetch(PDO::FETCH_ASSOC);
+            $proname = $prorow['name'];
+
+
+            // if($eqty <= $old_wq){
+            //     $old_Qty = $old_wq - $eqty;
+            // }else{
+            //     $old_Qty = $eqty - $old_wq;
+            // }
+            $old_Qty = $eqty + $old_wq;
+
+            // Condition check for qty 
+            if ($quantity >= $old_Qty) {
+                header("Location: " . $u2 . urlencode('Not valid qty for ' . $proname));
+                exit();
+            }
+        }
+
     } else {
         // Execution failed, handle the error
         header("Location: " . $u2 . urlencode('Something went wrong. Please try again later'));
@@ -76,10 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Find Available Qty 
 
-            if ($old_wq <= $quantit) {
+            if ($old_wq <= $quantity) {
                 $updatedQty = $quantity - $old_wq;
                 $finalQty = $cq - $updatedQty;
-                // $finalstqty = $stqty - $updatedQty;
+                $FinalStockQty = $StockQty - $updated;
 
             } else {
                 $updatedQty = $old_wq - $quantity;
@@ -91,38 +134,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // $dateNow = date("Y-m-d");
 
             // GEt Cons id
-            // $cidSql = "SELECT id FROM `consumption` WHERE branchid = $branch AND date_created = '$date' AND is_auto = 1";
+            $cidSql = "SELECT id FROM `consumption` WHERE branchid = $branch AND date_created = '$date' AND is_auto = 1";
             // var_dump($cidSql);
             // exit();
-            // $cidStmt = $pdo->query($cidSql);
-            // $cidData = $cidStmt->fetch(PDO::FETCH_ASSOC);
-            // $cid = $cidData["id"];
+            $cidStmt = $pdo->query($cidSql);
+            $cidData = $cidStmt->fetch(PDO::FETCH_ASSOC);
+            $cid = $cidData["id"];
 
             // Delete Items 
-            // $ciIQuery = "DELETE FROM `consumptionitem` WHERE consumption_id = :cons";
-            // $ciIstmt = $pdo->prepare($ciIQuery);
-            // $ciIstmt->bindParam(':cons', $cid);
+            $ciIQuery = "DELETE FROM `consumptionitem` WHERE consumption_id = :cons";
+            $ciIstmt = $pdo->prepare($ciIQuery);
+            $ciIstmt->bindParam(':cons', $cid);
 
 
             // $consumption Item Add 
-            // if ($ciIstmt->execute()) {
+            if ($ciIstmt->execute()) {
 
-            // $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
-            // $clsItemStmt = $pdo->prepare($clsItemSql);
-            // $clsItemStmt->bindParam(':ci', $cid);
-            // $clsItemStmt->bindParam(':ti', $typeID);
-            // $clsItemStmt->bindParam(':cui', $cuisineID);
-            // $clsItemStmt->bindParam(':cai', $categoryID);
-            // $clsItemStmt->bindParam(':pri', $productID);
-            // $clsItemStmt->bindParam(':qi', $quantity);
-            // $clsItemStmt->bindParam(':ui', $usedQty);
+                $clsItemSql = "INSERT INTO `consumptionitem` (consumption_id, type_id, cuisine_id, category_id, product_id, qty, used_qty) VALUES (:ci, :ti, :cui, :cai, :pri, :qi, :ui)";
+                $clsItemStmt = $pdo->prepare($clsItemSql);
+                $clsItemStmt->bindParam(':ci', $cid);
+                $clsItemStmt->bindParam(':ti', $typeID);
+                $clsItemStmt->bindParam(':cui', $cuisineID);
+                $clsItemStmt->bindParam(':cai', $categoryID);
+                $clsItemStmt->bindParam(':pri', $productID);
+                $clsItemStmt->bindParam(':qi', $quantity);
+                $clsItemStmt->bindParam(':ui', $usedQty);
 
-            // if ($clsItemStmt->execute()) {
-            $upStQ = "UPDATE `stockitem` SET qty = $finalQty WHERE product_id = $productID AND stock_id = $sid";
-            $upStQStmt = $pdo->prepare($upStQ);
-            $upStQStmt->execute();
-            // }
-            // }
+                if ($clsItemStmt->execute()) {
+                    $upStQ = "UPDATE `stockitem` SET qty = $finalQty WHERE product_id = $productID AND stock_id = $sid";
+                    $upStQStmt = $pdo->prepare($upStQ);
+                    $upStQStmt->execute();
+                }
+            }
         }
     }
     header("Location: " . $u1 . urlencode('Wastage Successfully Updated'));

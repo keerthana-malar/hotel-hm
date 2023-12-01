@@ -37,17 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $units = $_POST['unit'][$i];
             $old_qty = $_POST['old_qty'][$i];
 
-            // // Find stock id 
-            // $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
-            // $sqstmt = $pdo->query($stockquery);
-            // $sqrow = $sqstmt->fetch(PDO::FETCH_ASSOC);
-            // $sid = $sqrow['id'];
+            // Find stock id 
+            $stockquery = "SELECT id FROM `stock` WHERE branchid = $branch";
+            $sqstmt = $pdo->query($stockquery);
+            $sqrow = $sqstmt->fetch(PDO::FETCH_ASSOC);
+            $sid = $sqrow['id'];
 
-            // // Get existing quantity 
-            // $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
-            // $exstmt = $pdo->query($exquery);
-            // $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
-            // $eqty = $exrow['qty'];
+            // Get existing quantity 
+            $exquery = "SELECT qty FROM `stockitem` WHERE stock_id = $sid AND product_id = $productID";
+            $exstmt = $pdo->query($exquery);
+            $exrow = $exstmt->fetch(PDO::FETCH_ASSOC);
+            $eqty = $exrow['qty'];
 
             // GEt Pro Data 
             $proquery = "SELECT name FROM `product` WHERE id = $productID";
@@ -55,9 +55,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $prorow = $prostmt->fetch(PDO::FETCH_ASSOC);
             $proname = $prorow['name'];
 
+            // $old_Qty1 = 0;
+            // if ($eqty < $old_qty) {
+            //     $old_Qty1 = $old_wq - $eqty;
+            // } else {
+            //     $old_Qty1 = $eqty - $old_wq;
+            // }
+
+            $old_Qty1 = $eqty + $old_wq;
+
             // Condition check for qty 
-            if ($quantity >= $old_qty) {
-                header("Location: " . $u2 . urlencode('Not valid qty for' . $proname));
+            if ($quantity >= $old_Qty1) {
+                header("Location: " . $u2 . urlencode('Not valid qty for ' . $proname));
                 exit();
             }
         }
