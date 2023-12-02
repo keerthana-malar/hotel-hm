@@ -63,7 +63,7 @@ if (isset($_GET['id'])) {
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="form-group">
                     <label for="branch">Branch <span>*</span></label>
-                    <select class="form-control" id="branch" name="branch">
+                    <select class="form-control disbox" id="branch" name="branch"  readonly>
                         <?php foreach ($branchData as $branch): ?>
                             <option value="<?php echo $branch['id']; ?>" <?php if ($wasteData['branchid'] == $branch['id'])
                                    echo 'selected'; ?>>

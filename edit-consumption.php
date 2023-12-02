@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
     $typedata = $pdo->query("SELECT * FROM `type`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $cuisinedata = $pdo->query("SELECT * FROM `cuisine`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
     $categorydata = $pdo->query("SELECT * FROM `category`WHERE status = 'Active'")->fetchAll(PDO::FETCH_ASSOC);
-    $productdata = $pdo->query("SELECT * FROM `product`WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
+    $productdata = $pdo->query("SELECT * FROM `product` WHERE status = 'Active' AND typeid = '2'")->fetchAll(PDO::FETCH_ASSOC);
 } else {
     header("Location: consumptions.php");
     exit();
@@ -31,6 +31,26 @@ if (isset($_GET['id'])) {
 <div class="main-box">
     <h2>Edit Closing Stock</h2>
     <hr>
+    <?php if (!empty($_GET['succ'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['succ'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($_GET['err'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>
+                <?php echo $_GET['err'] ?>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <form class="forms-sample" method="post" action="update-consumption.php" onsubmit="return handleForm()">
         <div class="row">
             <input type="hidden" name="id" value="<?php echo $consumptionData['id']; ?>">
@@ -80,7 +100,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Product <span>*</span></label> -->
-                            <select class="form-control mb-2 uniquePro disbox" readonly name="pro[]">
+                            <select class="form-control mb-2 uniquePro" readonly name="pro[]">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
                                           echo 'selected';
