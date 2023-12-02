@@ -59,9 +59,9 @@ $logUser = $_SESSION['user'];
             $stmtDup->execute();
 
             if ($stmtDup->rowCount() > 0) {
-                $dslinkEditTdy = 'dis';
+                $dslinkEditTdy = ' dis';
             } else {
-                $dslinkEditTdy = '';
+                $dslinkEditTdy = ' ';
             }
             echo "<td>
             <a href='edit-category.php?id=" . $row['id'] . "'><i class=' typcn typcn-edit'></i></a> |

@@ -83,7 +83,7 @@ if ($rdata['delete_role'] == '0') {
             $stmtDup->execute();
 
             if ($stmtDup->rowCount() > 0) {
-                $dslinkEditTdy = 'dis';
+                $dslinkEditTdy = ' dis';
             } else {
                 $dslinkEditTdy = '';
             }

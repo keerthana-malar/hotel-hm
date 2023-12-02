@@ -31,18 +31,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <tr>
         <td style="background-color: yellow; padding: 10px; text-align: center; font-size: 18px; font-weight: bold;" colspan="2">Magizham</td>
     </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Address</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">123 Main St, City, Country</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Phone</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">+1 123-456-7890</td>
-    </tr>
-    <tr>
-        <td style="background-color: #F5F5F5; padding: 10px; font-weight: bold;">Email</td>
-        <td style="background-color: #F9F9F9; padding: 10px;">info@yourcompany.com</td>
-    </tr>
+    
 </table>';
 
     // Apply CSS styles to the whole table

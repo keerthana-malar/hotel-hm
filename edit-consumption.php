@@ -80,7 +80,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="form-group">
                             <!-- <label for="exampleInputStatus">Product <span>*</span></label> -->
-                            <select class="form-control mb-2 uniquePro" name="pro[]">
+                            <select class="form-control mb-2 uniquePro disbox" readonly name="pro[]">
                                 <?php foreach ($productdata as $row): ?>
                                     <option value="<?= $row['id'] ?>" <?php if ($row['id'] === $od['product_id']) {
                                           echo 'selected';

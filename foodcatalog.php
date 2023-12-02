@@ -155,7 +155,7 @@ if ($rdata['delete_fc'] == '0') {
       $stmtDup->execute();
 
       if ($stmtDup->rowCount() > 0) {
-          $dslinkEditTdy = 'dis';
+          $dslinkEditTdy = ' dis';
       } else {
           $dslinkEditTdy = '';
       }
